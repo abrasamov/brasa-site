@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="pt-BR" class="carregando">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BRASA</title>
+<meta name="description" content="BRASA, plataforma cívica. Um ecossistema que une talentos e organizações espalhados pelo país para pensar um Brasil virtuoso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="personagens/torcedor.webp">
+<style>
+/* =====================================================================
+   BRASA — site
+   Cores tiradas do logo. Troque as fotos nas variáveis --foto-*.
+   Textos marcados com "EXEMPLO" são provisórios: troque pelos reais.
+   ===================================================================== */
+:root{
+  --verde:#0E5130;--verde-escuro:#08291A;--amarelo:#FFC72C;--vermelho:#D93A2B;--creme:#F4EAD5;
+  --creme-escuro:#E9DDC3;
+  --raio:22px;--gap:14px;
+  --fonte:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  /* fotos — substitua por url('fotos/xxx.jpg') */
+  --foto-hero:   linear-gradient(135deg,#1b4a33 0%,#0b2a1b 55%,#3a1a12 100%);
+  --foto-alta:   radial-gradient(120% 90% at 85% 10%,#1f6b45 0%,#0E5130 45%,#0a3a23 100%);
+  --foto-perfil: radial-gradient(120% 100% at 80% 0%,#e6553f 0%,#D93A2B 45%,#9e2418 100%);
+  --foto-meio:   radial-gradient(120% 100% at 90% 0%,#f3e7cd 0%,#E9DDC3 50%,#d6c7a6 100%);
+  --foto-ini-1:  linear-gradient(150deg,#2f6b4f 0%,#0e5130 100%);
+  --foto-ini-2:  linear-gradient(150deg,#c9a24a 0%,#8a5a1f 100%);
+  --foto-ini-3:  linear-gradient(150deg,#b5503f 0%,#6d2a20 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--verde-escuro);font-family:var(--fonte);color:var(--creme);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amarelo);outline-offset:3px}
+html.carregando{overflow:hidden}
+html.carregando .card{animation-play-state:paused}
+.dentro{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* ================= TELA DE CARREGAMENTO ================= */
+.abertura{
+  position:fixed;inset:0;z-index:1000;background:var(--creme);color:var(--verde);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 16px;text-align:center;cursor:pointer;
+  transition:transform .8s cubic-bezier(.76,0,.24,1),opacity .5s ease;
+}
+.abertura.saindo{transform:translateY(-100%)}
+.abertura.fim{display:none}
+.cena{position:relative;width:100%;height:min(340px,44vh)}
+.boneco{
+  position:absolute;left:50%;top:0;height:100%;aspect-ratio:1/1;translate:-50% 0;
+  background-repeat:no-repeat;background-size:2400% 100%;mix-blend-mode:multiply;
+  transition:opacity .2s ease,scale .3s cubic-bezier(.5,0,.75,0);
+}
+.cena.sai-boneco .boneco{opacity:0;scale:.85}
+.logo{position:absolute;left:50%;top:50%;height:86%;max-width:calc(100vw - 40px);translate:-50% -50%;overflow:visible}
+.logo .losango{transform-box:fill-box;transform-origin:center;scale:0;transition:scale .55s cubic-bezier(.34,1.4,.64,1)}
+.logo .sol{transform-box:fill-box;transform-origin:center;opacity:0;scale:.2;rotate:-140deg;
+  transition:opacity .2s ease,scale .6s cubic-bezier(.34,1.56,.64,1),rotate .8s cubic-bezier(.2,.8,.2,1)}
+.logo .sombra{transition:transform .5s .25s cubic-bezier(.2,.8,.2,1)}
+.logo .gira{transform-box:fill-box;transform-origin:center}
+.cena.mostra-sol .sol{opacity:1;scale:1;rotate:0deg}
+.cena.mostra-sol .sombra{transform:translate(10px,9px)}
+.cena.mostra-logo .losango{scale:1}
+.cena.mostra-logo .gira{animation:giro 50s linear .5s infinite}
+@keyframes giro{to{transform:rotate(360deg)}}
+.nome-marca{margin-top:clamp(14px,2.4vh,26px);font-weight:900;font-stretch:125%;font-size:clamp(28px,4.4vw,52px);letter-spacing:.14em;padding-left:.14em;line-height:1}
+.frase{margin-top:clamp(12px,2vh,20px);font-weight:500;font-stretch:112%;font-size:clamp(17px,2vw,24px);letter-spacing:-.01em}
+.nome-marca,.frase{opacity:0;translate:0 14px;transition:opacity .5s ease,translate .6s cubic-bezier(.2,.7,.2,1)}
+.abertura.texto .nome-marca{opacity:1;translate:0 0}
+.abertura.texto .frase{opacity:1;translate:0 0;transition-delay:.12s}
+.pular{
+  position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));right:calc(26px + env(safe-area-inset-right,0px));
+  background:none;border:0;cursor:pointer;padding:8px;
+  font:700 12px/1 var(--fonte);font-stretch:115%;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.6;
+}
+.pular:hover{opacity:1}
+@media (prefers-reduced-motion:reduce){.abertura.saindo{transform:none;opacity:0}}
+
+/* ================= BARRA DE NAVEGAÇÃO ================= */
+.topo{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:100;
+  background:rgba(8,41,26,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(244,234,213,.08);transition:box-shadow .3s;
+}
+.topo.rolou{box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.topo-dentro{height:68px;display:flex;align-items:center;gap:24px}
+.topo-marca{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto}
+.topo-marca svg{width:46px;height:auto;display:block}
+.topo-marca span{font-weight:900;font-stretch:125%;font-size:17px;letter-spacing:.16em}
+.topo-links{display:flex;align-items:center;gap:6px;list-style:none}
+.topo-links a{
+  display:block;padding:10px 14px;border-radius:999px;text-decoration:none;
+  font-weight:700;font-stretch:112%;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,color .2s;
+}
+.topo-links a:hover{background:rgba(244,234,213,.1);color:var(--amarelo)}
+.topo-links a.ativo{color:var(--amarelo)}
+.topo-links a.cta{background:var(--amarelo);color:var(--verde-escuro);margin-left:8px}
+.topo-links a.cta:hover{background:var(--creme)}
+.menu-botao{display:none;width:44px;height:44px;border:0;border-radius:12px;background:rgba(244,234,213,.08);color:var(--creme);cursor:pointer;place-items:center}
+.menu-botao svg line{transition:transform .25s,opacity .2s;transform-box:fill-box;transform-origin:center}
+.topo.aberto .menu-botao .l1{transform:translateY(6px) rotate(45deg)}
+.topo.aberto .menu-botao .l2{opacity:0}
+.topo.aberto .menu-botao .l3{transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:820px){
+  .menu-botao{display:grid}
+  .topo-links{
+    position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:4px;
+    padding:12px max(16px,env(safe-area-inset-right,0px)) 18px max(16px,env(safe-area-inset-left,0px));
+    background:var(--verde-escuro);border-bottom:1px solid rgba(244,234,213,.08);
+    opacity:0;visibility:hidden;translate:0 -8px;transition:opacity .2s,translate .25s,visibility 0s .25s;
+  }
+  .topo.aberto .topo-links{opacity:1;visibility:visible;translate:0 0;transition:opacity .2s,translate .25s}
+  .topo-links a{padding:14px 16px;font-size:15px;border-radius:14px}
+  .topo-links a.cta{margin:6px 0 0;text-align:center}
+}
+section[id]{scroll-margin-top:68px}
+
+/* ================= BOTÕES ================= */
+.botoes{display:flex;flex-wrap:wrap;gap:10px}
+.botao{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:999px;text-decoration:none;
+  font:800 14px/1 var(--fonte);font-stretch:115%;letter-spacing:.06em;text-transform:uppercase;border:2px solid transparent;
+  transition:background .2s,color .2s,border-color .2s,transform .2s;cursor:pointer;
+}
+.botao svg{transition:transform .2s}
+.botao:hover svg{transform:translateX(3px)}
+.botao.amarelo{background:var(--amarelo);color:var(--verde-escuro)}
+.botao.amarelo:hover{background:var(--creme)}
+.botao.contorno{border-color:currentColor;background:transparent}
+.botao.contorno:hover{background:var(--creme);color:var(--verde-escuro);border-color:var(--creme)}
+.botao.verde{background:var(--verde);color:var(--creme)}
+.botao.verde:hover{background:var(--verde-escuro)}
+
+/* ================= GRADE INICIAL ================= */
+.brasa-hero{
+  max-width:1280px;margin:0 auto;padding:var(--gap) max(var(--gap),env(safe-area-inset-right,0px)) var(--gap) max(var(--gap),env(safe-area-inset-left,0px));
+  display:grid;grid-template-columns:5.7fr 3.85fr;gap:var(--gap);
+  min-height:min(calc(100vh - 68px),760px);
+}
+.col-esq{display:grid;grid-template-rows:1.3fr 1fr;gap:var(--gap);min-height:0}
+.linha-baixo{display:grid;grid-template-columns:2.15fr 3.4fr;gap:var(--gap);min-height:0}
+.col-dir{display:grid;grid-template-rows:3.4fr 1fr;gap:var(--gap);min-height:0}
+.card{position:relative;border-radius:var(--raio);overflow:hidden;isolation:isolate;min-height:200px}
+.card-foto{position:absolute;inset:0;background-size:cover;background-position:center;z-index:-2}
+.card-foto.pb{filter:grayscale(1) contrast(1.05)}
+.card::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero{padding:clamp(22px,3.2vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.hero .card-foto::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,41,26,.88) 0%,rgba(8,41,26,.4) 65%,transparent 100%)}
+.hero-olho{margin-bottom:-8px;font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--creme);opacity:.85;margin-bottom:-8px}
+.hero h1{margin-bottom:auto;font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(40px,6.2vw,88px);line-height:.88;letter-spacing:-.02em;color:var(--amarelo);text-wrap:balance}
+.hero-rodape{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.hero-texto{display:flex;flex-direction:column;gap:18px}
+.hero p{max-width:40ch;font-size:clamp(14px,1.2vw,16px);font-weight:500;line-height:1.45}
+.selo{width:54px;height:54px;flex:none}
+
+/* cards-link */
+.card-link{display:block;color:var(--creme);text-decoration:none}
+.card-link .card-foto{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.card-link:hover .card-foto{transform:scale(1.05)}
+.card-link::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,41,26,.35) 0%,transparent 45%,rgba(8,41,26,.25) 100%)}
+.card-claro{color:var(--verde)}
+.card-claro::before{display:none}
+.card-claro .seta{border-color:var(--verde);color:var(--verde)}
+.card-claro:hover .seta{background:var(--verde);color:var(--amarelo)}
+/* quando usar foto real em preto e branco, acrescente a classe pb na .card-foto e volte o degradê escuro */
+.titulo-card{
+  position:absolute;top:22px;left:22px;right:22px;
+  font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(22px,2.6vw,38px);line-height:.9;letter-spacing:-.01em;
+}
+.titulo-card span{display:block;margin-top:12px;font-size:14px;font-weight:500;font-stretch:100%;text-transform:none;letter-spacing:0;line-height:1.35;max-width:24ch;opacity:.92}
+/* seta igual em todos os cards clicáveis */
+.seta{
+  position:absolute;right:20px;bottom:20px;width:52px;height:52px;border-radius:50%;
+  border:2px solid var(--amarelo);display:grid;place-items:center;color:var(--amarelo);
+  transition:background .25s,color .25s,transform .25s;
+}
+.card-link:hover .seta,.card-link:focus-visible .seta{background:var(--amarelo);color:var(--verde-escuro);transform:rotate(-45deg)}
+.alta{padding:22px}
+.titulo-card.titulo-base{top:auto;bottom:22px;right:90px;font-size:clamp(28px,3.4vw,50px)}
+.sol-canto{position:absolute;top:18px;right:18px;width:clamp(80px,9vw,118px)}
+.marca{
+  background:var(--amarelo);color:var(--verde);padding:clamp(18px,2vw,26px);
+  display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:150px;text-decoration:none;
+}
+.marca::before{display:none}
+.marca::after{opacity:.12}
+.marca h2{text-transform:uppercase;font-weight:900;font-stretch:125%;font-size:clamp(30px,3.7vw,54px);line-height:.85;letter-spacing:-.01em}
+.marca p{font-size:14px;font-weight:600;line-height:1.35;max-width:30ch;padding-right:64px}
+.marca .seta{border-color:var(--vermelho);background:var(--vermelho);color:var(--creme)}
+.marca:hover .seta{background:var(--verde);border-color:var(--verde);color:var(--amarelo)}
+@media (prefers-reduced-motion:no-preference){
+  .card{animation:sobe .7s cubic-bezier(.2,.7,.2,1) both}
+  .linha-baixo .card:nth-child(1){animation-delay:.08s}
+  .linha-baixo .card:nth-child(2){animation-delay:.16s}
+  .alta{animation-delay:.12s}.marca{animation-delay:.24s}
+  @keyframes sobe{from{opacity:0;transform:translateY(18px)}}
+  .sol-canto{animation:gira 40s linear infinite}
+  @keyframes gira{to{transform:rotate(360deg)}}
+}
+@media (max-width:860px){
+  .brasa-hero{grid-template-columns:1fr;min-height:0}
+  .col-esq,.col-dir{grid-template-rows:auto auto}
+  .hero{min-height:460px}
+  .alta{min-height:360px}
+}
+@media (max-width:520px){
+  :root{--gap:10px;--raio:18px}
+  .linha-baixo{grid-template-columns:1fr}
+  .linha-baixo .card{min-height:200px}
+  .hero-rodape{flex-direction:column;align-items:flex-start}
+  .selo{display:none}
+}
+
+/* ================= SEÇÕES ================= */
+.secao{padding-block:clamp(72px,10vw,128px)}
+.olho{display:flex;align-items:center;gap:10px;font-weight:800;font-stretch:118%;font-size:13px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:22px}
+.olho svg{width:22px;height:22px}
+.titulo-secao{font-weight:700;font-stretch:118%;font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.texto-corrido{font-size:clamp(16px,1.3vw,18px);line-height:1.6;max-width:60ch}
+.texto-corrido+.texto-corrido{margin-top:16px}
+
+/* manifesto */
+.claro{background:var(--creme);color:var(--verde)}
+.manifesto-topo{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,5vw,80px);align-items:end;margin-bottom:clamp(36px,5vw,56px)}
+.manifesto-topo > *{min-width:0}
+.manifesto .titulo-secao em{font-style:normal;color:var(--vermelho)}
+.bandeiras{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap)}
+.bandeiras li{background:#fff8ea;border-radius:16px;border-top:4px solid var(--verde);padding:24px 22px 26px;display:flex;flex-direction:column;gap:10px}
+.bandeiras .num{font-weight:900;font-stretch:125%;font-size:34px;line-height:1;color:var(--vermelho)}
+.bandeiras h3{font-weight:800;font-stretch:115%;font-size:20px;line-height:1.15}
+.bandeiras p{font-size:15px;line-height:1.5;opacity:.85}
+
+/* quem somos */
+.quem-grade{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
+.quem-grade > *{min-width:0}
+.quem .titulo-secao{color:var(--amarelo);font-size:clamp(30px,4vw,54px);line-height:1.05}
+.quem .texto-corrido{margin-top:22px;opacity:.92}
+.pilares{list-style:none;display:grid;border-top:1px solid rgba(244,234,213,.18)}
+.pilares li{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid rgba(244,234,213,.18)}
+.pilares li svg{width:22px;height:22px;flex:none;margin-top:2px}
+.pilares h3{font-weight:700;font-stretch:112%;font-size:clamp(17px,1.5vw,20px);line-height:1.3;color:var(--creme)}
+.pilares p{font-size:16px;line-height:1.45;color:var(--amarelo);margin-top:6px}
+.sub-olho{font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amarelo);margin-bottom:18px}
+.frentes-bloco{margin-top:clamp(56px,7vw,88px)}
+.frentes{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:var(--gap)}
+.frentes li{background:rgba(244,234,213,.06);border:1px solid rgba(244,234,213,.12);border-radius:18px;padding:22px 20px 24px;transition:background .25s,border-color .25s,transform .25s}
+.frentes li:hover{background:rgba(255,199,44,.1);border-color:rgba(255,199,44,.5);transform:translateY(-3px)}
+.frentes svg{width:34px;height:34px;color:var(--amarelo);margin-bottom:18px}
+.frentes h4{font-weight:900;font-stretch:122%;font-size:18px;text-transform:uppercase;letter-spacing:.01em}
+.frentes p{font-size:14px;line-height:1.45;opacity:.78;margin-top:8px}
+.circ-bloco{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center;margin-top:clamp(64px,8vw,104px);padding-top:clamp(48px,6vw,72px);border-top:1px solid rgba(244,234,213,.12)}
+.circ-bloco > *{min-width:0}
+.sub-titulo{font-weight:700;font-stretch:118%;font-size:clamp(26px,3vw,40px);line-height:1.08;letter-spacing:-.02em;margin-bottom:18px;text-wrap:balance}
+.circ-texto .texto-corrido{margin-top:0}
+.circulos svg{width:100%;max-width:440px;height:auto;display:block;margin:0 auto}
+.c-rot{font:800 12px var(--fonte);letter-spacing:.14em;fill:var(--creme);opacity:.8}
+.c-anel{font:700 14px var(--fonte);fill:var(--creme)}
+.c-nucleo{font:900 26px var(--fonte);font-stretch:125%;letter-spacing:.06em;fill:var(--creme)}
+.c-sub{font:500 11px var(--fonte);fill:var(--creme);opacity:.9}
+.legenda-circ{list-style:none;display:grid;gap:12px;margin-top:26px}
+.legenda-circ li{display:flex;gap:12px;align-items:baseline;font-size:15px;line-height:1.4}
+.legenda-circ i{width:12px;height:12px;border-radius:50%;flex:none;translate:0 1px}
+
+/* iniciativas */
+.sel{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font:800 10px/1 var(--fonte);flex:none;margin-right:10px;translate:0 -1px}
+.sel.b{background:var(--verde);color:var(--creme)}
+.sel.c{background:var(--amarelo);color:var(--verde-escuro)}
+.sel.o{background:var(--vermelho);color:var(--creme)}
+.ini-cabeca{display:flex;justify-content:space-between;align-items:flex-end;gap:20px 40px;flex-wrap:wrap}
+.ini-cabeca .quem-faz{margin:0;padding:12px 16px;border:1px solid rgba(14,81,48,.18);border-radius:999px;background:#fff8ea;opacity:1}
+.qf-rot{font-weight:800;font-stretch:115%;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.etapas{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:clamp(32px,4vw,48px);counter-reset:e}
+.etapa{position:relative;background:#fff8ea;border:1px solid rgba(14,81,48,.12);border-radius:var(--raio);padding:26px 24px 28px}
+.etapa:not(:last-child)::after{
+  content:"";position:absolute;right:-12px;top:50%;width:22px;height:22px;translate:0 -50%;z-index:2;border-radius:50%;
+  background:var(--verde) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12h10M13 7l5 5-5 5' fill='none' stroke='%23F4EAD5' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;
+}
+.etapa-num{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:2px solid var(--verde);font-weight:900;font-size:18px;color:var(--vermelho);background:var(--creme)}
+.etapa h3{font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(24px,2.4vw,32px);margin:16px 0 14px;letter-spacing:-.01em}
+.etapa ul{list-style:none;display:grid;gap:10px}
+.etapa ul li{display:flex;align-items:center;font-size:15px;font-weight:600}
+.base{margin-top:var(--gap);background:var(--verde);color:var(--creme);border-radius:var(--raio);padding:clamp(22px,3vw,32px)}
+.base-titulo{font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amarelo);margin-bottom:18px}
+.base-grade{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,3vw,40px)}
+.base-grade h4{font-weight:800;font-stretch:118%;font-size:18px;margin-bottom:8px}
+.base-grade p{display:flex;align-items:flex-start;font-size:15px;line-height:1.45;opacity:.9}
+.base-grade p .sel{translate:0 1px}
+.base .sel.b{background:var(--creme);color:var(--verde)}
+.quem-faz{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;font-size:13px;font-weight:700}
+.quem-faz span{display:flex;align-items:center}
+.atua{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(24px,5vw,72px);align-items:center;margin-top:clamp(56px,8vw,96px)}
+.atua > *{min-width:0}
+.atua-titulo{font-weight:700;font-stretch:118%;font-size:clamp(28px,3.4vw,44px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px;text-wrap:balance}
+.venn{width:100%;height:auto;display:block}
+.v-titulo{font:800 24px var(--fonte);font-stretch:118%;fill:var(--verde)}
+.v-sub{font:500 14px var(--fonte);fill:var(--verde);opacity:.8}
+.v-meio{font:700 14px var(--fonte);fill:var(--verde-escuro)}
+.v-red{fill:var(--vermelho);font-weight:800}
+
+/* faça parte */
+.faca{background:var(--amarelo);color:var(--verde-escuro)}
+.faca-grade{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(32px,6vw,96px);align-items:end}
+.faca-grade > *{min-width:0}
+.faca .titulo-secao{font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(40px,6.4vw,96px);line-height:.9;color:var(--verde)}
+.faca .vermelho{color:var(--vermelho)}
+.faca-lado{display:flex;flex-direction:column;gap:28px;align-items:flex-start}
+.botao.grande{font-size:17px;padding:20px 30px}
+
+
+/* ================= NARRATIVA ================= */
+.progresso{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:var(--amarelo);transform-origin:0 50%;transform:scaleX(0)}
+.cap{display:inline-grid;place-items:center;min-width:34px;height:24px;padding:0 8px;border-radius:999px;border:1.5px solid currentColor;font-size:12px;letter-spacing:.04em;margin-right:2px}
+.proximo{display:flex;align-items:center;gap:14px;width:max-content;max-width:100%;margin:clamp(48px,6vw,72px) 0 0 auto;padding:14px 18px 14px 22px;border-radius:999px;text-decoration:none;border:1.5px solid rgba(244,234,213,.25);color:var(--creme);transition:background .2s,border-color .2s}
+.proximo span{font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.proximo b{font-weight:800;font-stretch:115%;font-size:16px}
+.proximo svg{color:var(--amarelo);transition:translate .2s}
+.proximo:hover{background:rgba(244,234,213,.08);border-color:var(--amarelo)}
+.proximo:hover svg{translate:0 3px}
+.proximo-claro{border-color:rgba(14,81,48,.25);color:var(--verde)}
+.proximo-claro svg{color:var(--vermelho)}
+.proximo-claro:hover{background:rgba(14,81,48,.06);border-color:var(--verde)}
+.quem .pilares{margin-top:32px}
+
+/* constelação */
+.constelacao svg{width:100%;max-width:440px;height:auto;display:block;margin:0 auto;overflow:visible}
+.cons-borda{fill:rgba(244,234,213,.03);stroke:#FFC72C;stroke-opacity:.55;stroke-width:1.4;stroke-linejoin:round}
+#cons-linhas line{stroke:#F4EAD5;stroke-opacity:.35;stroke-width:1}
+#cons-linhas line.ao-sol{stroke:#FFC72C;stroke-opacity:.6}
+#cons-pontos circle{transition:r .3s}
+.constelacao figcaption{text-align:center;margin-top:14px;font-size:14px;opacity:.7}
+.constelacao.desenha #cons-linhas line{stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:traco 1.4s cubic-bezier(.4,0,.2,1) forwards;animation-delay:var(--d)}
+.constelacao.desenha #cons-pontos circle{animation:pisca .6s ease both;animation-delay:var(--d)}
+@keyframes traco{to{stroke-dashoffset:0}}
+@keyframes pisca{from{opacity:0;scale:.2}}
+#cons-pontos circle{transform-box:fill-box;transform-origin:center}
+
+/* mapa interativo */
+.mapa-secao{background:var(--verde-escuro)}
+.mapa-cabeca{display:grid;grid-template-columns:1.2fr 1fr;gap:28px clamp(32px,5vw,72px);align-items:end}
+.mapa-cabeca > *{min-width:0}
+.mapa-cabeca .titulo-secao{color:var(--amarelo)}
+.mapa-cabeca .texto-corrido{margin-top:20px;opacity:.9}
+.mapa-controles{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+.filtros{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.filtros .qf-rot{width:100%;color:var(--creme)}
+.filtro{display:inline-flex;align-items:center;padding:8px 14px 8px 10px;border-radius:999px;border:1.5px solid rgba(244,234,213,.25);background:transparent;color:var(--creme);font:700 13px/1 var(--fonte);cursor:pointer;transition:background .2s,border-color .2s}
+.filtro[data-ator=""]{padding-left:14px}
+.filtro:hover{border-color:var(--amarelo)}
+.filtro.ativo{background:var(--creme);color:var(--verde-escuro);border-color:var(--creme)}
+.filtro .sel{margin-right:8px}
+.filtros .sel.b{background:var(--creme);color:var(--verde)}
+.mapa{margin-top:clamp(32px,4vw,48px);display:grid;grid-template-columns:1fr 320px;gap:var(--gap);align-items:stretch}
+.mapa > *{min-width:0}
+.mapa-svg{width:100%;height:auto;display:block;background:radial-gradient(60% 60% at 50% 50%,rgba(14,81,48,.55),rgba(14,81,48,.15));border:1px solid rgba(244,234,213,.1);border-radius:var(--raio)}
+.fio{fill:none;stroke:#F4EAD5;stroke-opacity:.35;stroke-width:1.4;stroke-dasharray:3 6}
+.fio-fluxo{stroke:#FFC72C;stroke-opacity:1;stroke-width:3;stroke-dasharray:0 1000;opacity:0}
+.mapa.fluindo .fio-fluxo{opacity:1;animation:flui 2.6s ease-in-out forwards}
+@keyframes flui{from{stroke-dasharray:0 1000}to{stroke-dasharray:1000 0}}
+.galho{fill:none;stroke:#2F8A5B;stroke-linecap:round;transition:stroke .25s,stroke-width .25s}
+.ramo-caminho .galho{stroke-width:11}
+.ramo-base .galho{stroke-width:4}
+.galho-hit{fill:none;stroke:transparent;stroke-width:34;pointer-events:stroke}
+.ramo{cursor:pointer;transition:opacity .25s;outline:none}
+.ponta{fill:#F4EAD5;transition:fill .25s}
+.r-titulo{font:900 22px var(--fonte);font-stretch:122%;letter-spacing:.02em;fill:#F4EAD5;transition:fill .25s}
+.f-txt{font:600 15px var(--fonte);fill:#F4EAD5;opacity:.85;transition:opacity .25s}
+.sel-c.b{fill:#F4EAD5}.sel-c.c{fill:#FFC72C}.sel-c.o{fill:#D93A2B}
+.sel-t{font:800 10px var(--fonte);fill:#08291A;pointer-events:none}
+.folha:has(.sel-c.o) .sel-t{fill:#F4EAD5}
+.folha{transition:opacity .25s}
+.etapa-pin circle{fill:#08291A;stroke:#FFC72C;stroke-width:2.5}
+.etapa-pin text{font:900 17px var(--fonte);fill:#FFC72C}
+.nucleo ellipse{fill:#F4EAD5}
+.nucleo .nucleo-anel{fill:none;stroke:#D93A2B;stroke-width:1.5;stroke-dasharray:4 5}
+.n-txt{font:900 30px var(--fonte);font-stretch:125%;letter-spacing:.08em;fill:#0E5130}
+.mapa.foco .ramo{opacity:.28}
+.mapa.foco .ramo.ativo{opacity:1}
+.ramo.ativo .galho,.ramo:hover .galho,.ramo:focus-visible .galho{stroke:#FFC72C}
+.ramo.ativo .ponta,.ramo:hover .ponta,.ramo:focus-visible .ponta{fill:#FFC72C}
+.ramo.ativo .r-titulo,.ramo:hover .r-titulo,.ramo:focus-visible .r-titulo{fill:#FFC72C}
+.ramo:focus-visible .r-titulo{text-decoration:underline}
+.mapa[data-ator] .folha{opacity:.18}
+.mapa[data-ator="B"] .folha[data-ator="B"],.mapa[data-ator="C"] .folha[data-ator="C"],.mapa[data-ator="O"] .folha[data-ator="O"]{opacity:1}
+.mapa[data-ator="B"] .folha[data-ator="B"] .f-txt,.mapa[data-ator="C"] .folha[data-ator="C"] .f-txt,.mapa[data-ator="O"] .folha[data-ator="O"] .f-txt{opacity:1;font-weight:800}
+.painel{background:var(--creme);color:var(--verde);border-radius:var(--raio);padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.painel-tipo{font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vermelho)}
+.painel h3{font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:30px;line-height:1}
+.painel-desc{font-size:16px;line-height:1.5}
+.painel-itens{list-style:none;display:grid;gap:10px;margin-top:6px;padding-top:16px;border-top:1px solid rgba(14,81,48,.2)}
+.painel-itens li{display:flex;align-items:center;font-size:15px;font-weight:600;transition:opacity .2s}
+.painel-itens li small{margin-left:auto;padding-left:10px;font-size:12px;font-weight:600;opacity:.6;text-align:right}
+.mapa[data-ator] .painel-itens li{opacity:.35}
+.mapa[data-ator="B"] .painel-itens li[data-ator="B"],.mapa[data-ator="C"] .painel-itens li[data-ator="C"],.mapa[data-ator="O"] .painel-itens li[data-ator="O"]{opacity:1}
+.chips{display:none}
+.chip-ramo{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1.5px solid rgba(244,234,213,.25);background:transparent;color:var(--creme);font:800 14px/1 var(--fonte);font-stretch:112%;cursor:pointer;white-space:nowrap}
+.chip-n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:rgba(244,234,213,.12);font-size:11px}
+.chip-ramo.ativo{background:var(--amarelo);border-color:var(--amarelo);color:var(--verde-escuro)}
+.chip-ramo.ativo .chip-n{background:var(--verde-escuro);color:var(--amarelo)}
+.mapa-legenda{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:18px;font-size:13px;opacity:.8}
+.mapa-legenda span{display:flex;align-items:center;gap:10px}
+.mapa-legenda i{display:inline-block;width:28px}
+.lg-grosso{height:8px;border-radius:4px;background:#2F8A5B}
+.lg-fino{height:3px;border-radius:2px;background:#2F8A5B}
+.lg-fio{height:0;border-top:2px dashed rgba(244,234,213,.6)}
+@media (max-width:1080px){
+  .mapa{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .mapa-cabeca{grid-template-columns:1fr}
+  .mapa-svg{display:none}
+  .chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .mapa-legenda{display:none}
+  .proximo{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .constelacao.desenha #cons-linhas line,.constelacao.desenha #cons-pontos circle{animation:none;stroke-dashoffset:0}
+}
+
+
+/* capítulo 04 em fundo claro */
+#atuacao .sub-olho{color:var(--vermelho)}
+#atuacao .frentes li{background:#fff8ea;border-color:rgba(14,81,48,.14)}
+#atuacao .frentes li:hover{background:#fff;border-color:var(--amarelo)}
+#atuacao .frentes svg{color:var(--vermelho)}
+#atuacao .frentes h4{color:var(--verde)}
+#atuacao .frentes p{color:var(--verde);opacity:.8}
+#atuacao .circ-bloco{border-top-color:rgba(14,81,48,.15)}
+#atuacao .circulos circle:nth-of-type(1){fill:rgba(14,81,48,.07);stroke:rgba(14,81,48,.35)}
+#atuacao .circulos circle:nth-of-type(2){fill:rgba(255,199,44,.3);stroke:#C99A12}
+#atuacao .c-rot,#atuacao .c-anel{fill:var(--verde)}
+#atuacao .legenda-circ i[style*="F4EAD5"]{box-shadow:inset 0 0 0 1.5px rgba(14,81,48,.45)}
+#atuacao .frentes-bloco{margin-top:clamp(48px,6vw,72px)}
+
+/* rodapé */
+.rodape{padding-block:56px 40px;color:var(--creme)}
+.rodape-grade{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(244,234,213,.12)}
+.rodape .topo-marca{margin:0}
+.rodape-frase{margin-top:16px;font-size:16px;opacity:.8}
+.rodape-links{display:flex;gap:56px;flex-wrap:wrap}
+.rodape-links h4{font-weight:800;font-stretch:115%;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--amarelo);margin-bottom:14px}
+.rodape-links ul{list-style:none;display:grid;gap:10px}
+.rodape-links a{text-decoration:none;font-size:15px;opacity:.85}
+.rodape-links a:hover{opacity:1;color:var(--amarelo)}
+.rodape-base{padding-top:24px;font-size:13px;opacity:.6}
+
+@media (max-width:1000px){
+  .bandeiras{grid-template-columns:1fr 1fr}
+  .frentes{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:900px){
+  .manifesto-topo,.quem-grade,.faca-grade,.atua,.circ-bloco{grid-template-columns:1fr}
+  .etapas,.base-grade{grid-template-columns:1fr}
+  .etapa:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-12px;translate:-50% 0;rotate:90deg}
+}
+@media (max-width:600px){
+  .bandeiras{grid-template-columns:1fr}
+  .frentes{grid-template-columns:1fr 1fr}
+  .frentes li:last-child{grid-column:1/-1}
+}
+</style>
+<noscript><style>.abertura{display:none}html.carregando{overflow:auto}</style></noscript>
+</head>
+<body>
+
+<!-- sol do logo, desenhado uma vez e reutilizado -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <polygon id="sol" points="0.0,-100.0 9.0,-45.1 29.8,-72.1 25.6,-38.2 70.7,-70.7 38.2,-25.6 72.1,-29.8 45.1,-9.0 100.0,0.0 45.1,9.0 72.1,29.8 38.2,25.6 70.7,70.7 25.6,38.2 29.8,72.1 9.0,45.1 0.0,100.0 -9.0,45.1 -29.8,72.1 -25.6,38.2 -70.7,70.7 -38.2,25.6 -72.1,29.8 -45.1,9.0 -100.0,0.0 -45.1,-9.0 -72.1,-29.8 -38.2,-25.6 -70.7,-70.7 -25.6,-38.2 -29.8,-72.1 -9.0,-45.1"/>
+    <symbol id="logo-mini" viewBox="-24 -24 848 578">
+      <polygon fill="#0E5130" stroke="#F4EAD5" stroke-opacity=".35" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
+      <g transform="translate(400 265) scale(2.05)">
+        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
+        <use href="#sol" fill="#FFC72C"/>
+      </g>
+    </symbol>
+    <symbol id="seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- ============ TELA DE CARREGAMENTO ============ -->
+<div class="abertura" id="abertura" role="dialog" aria-label="Carregando BRASA">
+  <div class="cena" id="cena">
+    <div class="boneco" id="boneco" aria-hidden="true"></div>
+    <svg class="logo" viewBox="-24 -24 848 578" aria-hidden="true">
+      <polygon class="losango" fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
+      <g class="sol" transform="translate(400 265) scale(2.05)">
+        <g class="sombra"><g class="gira"><use href="#sol" fill="#D93A2B"/></g></g>
+        <g class="gira"><use href="#sol" fill="#FFC72C"/></g>
+      </g>
+    </svg>
+  </div>
+  <div class="nome-marca">BRASA</div>
+  <p class="frase">Um Brasil, uma visão.</p>
+  <button class="pular" id="pular" type="button">Pular</button>
+</div>
+
+<!-- ============ BARRA DE NAVEGAÇÃO ============ -->
+<header class="topo" id="topo">
+  <nav class="topo-dentro dentro" aria-label="Navegação principal">
+    <a class="topo-marca" href="#inicio" aria-label="BRASA, início">
+      <svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg>
+      <span>BRASA</span>
+    </a>
+    <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="topo-links" aria-label="Abrir menu">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <line class="l1" x1="3" y1="5" x2="19" y2="5"/><line class="l2" x1="3" y1="11" x2="19" y2="11"/><line class="l3" x1="3" y1="17" x2="19" y2="17"/>
+      </svg>
+    </button>
+    <ul class="topo-links" id="topo-links">
+      <li><a href="#quem-somos">Quem somos</a></li>
+      <li><a href="#manifesto">Manifesto</a></li>
+      <li><a href="#iniciativas">Iniciativas</a></li>
+      <li><a href="#atuacao">Atuação</a></li>
+      <li><a href="#faca-parte" class="cta">Filie-se</a></li>
+    </ul>
+  </nav>
+  <div class="progresso" id="progresso" aria-hidden="true"></div>
+</header>
+
+<main>
+<!-- ============ GRADE INICIAL ============ -->
+<section class="brasa-hero" id="inicio" aria-label="Início">
+  <div class="col-esq">
+    <article class="card hero">
+      <div class="card-foto" style="background-image:var(--foto-hero)" role="img" aria-label="Foto principal"></div>
+      <p class="hero-olho">Plataforma cívica</p>
+      <h1>Ideias que<br>movem<br>o Brasil</h1>
+      <div class="hero-rodape">
+        <div class="hero-texto">
+          <p>Um ecossistema que une talentos e organizações espalhados pelo país para pensar um Brasil virtuoso.</p>
+          <div class="botoes">
+            <a class="botao amarelo" href="#faca-parte">Quero me filiar <svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
+            <a class="botao contorno" href="#quem-somos">Conheça a BRASA</a>
+          </div>
+        </div>
+        <svg class="selo" viewBox="-110 -110 220 220" aria-hidden="true">
+          <circle r="104" fill="none" stroke="#FFC72C" stroke-width="10"/>
+          <use href="#sol" fill="#FFC72C" transform="scale(.62)"/>
+        </svg>
+      </div>
+    </article>
+
+    <div class="linha-baixo">
+      <a class="card card-link" href="#faca-parte">
+        <div class="card-foto" style="background-image:var(--foto-perfil)" role="img" aria-label="Foto 2"></div>
+        <h3 class="titulo-card">Faça<br>parte<span>Junte-se à rede de talentos da BRASA.</span></h3>
+        <span class="seta" aria-hidden="true"><svg width="24" height="24"><use href="#seta"/></svg></span>
+      </a>
+      <a class="card card-link card-claro" href="#quem-somos">
+        <div class="card-foto" style="background-image:var(--foto-meio)" role="img" aria-label="Foto 3"></div>
+        <h3 class="titulo-card">Quem<br>somos<span>O espírito da BRASA e quem leva as ideias adiante.</span></h3>
+        <span class="seta" aria-hidden="true"><svg width="24" height="24"><use href="#seta"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-dir">
+    <a class="card card-link alta" href="#iniciativas">
+      <div class="card-foto" style="background-image:var(--foto-alta)" role="img" aria-label="Foto 4"></div>
+      <h3 class="titulo-card titulo-base">Iniciativas<span>Como a BRASA transforma ideias em impacto.</span></h3>
+      <span class="seta" aria-hidden="true"><svg width="24" height="24"><use href="#seta"/></svg></span>
+      <svg class="sol-canto" viewBox="-110 -110 220 220" aria-hidden="true">
+        <use href="#sol" fill="#D93A2B" transform="translate(5,4)"/>
+        <use href="#sol" fill="#FFC72C"/>
+      </svg>
+    </a>
+    <a class="card card-link marca" href="#manifesto">
+      <h2>Manifesto</h2>
+      <p>Quatro causas para um Brasil potência.</p>
+      <span class="seta" aria-hidden="true"><svg width="24" height="24"><use href="#seta"/></svg></span>
+    </a>
+  </div>
+</section>
+
+<!-- ============ 01 · POR QUÊ ============ -->
+<section class="secao quem capitulo" id="quem-somos">
+  <div class="dentro">
+    <div class="quem-grade">
+      <div>
+        <div class="olho" style="color:var(--amarelo)"><span class="cap">01</span>Quem somos · O espírito da BRASA</div>
+        <h2 class="titulo-secao">O Brasil está cheio de gente talentosa e capaz, espalhada pelo país.</h2>
+        <p class="texto-corrido">Unir essas pessoas e pensar um Brasil virtuoso é o melhor caminho para tornar o país uma potência.</p>
+        <ul class="pilares">
+        <li><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg><div><h3>Desenvolver o Brasil com visão holística</h3><p>Educação, cultura, tecnologia, pesquisa e economia, juntas.</p></div></li>
+        <li><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg><div><h3>Superar nossas dificuldades estruturais e existenciais</h3></div></li>
+        <li><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg><div><h3>Abrir novos horizontes</h3></div></li>
+      </ul>
+      </div>
+      <figure class="constelacao" id="constelacao" aria-label="Pontos espalhados pelo losango se conectam ao sol da BRASA no centro">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <polygon class="cons-borda" points="200,10 390,200 200,390 10,200"/>
+          <g id="cons-linhas"></g><g id="cons-pontos"></g>
+          <g transform="translate(200 200) scale(.36)"><use href="#sol" fill="#D93A2B" transform="translate(8 7)"/><use href="#sol" fill="#FFC72C"/></g>
+        </svg>
+        <figcaption>Talentos espalhados pelo país, unidos pela BRASA.</figcaption>
+      </figure>
+    </div>
+    <a class="proximo" href="#manifesto"><span>Próximo</span><b>No que acreditamos</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ 02 · NO QUE ACREDITAMOS ============ -->
+<section class="secao claro manifesto capitulo" id="manifesto">
+  <div class="dentro">
+    <div class="manifesto-topo">
+      <div>
+        <div class="olho"><span class="cap">02</span>Manifesto · Nossas bandeiras</div>
+        <h2 class="titulo-secao">Quatro causas para um <em>Brasil potência</em>.</h2>
+      </div>
+      <p class="texto-corrido">Unir quem é talentoso e capaz, onde quer que esteja, e pensar juntos um Brasil virtuoso. Estas são as causas que guiam a BRASA.</p>
+    </div>
+    <ol class="bandeiras">
+      <li><span class="num">01</span><h3>Soberania nacional</h3><p>O Brasil decide o próprio destino, com domínio de conhecimento, tecnologia e recursos estratégicos.</p></li>
+      <li><span class="num">02</span><h3>Orgulho de ser brasileiro</h3><p>Valorizar nossa gente, nossa cultura e nossa história, e superar o complexo de vira-lata.</p></li>
+      <li><span class="num">03</span><h3>Ambição de potência</h3><p>Pensar grande e no longo prazo: um projeto que atravessa gerações, não mandatos.</p></li>
+      <li><span class="num">04</span><h3>Unidade nacional</h3><p>O Brasil acima das divisões: brasileiros de todas as regiões e visões em torno de um projeto comum.</p></li>
+    </ol>
+    <a class="proximo proximo-claro" href="#iniciativas"><span>Próximo</span><b>Como a BRASA funciona</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ 03 · COMO FUNCIONA ============ -->
+<section class="secao mapa-secao capitulo" id="iniciativas">
+  <div class="dentro">
+    <div class="mapa-cabeca">
+      <div>
+        <div class="olho" style="color:var(--amarelo)"><span class="cap">03</span>Iniciativas · Rede neural</div>
+        <h2 class="titulo-secao">Como a BRASA transforma ideias em impacto.</h2>
+        <p class="texto-corrido">Explore o mapa. Os ramos grossos mostram o caminho da ideia ao impacto; os ramos finos, a base que sustenta tudo.</p>
+      </div>
+      <div class="mapa-controles">
+        <button type="button" class="botao amarelo" id="seguir">Seguir o caminho <svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></button>
+        <div class="filtros" role="group" aria-label="Destacar quem faz acontecer">
+          <span class="qf-rot">Quem faz acontecer</span>
+          <button type="button" class="filtro ativo" data-ator="">Todos</button>
+          <button type="button" class="filtro" data-ator="B"><b class="sel b">B</b>BRASA</button>
+          <button type="button" class="filtro" data-ator="C"><b class="sel c">C</b>Comunidade</button>
+          <button type="button" class="filtro" data-ator="O"><b class="sel o">O</b>Parceiras</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mapa" id="mapa">
+      <div class="chips" role="tablist" aria-label="Partes da rede"><button type="button" class="chip-ramo" data-ramo="ideias"><span class="chip-n">1</span>Ideias</button><button type="button" class="chip-ramo" data-ramo="projetos"><span class="chip-n">2</span>Projetos</button><button type="button" class="chip-ramo" data-ramo="influencia"><span class="chip-n">3</span>Influência</button><button type="button" class="chip-ramo" data-ramo="talentos"><span class="chip-n">•</span>Talentos</button><button type="button" class="chip-ramo" data-ramo="parcerias"><span class="chip-n">•</span>Parcerias</button><button type="button" class="chip-ramo" data-ramo="governanca"><span class="chip-n">•</span>Governança</button></div>
+      <svg class="mapa-svg" viewBox="40 30 920 600" role="group" aria-label="Mapa da rede: como a BRASA transforma ideias em impacto">
+        <path class="fio" d="M372 196 Q500 70 628 196"/><path class="fio" d="M628 196 Q770 310 628 424"/><path class="fio fio-fluxo" id="fluxo" d="M372 196 Q500 70 628 196 Q770 310 628 424"/><g class="ramo ramo-caminho" data-ramo="ideias" tabindex="0" role="button" aria-label="Ideias: ver detalhes"><path class="galho-hit" d="M440 268 Q385 205 300 128"/><path class="galho" d="M440 268 Q385 205 300 128"/><circle class="ponta" cx="300" cy="128" r="7"/><text class="r-titulo" x="286" y="136" text-anchor="end">IDEIAS</text><g class="folha" data-ator="C"><circle class="sel-c c" cx="278" cy="163" r="10"/><text class="sel-t" x="278" y="167" text-anchor="middle">C</text><text class="f-txt" x="262" y="168" text-anchor="end">Propostas abertas</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="278" cy="191" r="10"/><text class="sel-t" x="278" y="195" text-anchor="middle">O</text><text class="f-txt" x="262" y="196" text-anchor="end">Pesquisas e dados</text></g><g class="folha" data-ator="C"><circle class="sel-c c" cx="278" cy="219" r="10"/><text class="sel-t" x="278" y="223" text-anchor="middle">C</text><text class="f-txt" x="262" y="224" text-anchor="end">Debate público</text></g><g class="etapa-pin"><circle cx="372" cy="196" r="19"/><text x="372" y="202" text-anchor="middle">1</text></g></g><g class="ramo ramo-caminho" data-ramo="projetos" tabindex="0" role="button" aria-label="Projetos: ver detalhes"><path class="galho-hit" d="M560 268 Q615 205 700 128"/><path class="galho" d="M560 268 Q615 205 700 128"/><circle class="ponta" cx="700" cy="128" r="7"/><text class="r-titulo" x="714" y="136" text-anchor="start">PROJETOS</text><g class="folha" data-ator="B"><circle class="sel-c b" cx="722" cy="163" r="10"/><text class="sel-t" x="722" y="167" text-anchor="middle">B</text><text class="f-txt" x="738" y="168">Apoio direto</text></g><g class="folha" data-ator="B"><circle class="sel-c b" cx="722" cy="191" r="10"/><text class="sel-t" x="722" y="195" text-anchor="middle">B</text><text class="f-txt" x="738" y="196">Recursos por etapas</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="722" cy="219" r="10"/><text class="sel-t" x="722" y="223" text-anchor="middle">O</text><text class="f-txt" x="738" y="224">Execução no território</text></g><g class="etapa-pin"><circle cx="628" cy="196" r="19"/><text x="628" y="202" text-anchor="middle">2</text></g></g><g class="ramo ramo-caminho" data-ramo="influencia" tabindex="0" role="button" aria-label="Influência: ver detalhes"><path class="galho-hit" d="M560 352 Q615 415 700 492"/><path class="galho" d="M560 352 Q615 415 700 492"/><circle class="ponta" cx="700" cy="492" r="7"/><text class="r-titulo" x="714" y="500" text-anchor="start">INFLUÊNCIA</text><g class="folha" data-ator="O"><circle class="sel-c o" cx="722" cy="527" r="10"/><text class="sel-t" x="722" y="531" text-anchor="middle">O</text><text class="f-txt" x="738" y="532">Políticas públicas</text></g><g class="folha" data-ator="C"><circle class="sel-c c" cx="722" cy="555" r="10"/><text class="sel-t" x="722" y="559" text-anchor="middle">C</text><text class="f-txt" x="738" y="560">Lideranças em rede</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="722" cy="583" r="10"/><text class="sel-t" x="722" y="587" text-anchor="middle">O</text><text class="f-txt" x="738" y="588">Pilotos que escalam</text></g><g class="etapa-pin"><circle cx="628" cy="424" r="19"/><text x="628" y="430" text-anchor="middle">3</text></g></g><g class="ramo ramo-base" data-ramo="talentos" tabindex="0" role="button" aria-label="Talentos: ver detalhes"><path class="galho-hit" d="M380 310 L232 310"/><path class="galho" d="M380 310 L232 310"/><circle class="ponta" cx="232" cy="310" r="7"/><text class="r-titulo" x="218" y="318" text-anchor="end">TALENTOS</text><g class="folha" data-ator="C"><circle class="sel-c c" cx="210" cy="345" r="10"/><text class="sel-t" x="210" y="349" text-anchor="middle">C</text><text class="f-txt" x="194" y="350" text-anchor="end">Gente de todo o país</text></g><g class="folha" data-ator="C"><circle class="sel-c c" cx="210" cy="373" r="10"/><text class="sel-t" x="210" y="377" text-anchor="middle">C</text><text class="f-txt" x="194" y="378" text-anchor="end">Propõe projetos</text></g><g class="folha" data-ator="C"><circle class="sel-c c" cx="210" cy="401" r="10"/><text class="sel-t" x="210" y="405" text-anchor="middle">C</text><text class="f-txt" x="194" y="406" text-anchor="end">Vota prioridades</text></g></g><g class="ramo ramo-base" data-ramo="parcerias" tabindex="0" role="button" aria-label="Parcerias: ver detalhes"><path class="galho-hit" d="M620 310 L768 310"/><path class="galho" d="M620 310 L768 310"/><circle class="ponta" cx="768" cy="310" r="7"/><text class="r-titulo" x="782" y="318" text-anchor="start">PARCERIAS</text><g class="folha" data-ator="O"><circle class="sel-c o" cx="790" cy="345" r="10"/><text class="sel-t" x="790" y="349" text-anchor="middle">O</text><text class="f-txt" x="806" y="350">Universidades</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="790" cy="373" r="10"/><text class="sel-t" x="790" y="377" text-anchor="middle">O</text><text class="f-txt" x="806" y="378">Coletivos e ONGs</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="790" cy="401" r="10"/><text class="sel-t" x="790" y="405" text-anchor="middle">O</text><text class="f-txt" x="806" y="406">Empresas e governo</text></g></g><g class="ramo ramo-base" data-ramo="governanca" tabindex="0" role="button" aria-label="Governança: ver detalhes"><path class="galho-hit" d="M440 352 Q385 415 300 492"/><path class="galho" d="M440 352 Q385 415 300 492"/><circle class="ponta" cx="300" cy="492" r="7"/><text class="r-titulo" x="286" y="500" text-anchor="end">GOVERNANÇA</text><g class="folha" data-ator="B"><circle class="sel-c b" cx="278" cy="527" r="10"/><text class="sel-t" x="278" y="531" text-anchor="middle">B</text><text class="f-txt" x="262" y="532" text-anchor="end">Missão protegida</text></g><g class="folha" data-ator="O"><circle class="sel-c o" cx="278" cy="555" r="10"/><text class="sel-t" x="278" y="559" text-anchor="middle">O</text><text class="f-txt" x="262" y="560" text-anchor="end">Conselhos plurais</text></g></g><g class="nucleo" aria-hidden="true"><ellipse cx="500" cy="310" rx="122" ry="58"/><ellipse class="nucleo-anel" cx="500" cy="310" rx="132" ry="67"/>
+<g transform="translate(500 286) scale(.2)"><use href="#sol" fill="#D93A2B" transform="translate(8 7)"/><use href="#sol" fill="#FFC72C"/></g>
+<text x="500" y="336" text-anchor="middle" class="n-txt">BRASA</text></g>
+      </svg>
+      <div class="painel" id="painel" aria-live="polite">
+        <p class="painel-tipo" id="painel-tipo"></p>
+        <h3 id="painel-titulo"></h3>
+        <p class="painel-desc" id="painel-desc"></p>
+        <ul class="painel-itens" id="painel-itens"></ul>
+      </div>
+    </div>
+    <p class="mapa-legenda"><span><i class="lg-grosso"></i>Ramo grosso: da ideia ao impacto</span><span><i class="lg-fino"></i>Ramo fino: base que sustenta</span><span><i class="lg-fio"></i>Fio: uma etapa alimenta a outra</span></p>
+    <a class="proximo" href="#atuacao"><span>Próximo</span><b>Até onde vamos</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ 04 · ATÉ ONDE VAMOS ============ -->
+<section class="secao claro capitulo" id="atuacao">
+  <div class="dentro">
+    <div class="olho"><span class="cap">04</span>Atuação · Onde a BRASA atua</div>
+    <h2 class="titulo-secao">O Brasil encontra a tecnologia.</h2>
+    <div class="atua">
+      <div class="atua-texto">
+        <p class="texto-corrido">A BRASA trabalha no encontro entre as pessoas, as culturas e os desafios reais do país e os sistemas, os dados e as redes da tecnologia.</p>
+      </div>
+      <svg class="venn" viewBox="0 0 560 340" role="img" aria-labelledby="venn-t">
+        <title id="venn-t">Brasil e Tecnologia se encontram em pesquisa, comunidade e mobilização cívica, talentos e projetos</title>
+        <circle cx="200" cy="170" r="158" fill="rgba(14,81,48,.08)" stroke="#0E5130" stroke-width="2"/>
+        <circle cx="360" cy="170" r="158" fill="rgba(255,199,44,.18)" stroke="#C99A12" stroke-width="2"/>
+        <text x="120" y="162" text-anchor="middle" class="v-titulo">Brasil</text>
+        <text x="120" y="186" text-anchor="middle" class="v-sub">Pessoas, culturas</text>
+        <text x="120" y="204" text-anchor="middle" class="v-sub">e desafios reais</text>
+        <text x="440" y="162" text-anchor="middle" class="v-titulo">Tecnologia</text>
+        <text x="440" y="186" text-anchor="middle" class="v-sub">Sistemas, dados</text>
+        <text x="440" y="204" text-anchor="middle" class="v-sub">e redes</text>
+        <text x="280" y="104" text-anchor="middle" class="v-meio v-red">Pesquisa</text>
+        <text x="280" y="152" text-anchor="middle" class="v-meio">Comunidade e</text>
+        <text x="280" y="170" text-anchor="middle" class="v-meio">mobilização cívica</text>
+        <text x="280" y="214" text-anchor="middle" class="v-meio v-red">Talentos</text>
+        <text x="280" y="256" text-anchor="middle" class="v-meio">Projetos</text>
+      </svg>
+    </div>
+
+    <div class="frentes-bloco">
+      <p class="sub-olho">Visão holística · cinco frentes, juntas</p>
+      <ul class="frentes">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/><path d="M22 9v6"/></svg><h4>Educação</h4><p>Formar gente capaz em todo o país.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><h4>Cultura</h4><p>Nossa gente, nossa história, nosso orgulho.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><h4>Tecnologia</h4><p>Domínio de sistemas, dados e redes.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><h4>Pesquisa</h4><p>Conhecimento para decidir o próprio destino.</p></li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 16v-4M11 16V8M16 16v-6M21 4l-5 5-4-3-6 6"/></svg><h4>Economia</h4><p>Base para um Brasil potência.</p></li>
+      </ul>
+    </div>
+
+    <div class="circ-bloco">
+      <div class="circ-texto">
+        <p class="sub-olho">Círculos de influência</p>
+        <h3 class="sub-titulo">Do núcleo para toda a sociedade.</h3>
+        <p class="texto-corrido">A BRASA articula no centro. Ao redor, ONGs, pesquisadores e lideranças levam as ideias adiante, até alcançar toda a sociedade brasileira.</p>
+        <ul class="legenda-circ">
+          <li><i style="background:#D93A2B"></i><span><b>Núcleo:</b> a BRASA articula e conecta.</span></li>
+          <li><i style="background:#FFC72C"></i><span><b>Rede:</b> ONGs, pesquisadores e lideranças da sociedade.</span></li>
+          <li><i style="background:#F4EAD5"></i><span><b>Horizonte:</b> a sociedade brasileira.</span></li>
+        </ul>
+      </div>
+      <figure class="circulos">
+        <svg viewBox="0 0 440 440" role="img" aria-labelledby="circ-t">
+        <title id="circ-t">Círculos de influência: a BRASA no núcleo, a rede de ONGs, pesquisadores e lideranças ao redor, e a sociedade brasileira no horizonte</title>
+        <circle cx="220" cy="220" r="212" fill="rgba(244,234,213,.07)" stroke="rgba(244,234,213,.35)" stroke-width="1.5"/>
+        <circle cx="220" cy="220" r="146" fill="rgba(255,199,44,.14)" stroke="#FFC72C" stroke-width="1.5"/>
+        <circle cx="220" cy="220" r="74" fill="#D93A2B"/>
+        <text x="220" y="36" text-anchor="middle" class="c-rot">SOCIEDADE BRASILEIRA</text>
+        <text x="220" y="110" text-anchor="middle" class="c-anel">ONGs</text>
+        <text x="112" y="268" text-anchor="middle" class="c-anel">Pesquisa-</text>
+        <text x="112" y="284" text-anchor="middle" class="c-anel">dores</text>
+        <text x="328" y="268" text-anchor="middle" class="c-anel">Lideranças</text>
+        <text x="328" y="284" text-anchor="middle" class="c-anel">da sociedade</text>
+        <text x="220" y="224" text-anchor="middle" class="c-nucleo">BRASA</text>
+        <text x="220" y="244" text-anchor="middle" class="c-sub">Núcleo de influência</text>
+      </svg>
+      </figure>
+    </div>
+    <a class="proximo proximo-claro" href="#faca-parte"><span>Próximo</span><b>Faça parte</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ FAÇA PARTE ============ -->
+<section class="secao faca capitulo" id="faca-parte">
+  <div class="dentro faca-grade">
+    <div>
+      <div class="olho"><span class="cap">05</span>Faça parte</div>
+      <h2 class="titulo-secao">Unir talentos.<br><span class="vermelho">Acender o Brasil.</span></h2>
+    </div>
+    <div class="faca-lado">
+      <p class="texto-corrido">A BRASA é uma rede de talentos e organizações para pensar e construir um Brasil virtuoso. Filie-se e faça parte dela.</p>
+      <!-- troque o href pelo endereço da página de filiação -->
+      <a class="botao verde grande" href="#filiacao">Quero me filiar <svg width="22" height="22" aria-hidden="true"><use href="#seta"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ RODAPÉ ============ -->
+<footer class="rodape">
+  <div class="dentro">
+    <div class="rodape-grade">
+      <div>
+        <a class="topo-marca" href="#inicio" aria-label="BRASA, início">
+          <svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg><span>BRASA</span>
+        </a>
+        <p class="rodape-frase">Plataforma cívica. Unir talentos, acender o Brasil.</p>
+      </div>
+      <div class="rodape-links">
+        <div><h4>Navegue</h4><ul>
+          <li><a href="#quem-somos">Quem somos</a></li><li><a href="#manifesto">Manifesto</a></li>
+          <li><a href="#iniciativas">Iniciativas</a></li><li><a href="#atuacao">Atuação</a></li><li><a href="#faca-parte">Filie-se</a></li></ul></div>
+        <!-- troque pelos links reais das redes -->
+        <div><h4>Redes</h4><ul>
+          <li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">YouTube</a></li></ul></div>
+      </div>
+    </div>
+    <p class="rodape-base">© 2026 BRASA. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+/* ============ CONFIGURE AQUI ============ */
+const PERSONAGENS = [
+  'personagens/torcedor.webp',
+  'personagens/gaucho.webp',
+  'personagens/mulher-bolsa.webp',
+  'personagens/violeiro.webp',
+  'personagens/indigena.webp',
+  'personagens/mae-filho.webp',
+];
+const QUADROS_POR_SEGUNDO    = 18;   // velocidade da caminhada
+const QUADROS_POR_PERSONAGEM = 5;    // quanto cada pessoa fica (5 quadros ≈ 0,28 s)
+const TEMPO_LOGO_NA_TELA     = 1100; // ms com logo + frase antes de abrir o site
+const MOSTRAR_ABERTURA = 'primeira-visita'; // 'primeira-visita' | 'sempre'
+const DIAS_PARA_MOSTRAR_DE_NOVO = 30;       // depois desse tempo a abertura volta a aparecer
+
+
+/* ---------- tela de carregamento ---------- */
+(function(){
+  const abertura = document.getElementById('abertura');
+  const cena = document.getElementById('cena');
+  const boneco = document.getElementById('boneco');
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TOTAL = 24, CHAVE = 'brasa-abertura-vista';
+  const espera = ms => new Promise(r=>setTimeout(r,ms));
+  let saiu = false;
+
+  function liberaSite(){ document.documentElement.classList.remove('carregando'); }
+  function sair(){
+    if (saiu) return; saiu = true;
+    try{ localStorage.setItem(CHAVE, String(Date.now())); }catch(e){}
+    liberaSite();
+    abertura.classList.add('saindo');
+    setTimeout(()=>abertura.classList.add('fim'), 850);
+  }
+
+  let jaViu = false;
+  if (MOSTRAR_ABERTURA === 'primeira-visita'){
+    try{
+      const t = Number(localStorage.getItem(CHAVE));
+      jaViu = t && (Date.now() - t) < DIAS_PARA_MOSTRAR_DE_NOVO*864e5;
+    }catch(e){}
+  }
+  if (jaViu){ abertura.classList.add('fim'); liberaSite(); return; }
+
+  abertura.addEventListener('click', sair);
+  addEventListener('keydown', e=>{ if (e.key==='Escape') sair(); });
+
+  const carregaImg = src => new Promise(ok=>{ const i=new Image(); i.onload=i.onerror=()=>ok(); i.src=src; });
+  const siteCarregado = new Promise(ok=>{ document.readyState==='complete' ? ok() : addEventListener('load',ok); });
+
+  async function caminhar(){
+    // não deixa a pessoa esperando mais de 2,5 s pelas imagens
+    await Promise.race([Promise.all(PERSONAGENS.map(carregaImg)), espera(2500)]);
+    if (saiu) return;
+    const intervalo = 1000 / QUADROS_POR_SEGUNDO;
+    let q = 1, passo = 0, ultimo = 0;
+    return new Promise(ok=>{
+      function tick(t){
+        if (saiu) return ok();
+        if (t - ultimo >= intervalo){
+          ultimo = t;
+          const p = Math.floor(passo / QUADROS_POR_PERSONAGEM);
+          if (p >= PERSONAGENS.length) return ok();
+          boneco.style.backgroundImage = `url("${PERSONAGENS[p]}")`;
+          boneco.style.backgroundPosition = `${(q/(TOTAL-1))*100}% 0`;
+          q = q >= TOTAL-1 ? 1 : q+1;  // quadro 0 é a pose parada; a caminhada repete de 1 a 23
+          passo++;
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  async function abrir(){
+    if (!reduz) await caminhar();
+    if (saiu) return;
+    cena.classList.add('sai-boneco');
+    await espera(reduz ? 0 : 180);
+    cena.classList.add('mostra-sol');
+    await espera(reduz ? 0 : 500);
+    cena.classList.add('mostra-logo');
+    await espera(reduz ? 0 : 250);
+    abertura.classList.add('texto');
+    await Promise.all([siteCarregado, espera(TEMPO_LOGO_NA_TELA)]);
+    sair();
+  }
+  setTimeout(abrir, 150);
+})();
+
+
+/* ---------- progresso da leitura ---------- */
+(function(){
+  const bar=document.getElementById('progresso');
+  const atualiza=()=>{const h=document.documentElement.scrollHeight-innerHeight; bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`;};
+  addEventListener('scroll',atualiza,{passive:true}); addEventListener('resize',atualiza); atualiza();
+})();
+
+/* ---------- constelação: talentos espalhados se conectam ---------- */
+(function(){
+  const fig=document.getElementById('constelacao'); if(!fig) return;
+  const gL=document.getElementById('cons-linhas'), gP=document.getElementById('cons-pontos'), NS='http://www.w3.org/2000/svg';
+  let semente=7; const rnd=()=>{semente=(semente*16807)%2147483647; return semente/2147483647;};
+  const pts=[];
+  while(pts.length<26){
+    const x=20+rnd()*360, y=20+rnd()*360;
+    if(Math.abs(x-200)+Math.abs(y-200)>172) continue;          // dentro do losango
+    if(Math.hypot(x-200,y-200)<46) continue;                     // longe do sol
+    if(pts.some(p=>Math.hypot(p.x-x,p.y-y)<34)) continue;
+    pts.push({x,y});
+  }
+  const linha=(a,b,cls,d)=>{const l=document.createElementNS(NS,'line');l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);l.setAttribute('x2',b.x);l.setAttribute('y2',b.y);
+    if(cls) l.setAttribute('class',cls); const len=Math.hypot(a.x-b.x,a.y-b.y); l.style.setProperty('--l',len); l.style.setProperty('--d',d+'s'); gL.appendChild(l);};
+  const centro={x:200,y:200};
+  pts.forEach((p,i)=>{
+    const viz=pts.map((q,j)=>({j,d:Math.hypot(q.x-p.x,q.y-p.y)})).filter(o=>o.j>i).sort((a,b)=>a.d-b.d).slice(0,2);
+    viz.forEach(o=>linha(p,pts[o.j],'',0.4+rnd()*0.8));
+    if(i%3===0) linha(p,centro,'ao-sol',1+rnd()*0.6);
+    const c=document.createElementNS(NS,'circle'); c.setAttribute('cx',p.x); c.setAttribute('cy',p.y);
+    c.setAttribute('r', i%4===0?5:3.2); c.setAttribute('fill', i%3===0?'#FFC72C':'#F4EAD5'); c.style.setProperty('--d',(rnd()*0.5)+'s'); gP.appendChild(c);
+  });
+  if('IntersectionObserver' in window){
+    const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){ fig.classList.add('desenha'); o.disconnect(); } },{threshold:.35});
+    o.observe(fig);
+  }
+})();
+
+/* ---------- mapa interativo da rede ---------- */
+(function(){
+  const DADOS={"ideias": {"n": 1, "tipo": "caminho", "titulo": "Ideias", "desc": "Tudo começa com ideias. Qualquer pessoa pode propor, e a pesquisa e o debate público ajudam a escolher as melhores.", "itens": [["C", "Propostas abertas"], ["O", "Pesquisas e dados"], ["C", "Debate público"]]}, "projetos": {"n": 2, "tipo": "caminho", "titulo": "Projetos", "desc": "As ideias escolhidas viram projetos, com apoio direto da BRASA e recursos liberados por etapas, executados no território.", "itens": [["B", "Apoio direto"], ["B", "Recursos por etapas"], ["O", "Execução no território"]]}, "influencia": {"n": 3, "tipo": "caminho", "titulo": "Influência", "desc": "O que dá certo ganha escala: vira política pública, forma lideranças em rede e se espalha como piloto.", "itens": [["O", "Políticas públicas"], ["C", "Lideranças em rede"], ["O", "Pilotos que escalam"]]}, "talentos": {"n": 0, "tipo": "base", "titulo": "Talentos", "desc": "A base de tudo são as pessoas: gente de todo o país que propõe projetos e vota as prioridades.", "itens": [["C", "Gente de todo o país"], ["C", "Propõe projetos"], ["C", "Vota prioridades"]]}, "parcerias": {"n": 0, "tipo": "base", "titulo": "Parcerias", "desc": "Organizações parceiras fazem as ideias acontecerem: universidades, coletivos, ONGs, empresas e governo.", "itens": [["O", "Universidades"], ["O", "Coletivos e ONGs"], ["O", "Empresas e governo"]]}, "governanca": {"n": 0, "tipo": "base", "titulo": "Governança", "desc": "Regras que mantêm a BRASA fiel ao propósito: missão protegida e conselhos plurais.", "itens": [["B", "Missão protegida"], ["O", "Conselhos plurais"]]}};
+  const ATOR={B:'BRASA',C:'Comunidade',O:'Organização parceira'};
+  const mapa=document.getElementById('mapa'); if(!mapa) return;
+  const ramos=[...mapa.querySelectorAll('.ramo')], chips=[...mapa.querySelectorAll('.chip-ramo')];
+  const tipo=document.getElementById('painel-tipo'), titulo=document.getElementById('painel-titulo'),
+        desc=document.getElementById('painel-desc'), itens=document.getElementById('painel-itens');
+  let fixo='ideias', timer=null;
+
+  function mostra(id, destacar){
+    const d=DADOS[id]; if(!d) return;
+    tipo.textContent = d.tipo==='caminho' ? `Etapa ${d.n} de 3 · da ideia ao impacto` : 'Base que sustenta';
+    titulo.textContent=d.titulo; desc.textContent=d.desc;
+    itens.innerHTML='';
+    d.itens.forEach(([a,t])=>{
+      const li=document.createElement('li'); li.dataset.ator=a;
+      li.innerHTML=`<b class="sel ${a.toLowerCase()}">${a}</b>${t}<small>${ATOR[a]}</small>`; itens.appendChild(li);
+    });
+    ramos.forEach(r=>r.classList.toggle('ativo',r.dataset.ramo===id));
+    chips.forEach(c=>{const on=c.dataset.ramo===id; c.classList.toggle('ativo',on); c.setAttribute('aria-selected',on);});
+    mapa.classList.toggle('foco',!!destacar);
+  }
+  function para(){ clearTimeout(timer); timer=null; mapa.classList.remove('fluindo'); }
+
+  ramos.forEach(r=>{
+    const id=r.dataset.ramo;
+    r.addEventListener('mouseenter',()=>{ if(!timer) mostra(id,true); });
+    r.addEventListener('mouseleave',()=>{ if(!timer) mostra(fixo,false); });
+    r.addEventListener('focus',()=>{ para(); mostra(id,true); });
+    r.addEventListener('click',()=>{ para(); fixo=id; mostra(id,true); });
+    r.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); para(); fixo=id; mostra(id,true);} });
+  });
+  mapa.querySelector('.mapa-svg').addEventListener('mouseleave',()=>{ if(!timer) mapa.classList.remove('foco'); });
+  chips.forEach(c=>c.addEventListener('click',()=>{ para(); fixo=c.dataset.ramo; mostra(fixo,true); }));
+
+  document.querySelectorAll('.filtro').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.filtro').forEach(x=>x.classList.toggle('ativo',x===b));
+    if(b.dataset.ator) mapa.dataset.ator=b.dataset.ator; else delete mapa.dataset.ator;
+  }));
+
+  document.getElementById('seguir').addEventListener('click',()=>{
+    para(); const seq=['ideias','projetos','influencia']; let i=0;
+    mapa.classList.remove('fluindo'); void mapa.offsetWidth; mapa.classList.add('fluindo');
+    (function passo(){
+      if(i>=seq.length){ timer=null; fixo='influencia'; return; }
+      mostra(seq[i],true); i++; timer=setTimeout(passo,1300);
+    })();
+    if(innerWidth<=760) mapa.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  mostra(fixo,false);
+})();
+
+/* ---------- barra de navegação ---------- */
+(function(){
+  const topo=document.getElementById('topo'), botao=document.getElementById('menu-botao');
+  function fecha(){ topo.classList.remove('aberto'); botao.setAttribute('aria-expanded','false'); botao.setAttribute('aria-label','Abrir menu'); }
+  botao.addEventListener('click',()=>{
+    const abre=!topo.classList.contains('aberto');
+    topo.classList.toggle('aberto',abre); botao.setAttribute('aria-expanded',abre); botao.setAttribute('aria-label',abre?'Fechar menu':'Abrir menu');
+  });
+  topo.querySelectorAll('.topo-links a').forEach(a=>a.addEventListener('click',fecha));
+  addEventListener('keydown',e=>{ if(e.key==='Escape') fecha(); });
+  const sombra=()=>topo.classList.toggle('rolou',scrollY>8);
+  addEventListener('scroll',sombra,{passive:true}); sombra();
+
+  // destaca na barra a seção que está na tela
+  const links=[...topo.querySelectorAll('.topo-links a:not(.cta)')];
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting) links.forEach(a=>a.classList.toggle('ativo',a.getAttribute('href')==='#'+e.target.id));
+  }),{rootMargin:'-45% 0px -50% 0px'});
+  ['inicio','quem-somos','manifesto','iniciativas','atuacao','faca-parte'].forEach(id=>{const el=document.getElementById(id); el&&obs.observe(el);});
+})();
+
+</script>
+</body>
+</html>
