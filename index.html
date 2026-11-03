@@ -493,6 +493,37 @@ section[id]{scroll-margin-top:68px}
   .topo-links{background:var(--creme);border-bottom-color:rgba(14,81,48,.14)}
 }
 
+
+/* ================= NÚCLEO ANIMADO ================= */
+.nucleo-bloco{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(32px,6vw,96px);align-items:center}
+.nucleo-bloco > *{min-width:0}
+.nucleo-texto .texto-corrido{margin-top:22px}
+.camadas{list-style:none;display:grid;gap:8px;margin-top:28px}
+.camadas li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:14px;border:1.5px solid rgba(14,81,48,.15);background:#fff8ea;cursor:default;transition:border-color .2s,transform .2s,background .2s}
+.camadas li:hover,.camadas li.ativa{border-color:var(--verde);transform:translateX(4px);background:#fff}
+.camadas i{width:16px;height:16px;border-radius:50%;flex:none}
+.c-nuc{background:var(--vermelho)}.c-rede{background:var(--amarelo)}.c-hor{background:var(--creme);box-shadow:inset 0 0 0 2px rgba(14,81,48,.45)}
+.camadas span{font-size:15px;line-height:1.4}
+.camadas b{display:block;font-weight:900;font-stretch:118%;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);margin-bottom:2px}
+.nucleo-fig svg{width:100%;max-width:560px;height:auto;display:block;margin:0 auto;overflow:visible}
+.anel-hor{fill:rgba(14,81,48,.06);stroke:rgba(14,81,48,.28);stroke-width:1.5;transition:fill .3s}
+.anel-rede{fill:rgba(255,199,44,.26);stroke:#C99A12;stroke-width:1.5;transition:fill .3s}
+.nuc-core{fill:#D93A2B;transition:r .3s}
+.nuc-nome{font:900 30px var(--fonte);font-stretch:125%;letter-spacing:.06em;fill:#F4EAD5}
+.nuc-sub{font:600 11px var(--fonte);fill:#F4EAD5;opacity:.9}
+.nuc-rot{font:800 12px var(--fonte);letter-spacing:.16em;fill:#0E5130;opacity:.7}
+.nuc-sol{transform-box:fill-box;transform-origin:center;animation:gira 30s linear infinite}
+#nuc-ondas circle{fill:none;stroke:#D93A2B;stroke-width:2}
+#nuc-pontos circle{fill:#0E5130;opacity:.35;transition:none}
+#nuc-lig line{stroke:#0E5130;stroke-opacity:.25;stroke-width:1.2;stroke-dasharray:3 5}
+.no-rede circle.bola{fill:#0E5130;stroke:#FFC72C;stroke-width:3}
+.no-rede text{font:800 13px var(--fonte);fill:#0E5130;paint-order:stroke;stroke:#F4EAD5;stroke-width:4px;stroke-linejoin:round}
+.no-rede circle.halo{fill:#FFC72C;opacity:0}
+.nucleo-fig.foco-nucleo .nuc-core{r:92}
+.nucleo-fig.foco-rede .anel-rede{fill:rgba(255,199,44,.5)}
+.nucleo-fig.foco-horizonte .anel-hor{fill:rgba(14,81,48,.14)}
+@media (max-width:900px){.nucleo-bloco{grid-template-columns:1fr}}
+
 /* rodapé */
 .rodape{padding-block:56px 40px;color:var(--creme)}
 .rodape-grade{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(244,234,213,.12)}
@@ -732,35 +763,40 @@ section[id]{scroll-margin-top:68px}
       </div>
     </div>
     <p class="mapa-legenda"><span><i class="lg-grosso"></i>Ramo grosso: da ideia ao impacto</span><span><i class="lg-fino"></i>Ramo fino: base que sustenta</span><span><i class="lg-fio"></i>Fio: uma etapa alimenta a outra</span></p>
-    <a class="proximo" href="#atuacao"><span>Próximo</span><b>Onde a BRASA atua</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
+    <a class="proximo" href="#atuacao"><span>Próximo</span><b>Do núcleo para a sociedade</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
   </div>
 </section>
 
-<!-- ============ 04 · ATÉ ONDE VAMOS ============ -->
+<!-- ============ 04 · ATUAÇÃO: DO NÚCLEO PARA A SOCIEDADE ============ -->
 <section class="secao claro capitulo" id="atuacao">
   <div class="dentro">
-    <div class="olho"><span class="cap">04</span>Atuação · Onde a BRASA atua</div>
-    <h2 class="titulo-secao">O Brasil encontra a tecnologia.</h2>
-    <div class="atua">
-      <div class="atua-texto">
-        <p class="texto-corrido">A BRASA trabalha no encontro entre as pessoas, as culturas e os desafios reais do país e os sistemas, os dados e as redes da tecnologia.</p>
+    <div class="nucleo-bloco">
+      <div class="nucleo-texto">
+        <div class="olho"><span class="cap">04</span>Atuação · Círculos de influência</div>
+        <h2 class="titulo-secao">Do núcleo para toda a sociedade.</h2>
+        <p class="texto-corrido">A BRASA articula no centro. Ao redor, ONGs, pesquisadores e lideranças levam as ideias adiante, até alcançar toda a sociedade brasileira.</p>
+        <ul class="camadas" id="camadas">
+          <li data-camada="nucleo"><i class="c-nuc"></i><span><b>Núcleo</b>A BRASA articula e conecta.</span></li>
+          <li data-camada="rede"><i class="c-rede"></i><span><b>Rede</b>ONGs, pesquisadores e lideranças da sociedade.</span></li>
+          <li data-camada="horizonte"><i class="c-hor"></i><span><b>Horizonte</b>A sociedade brasileira.</span></li>
+        </ul>
       </div>
-      <svg class="venn" viewBox="0 0 560 340" role="img" aria-labelledby="venn-t">
-        <title id="venn-t">Brasil e Tecnologia se encontram em pesquisa, comunidade e mobilização cívica, talentos e projetos</title>
-        <circle cx="200" cy="170" r="158" fill="rgba(14,81,48,.08)" stroke="#0E5130" stroke-width="2"/>
-        <circle cx="360" cy="170" r="158" fill="rgba(255,199,44,.18)" stroke="#C99A12" stroke-width="2"/>
-        <text x="120" y="162" text-anchor="middle" class="v-titulo">Brasil</text>
-        <text x="120" y="186" text-anchor="middle" class="v-sub">Pessoas, culturas</text>
-        <text x="120" y="204" text-anchor="middle" class="v-sub">e desafios reais</text>
-        <text x="440" y="162" text-anchor="middle" class="v-titulo">Tecnologia</text>
-        <text x="440" y="186" text-anchor="middle" class="v-sub">Sistemas, dados</text>
-        <text x="440" y="204" text-anchor="middle" class="v-sub">e redes</text>
-        <text x="280" y="104" text-anchor="middle" class="v-meio v-red">Pesquisa</text>
-        <text x="280" y="152" text-anchor="middle" class="v-meio">Comunidade e</text>
-        <text x="280" y="170" text-anchor="middle" class="v-meio">mobilização cívica</text>
-        <text x="280" y="214" text-anchor="middle" class="v-meio v-red">Talentos</text>
-        <text x="280" y="256" text-anchor="middle" class="v-meio">Projetos</text>
-      </svg>
+      <figure class="nucleo-fig" id="nucleo-fig">
+        <svg id="nucleo-svg" viewBox="0 0 520 520" role="img" aria-labelledby="nuc-t">
+          <title id="nuc-t">A BRASA no núcleo emite ondas que passam pela rede de ONGs, pesquisadores e lideranças e acendem a sociedade brasileira ao redor</title>
+          <circle class="anel-hor" cx="260" cy="260" r="244"/>
+          <circle class="anel-rede" cx="260" cy="260" r="168"/>
+          <g id="nuc-ondas"></g>
+          <g id="nuc-pontos"></g>
+          <g id="nuc-lig"></g>
+          <g id="nuc-nos"></g>
+          <circle class="nuc-core" cx="260" cy="260" r="84"/>
+          <g class="nuc-sol"><g transform="translate(260 236) scale(.26)"><use href="#sol" fill="#FFC72C"/></g></g>
+          <text x="260" y="282" text-anchor="middle" class="nuc-nome">BRASA</text>
+          <text x="260" y="300" text-anchor="middle" class="nuc-sub">Núcleo de influência</text>
+          <text x="260" y="34" text-anchor="middle" class="nuc-rot">SOCIEDADE BRASILEIRA</text>
+        </svg>
+      </figure>
     </div>
 
     <div class="frentes-bloco">
@@ -772,35 +808,6 @@ section[id]{scroll-margin-top:68px}
         <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><h4>Pesquisa</h4><p>Conhecimento para decidir o próprio destino.</p></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 16v-4M11 16V8M16 16v-6M21 4l-5 5-4-3-6 6"/></svg><h4>Economia</h4><p>Base para um Brasil potência.</p></li>
       </ul>
-    </div>
-
-    <div class="circ-bloco">
-      <div class="circ-texto">
-        <p class="sub-olho">Círculos de influência</p>
-        <h3 class="sub-titulo">Do núcleo para toda a sociedade.</h3>
-        <p class="texto-corrido">A BRASA articula no centro. Ao redor, ONGs, pesquisadores e lideranças levam as ideias adiante, até alcançar toda a sociedade brasileira.</p>
-        <ul class="legenda-circ">
-          <li><i style="background:#D93A2B"></i><span><b>Núcleo:</b> a BRASA articula e conecta.</span></li>
-          <li><i style="background:#FFC72C"></i><span><b>Rede:</b> ONGs, pesquisadores e lideranças da sociedade.</span></li>
-          <li><i style="background:#F4EAD5"></i><span><b>Horizonte:</b> a sociedade brasileira.</span></li>
-        </ul>
-      </div>
-      <figure class="circulos">
-        <svg viewBox="0 0 440 440" role="img" aria-labelledby="circ-t">
-        <title id="circ-t">Círculos de influência: a BRASA no núcleo, a rede de ONGs, pesquisadores e lideranças ao redor, e a sociedade brasileira no horizonte</title>
-        <circle cx="220" cy="220" r="212" fill="rgba(244,234,213,.07)" stroke="rgba(244,234,213,.35)" stroke-width="1.5"/>
-        <circle cx="220" cy="220" r="146" fill="rgba(255,199,44,.14)" stroke="#FFC72C" stroke-width="1.5"/>
-        <circle cx="220" cy="220" r="74" fill="#D93A2B"/>
-        <text x="220" y="36" text-anchor="middle" class="c-rot">SOCIEDADE BRASILEIRA</text>
-        <text x="220" y="110" text-anchor="middle" class="c-anel">ONGs</text>
-        <text x="112" y="268" text-anchor="middle" class="c-anel">Pesquisa-</text>
-        <text x="112" y="284" text-anchor="middle" class="c-anel">dores</text>
-        <text x="328" y="268" text-anchor="middle" class="c-anel">Lideranças</text>
-        <text x="328" y="284" text-anchor="middle" class="c-anel">da sociedade</text>
-        <text x="220" y="224" text-anchor="middle" class="c-nucleo">BRASA</text>
-        <text x="220" y="244" text-anchor="middle" class="c-sub">Núcleo de influência</text>
-      </svg>
-      </figure>
     </div>
     <a class="proximo proximo-claro" href="#imagina"><span>Próximo</span><b>Agora imagina</b><svg width="20" height="20" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></a>
   </div>
@@ -1054,6 +1061,80 @@ const DIAS_PARA_MOSTRAR_DE_NOVO = 30;       // depois desse tempo a abertura vol
   if(!('IntersectionObserver' in window)){ sec.classList.add('nasce'); return; }
   const o=new IntersectionObserver(e=>{ if(e[0].isIntersecting){ sec.classList.add('nasce'); o.disconnect(); } },{threshold:.25});
   o.observe(sec);
+})();
+
+
+/* ---------- núcleo animado: ondas da BRASA acendem a sociedade ---------- */
+(function(){
+  const fig=document.getElementById('nucleo-fig'); if(!fig) return;
+  const NS='http://www.w3.org/2000/svg', C=260;
+  const gO=document.getElementById('nuc-ondas'), gP=document.getElementById('nuc-pontos'),
+        gL=document.getElementById('nuc-lig'), gN=document.getElementById('nuc-nos');
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el=(t,a)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e;};
+  let sem=11; const rnd=()=>{sem=(sem*16807)%2147483647; return sem/2147483647;};
+
+  // pessoas da sociedade (anel externo) e da rede (anel do meio)
+  const pontos=[];
+  for(let i=0;i<90;i++){
+    const anel = i<26 ? [96,160] : [178,236];
+    const r=anel[0]+rnd()*(anel[1]-anel[0]); let a=rnd()*Math.PI*2;
+    if(i>=26 && Math.sin(a)<-0.85) a+=Math.PI*0.35;   // deixa livre o rótulo do topo
+    const c=el('circle',{cx:C+r*Math.cos(a),cy:C+r*Math.sin(a),r:(i<26?3.2:2.6)+rnd()*1.6});
+    gP.appendChild(c); pontos.push({c,r,base:c.getAttribute('r')});
+  }
+  // nós da rede, orbitando devagar
+  const nos=[['ONGs',-90],['Pesquisadores',150],['Lideranças da sociedade',30]].map(([nome,ang])=>{
+    const g=el('g',{class:'no-rede'}), halo=el('circle',{class:'halo',r:20}), bola=el('circle',{class:'bola',r:9}), t=el('text',{'text-anchor':'middle'});
+    t.textContent=nome; g.append(halo,bola,t); gN.appendChild(g);
+    const l=el('line',{}); gL.appendChild(l);
+    return {g,halo,bola,t,l,ang:ang*Math.PI/180};
+  });
+  // ondas
+  const ondas=[0,1,2].map(()=>{const c=el('circle',{cx:C,cy:C,r:84}); gO.appendChild(c); return c;});
+
+  const R_NO=128, PERIODO=3600;
+  function quadro(t){
+    const giro = reduz ? 0 : t*0.00004;
+    nos.forEach(n=>{
+      const a=n.ang+giro, x=C+R_NO*Math.cos(a), y=C+R_NO*Math.sin(a);
+      n.bola.setAttribute('cx',x); n.bola.setAttribute('cy',y); n.halo.setAttribute('cx',x); n.halo.setAttribute('cy',y);
+      n.t.setAttribute('x',x); n.t.setAttribute('y',y+(Math.sin(a)>0.2?28:-16));
+      n.l.setAttribute('x1',C); n.l.setAttribute('y1',C); n.l.setAttribute('x2',x); n.l.setAttribute('y2',y);
+    });
+    const raios=ondas.map((o,i)=>{
+      if(reduz){ o.setAttribute('opacity',0); return -999; }
+      const f=((t/PERIODO)+i/3)%1, r=84+f*170;
+      o.setAttribute('r',r); o.setAttribute('opacity',(1-f)*0.55); o.setAttribute('stroke-width',2.5*(1-f)+.5);
+      return r;
+    });
+    pontos.forEach(p=>{
+      let brilho=0; raios.forEach(r=>{const d=Math.abs(p.r-r); if(d<14) brilho=Math.max(brilho,1-d/14);});
+      p.c.setAttribute('opacity',(0.3+brilho*0.7).toFixed(2));
+      p.c.setAttribute('fill', brilho>0.35 ? (p.r<165?'#D93A2B':'#C99A12') : '#0E5130');
+      p.c.setAttribute('r',(+p.base+brilho*2.2).toFixed(2));
+    });
+    nos.forEach(n=>{
+      let b=0; raios.forEach(r=>{const d=Math.abs(R_NO-r); if(d<16) b=Math.max(b,1-d/16);});
+      n.halo.setAttribute('opacity',(b*0.6).toFixed(2));
+    });
+  }
+  let rodando=false, raf=0;
+  function loop(t){ quadro(t); if(rodando) raf=requestAnimationFrame(loop); }
+  quadro(0);
+  if(!reduz && 'IntersectionObserver' in window){
+    new IntersectionObserver(e=>{
+      const v=e[0].isIntersecting;
+      if(v && !rodando){ rodando=true; raf=requestAnimationFrame(loop); }
+      if(!v){ rodando=false; cancelAnimationFrame(raf); }
+    }).observe(fig);
+  }
+  // legenda destaca a camada
+  document.querySelectorAll('#camadas li').forEach(li=>{
+    const c='foco-'+li.dataset.camada;
+    li.addEventListener('mouseenter',()=>{fig.classList.add(c); li.classList.add('ativa');});
+    li.addEventListener('mouseleave',()=>{fig.classList.remove(c); li.classList.remove('ativa');});
+  });
 })();
 
 /* ---------- barra de navegação ---------- */
