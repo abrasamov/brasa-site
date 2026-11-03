@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasismo: O Brasil que há de raiar · BRASA</title>
+<meta name="description" content="Manifesto do Brasismo. Um movimento de ação e otimismo com o país.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..900;1,62..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root{--verde:#0E5130;--verde-escuro:#08291A;--amarelo:#FFC72C;--vermelho:#D93A2B;--creme:#F4EAD5;--papel:#FBF5E8;
+  --fonte:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--papel);color:var(--verde-escuro);font-family:var(--fonte);-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--vermelho);outline-offset:3px}
+.dentro{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+/* barra */
+.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:var(--creme);border-bottom:1px solid rgba(14,81,48,.14)}
+.topo-dentro{height:64px;display:flex;align-items:center;gap:16px}
+.topo-marca{display:flex;align-items:center;gap:10px;text-decoration:none;margin-right:auto;color:var(--verde)}
+.topo-marca svg{width:44px;height:auto}
+.topo-marca span{font-weight:900;font-stretch:125%;font-size:16px;letter-spacing:.16em}
+.voltar{font-weight:700;font-stretch:112%;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--verde);text-decoration:none;padding:10px 12px;border-radius:999px}
+.voltar:hover{background:rgba(14,81,48,.08);color:var(--vermelho)}
+.botao{display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;text-decoration:none;font:800 13px/1 var(--fonte);font-stretch:115%;letter-spacing:.06em;text-transform:uppercase;transition:background .2s,color .2s}
+.botao svg{transition:transform .2s}.botao:hover svg{transform:translateX(3px)}
+.botao.verde{background:var(--verde);color:var(--creme)}.botao.verde:hover{background:var(--vermelho)}
+.botao.amarelo{background:var(--amarelo);color:var(--verde-escuro)}.botao.amarelo:hover{background:var(--creme)}
+.botao.grande{font-size:16px;padding:18px 28px}
+.progresso{position:absolute;left:0;bottom:-1px;height:3px;width:100%;background:var(--vermelho);transform-origin:0 50%;transform:scaleX(0)}
+@media (max-width:560px){.voltar{display:none}}
+
+/* capa */
+.capa{background:var(--verde-escuro);color:var(--creme);position:relative;overflow:hidden;isolation:isolate}
+.capa-dentro{padding-block:clamp(64px,10vw,128px) clamp(72px,10vw,120px)}
+.capa-sol{position:absolute;right:-8%;top:50%;width:min(560px,70vw);translate:0 -50%;z-index:-1;opacity:.9;animation:gira 120s linear infinite}
+@keyframes gira{to{rotate:360deg}}
+@media (prefers-reduced-motion:reduce){.capa-sol{animation:none}}
+.olho{font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amarelo)}
+.capa h1{margin-top:20px;font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(44px,8vw,112px);line-height:.88;letter-spacing:-.02em;max-width:11ch;text-wrap:balance}
+.capa h1 span{display:block;color:var(--amarelo)}
+.assinatura{margin-top:32px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:15px;opacity:.85}
+.assinatura b{font-weight:800}
+
+/* texto */
+.texto{max-width:680px;margin:0 auto;padding:clamp(48px,7vw,88px) max(16px,env(safe-area-inset-right,0px)) clamp(48px,6vw,72px) max(16px,env(safe-area-inset-left,0px))}
+.texto p{font-size:clamp(18px,1.6vw,20px);line-height:1.72;margin-bottom:1.15em}
+.texto p em{font-style:italic;color:var(--vermelho)}
+.texto p.abre::first-letter{float:left;font-weight:900;font-stretch:125%;font-size:4.4em;line-height:.85;margin:.08em .1em 0 0;color:var(--vermelho)}
+.texto p.curto{font-weight:800;font-stretch:115%;font-size:clamp(22px,2.4vw,28px);line-height:1.3;color:var(--verde);margin-block:1.4em}
+.texto p.fecho{font-weight:700;font-stretch:112%;color:var(--verde)}
+.texto p.fecho:last-child{font-weight:900;font-stretch:122%;font-size:clamp(24px,2.8vw,34px);line-height:1.2;color:var(--vermelho);margin-top:1.4em}
+.destaque{display:flex;gap:18px;align-items:flex-start;margin:2em -2vw;padding:28px clamp(20px,3vw,34px);border-radius:20px;background:var(--verde);color:var(--creme);
+  font-weight:800;font-stretch:118%;font-size:clamp(24px,2.8vw,34px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.destaque svg{width:34px;height:34px;flex:none;margin-top:2px}
+@media (max-width:720px){.destaque{margin-inline:0}}
+
+/* pontos */
+.pontos-sec{background:var(--creme);padding-block:clamp(64px,9vw,112px)}
+.pontos-sec h2{font-weight:900;font-stretch:122%;text-transform:uppercase;font-size:clamp(32px,4.6vw,60px);line-height:.95;color:var(--verde);margin-top:14px}
+.pontos-sec .olho{color:var(--vermelho)}
+.pontos{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 40px;margin-top:clamp(32px,4vw,48px)}
+.pontos li{display:flex;gap:18px;padding:22px 0;border-top:2px solid var(--verde)}
+.pontos .num{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--vermelho);color:var(--creme);font-weight:900;font-size:18px}
+.pontos h3{font-weight:900;font-stretch:118%;font-size:20px;line-height:1.15;color:var(--verde)}
+.pontos p{margin-top:6px;font-size:16px;line-height:1.5}
+@media (max-width:760px){.pontos{grid-template-columns:1fr}}
+
+/* convite */
+.convite{background:var(--amarelo);padding-block:clamp(64px,9vw,112px)}
+.convite-grade{display:grid;grid-template-columns:1.3fr 1fr;gap:32px clamp(32px,6vw,96px);align-items:end}
+.convite-grade > *{min-width:0}
+.convite h2{font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(38px,6vw,88px);line-height:.9;color:var(--verde)}
+.convite h2 span{color:var(--vermelho)}
+.convite p{font-size:18px;line-height:1.55;margin-bottom:24px;max-width:40ch}
+.convite .acoes{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:860px){.convite-grade{grid-template-columns:1fr}}
+.rodape{background:var(--verde-escuro);color:var(--creme);padding-block:36px;font-size:14px}
+.rodape .dentro{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;opacity:.8}
+.rodape a{color:inherit}
+</style>
+</head>
+<body>
+<!-- sol do logo, desenhado uma vez e reutilizado -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <polygon id="sol" points="0.0,-100.0 9.0,-45.1 29.8,-72.1 25.6,-38.2 70.7,-70.7 38.2,-25.6 72.1,-29.8 45.1,-9.0 100.0,0.0 45.1,9.0 72.1,29.8 38.2,25.6 70.7,70.7 25.6,38.2 29.8,72.1 9.0,45.1 0.0,100.0 -9.0,45.1 -29.8,72.1 -25.6,38.2 -70.7,70.7 -38.2,25.6 -72.1,29.8 -45.1,9.0 -100.0,0.0 -45.1,-9.0 -72.1,-29.8 -38.2,-25.6 -70.7,-70.7 -25.6,-38.2 -29.8,-72.1 -9.0,-45.1"/>
+    <symbol id="logo-mini" viewBox="-24 -24 848 578">
+      <polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
+      <g transform="translate(400 265) scale(2.05)">
+        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
+        <use href="#sol" fill="#FFC72C"/>
+      </g>
+    </symbol>
+    <symbol id="logo-mini-contorno" viewBox="-24 -24 848 578">
+      <polygon fill="#0E5130" stroke="#F4EAD5" stroke-opacity=".35" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
+      <g transform="translate(400 265) scale(2.05)">
+        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
+        <use href="#sol" fill="#FFC72C"/>
+      </g>
+    </symbol>
+    <symbol id="seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="topo" id="topo">
+  <nav class="topo-dentro dentro" aria-label="Navegação">
+    <a class="topo-marca" href="index.html" aria-label="BRASA, página inicial"><svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg><span>BRASA</span></a>
+    <a class="voltar" href="index.html">Voltar ao site</a>
+    <a class="botao verde" href="index.html#faca-parte">Filie-se</a>
+  </nav>
+  <div class="progresso" id="progresso" aria-hidden="true"></div>
+</header>
+
+<main>
+  <section class="capa">
+    <svg class="capa-sol" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(6 5)"/><use href="#sol" fill="#FFC72C"/></svg>
+    <div class="dentro capa-dentro">
+      <p class="olho">Manifesto</p>
+      <h1>Brasismo: <span>O Brasil que há de raiar</span></h1>
+      <p class="assinatura"><span>Por <b>José</b></span><span>3 de novembro de 2026</span><span>Leitura de 5 min</span></p>
+    </div>
+  </section>
+
+  <article class="texto">
+      <p class="abre">Todo dia alguém te diz que o Brasil não tem jeito. No jornal, no grupo da família, na fila do banco. "Isso aqui é uma porcaria." "O negócio é ir embora." De tanto ouvir, a gente quase acredita. Quem nunca disse isso num dia ruim? E, enquanto isso, num escritório com vista para outro país, alguém bate o martelo e coloca o Brasil em leilão. Terra, riqueza, futuro. Tudo com desconto.</p>
+      <p>Mas repara: mesmo cansado, você levanta. Antes do sol, milhões de brasileiros abrem a portinha do comércio, pegam o primeiro ônibus, estudam mais uma hora antes do expediente. Se você é um deles, saiba: você é a prova viva de que o Brasil tem jeito.</p>
+      <p>Somos um povo novo. Indígenas, africanos, portugueses, italianos, japoneses, árabes, alemães, tudo no mesmo caldeirão, mexido pelas mães e avós e temperado na reza, na comida e nas histórias de antes de dormir. Não somos cópia de ninguém. Ganhamos uma terra imensa e um destino do mesmo tamanho. E, mesmo assim, estamos a derivar, perdidos no espaço e no tempo. Não por azar, mas por escolha. Copiamos o que vem de fora, esquecemos o que é nosso, e cada um foi cuidar do seu quintal. Nelson Rodrigues deu nome a isso: <em>complexo de vira-latas</em>, a inferioridade em que o brasileiro se coloca voluntariamente. Voluntariamente. Então dá para sair dela do mesmo jeito: por vontade própria.</p>
+      <p>Olha em volta. O motoboy que corta a cidade para a sua comida chegar quente. O servente de pedreiro que levanta a casa dos outros antes da dele. A mãe que cria os filhos sozinha e ainda sonha por eles. Gente que dá duro, faz certo e não desiste. Com todo o descalabro, o brasileiro ainda tenta. O Brasil não funciona apesar dele, funciona por causa dele. Esse é o Brasil virtuoso. Tem mais gente boa do que ruim, em toda classe e em todo canto. Só não dá manchete.</p>
+      <p>E esse Brasil tem raiz: na festa e na procissão, no mutirão, na roda, no terreiro, na igreja, na mesa de domingo que nunca tem cadeira suficiente. Tradição não é guardar cinzas, é manter a brasa acesa. Ninguém chega ao mundo fugindo de casa. Chega mergulhando no que é seu.</p>
+      <blockquote class="destaque"><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg>Tradição não é guardar cinzas, é manter a brasa acesa.</blockquote>
+      <p>Existe uma luz, como um sol, chamando a gente para algo maior que qualquer projeto individual. Ela está no trabalhador e no empreendedor, na professora e no pesquisador, no agricultor e no jovem da periferia. Do Oiapoque ao Chuí, é a mesma luz. A gente só esqueceu de reparar.</p>
+      <p>É dessa luz que nasce o Brasismo: um movimento de ação e otimismo com o país. O antídoto para o complexo de vira-lata. Otimismo sem ação é só torcida. Ação sem otimismo é só cansaço. Brasismo é os dois juntos. Brasista é quem ama o Brasil e arregaça as mangas. Se você quer um Brasil soberano e melhor, puxa uma cadeira: o lugar é seu. Somos irmãos de pátria. Nosso adversário não é o vizinho que pensa diferente. É o leiloeiro, quem olha para a nossa terra, o nosso conhecimento e o nosso futuro e só enxerga uma etiqueta de preço. Recado dado: o Brasil não está à venda.</p>
+      <blockquote class="destaque"><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg>Recado dado: o Brasil não está à venda.</blockquote>
+      <p>Por isso o Brasismo propõe uma revolução. Não a que derruba tudo, mas a que restaura. Uma revolução de raiz, que puxa a seiva lá do fundo para fazer crescer a árvore mais alta. Restaurar o orgulho, a comunidade, o valor do trabalho e o comando sobre o nosso destino, com conhecimento, tecnologia e os recursos que são nossos.</p>
+      <p>E essa revolução não vai descer de Brasília embrulhada para presente. Ela sobe: do bairro, da escola, da universidade, da igreja, do coletivo, da empresa, da associação de moradores. Cada brasista é uma brasa. Sozinha, uma brasa aquece. Juntas, em rede, por gerações e não por mandatos, as brasas acendem um país.</p>
+      <blockquote class="destaque"><svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#FFC72C"/></svg>Cada brasista é uma brasa.</blockquote>
+      <p class="curto">"Isso é utopia." É, sim. Toda nação que deu certo começou como a utopia de alguém.</p>
+      <p>Agora imagina. Um Brasil soberano e em paz, que não nasceu para ser satélite, mas para ser sol: o sol do Sul Global e do mundo. Trabalho valorizado, riqueza chegando a todos, pobreza extinta. Favelas reurbanizadas virando bairros prósperos, com casa digna, comércio forte e oportunidade em cada esquina. Todas as pessoas, de todos os gêneros e grupos sociais, seguras e livres para chegar aonde quiserem. Jovens prosperando, viajando, conquistando o mundo, construindo suas famílias e conquistando seu lar. Um Brasil que realinhou a sua história, encontrou as suas raízes e entrou nos trilhos do seu destino. Um Brasil potência.</p>
+      <p class="curto">Exagero? Exagero é achar que um país deste tamanho, com este povo, nasceu para dar errado.</p>
+      <p>Esse dia ainda não chegou. E só existe um caminho até ele: todos os brasileiros, de todas as realidades e regiões, num único projeto. Um Brasil, uma visão. Isso é Brasismo.</p>
+      <p>Se você chegou até aqui achando tudo lindo e impossível, ótimo. É com você mesmo que a gente quer falar. A luz já está aí dentro. Só falta acender.</p>
+      <p class="fecho">Pelos que vieram antes, pelos que ainda vão nascer e pelos sonhos de todos eles.</p>
+      <p class="fecho">O Brasil verdadeiro ainda há de raiar. E o Brasil que há de raiar depende de nós.</p>
+  </article>
+
+  <section class="pontos-sec" id="pontos">
+    <div class="dentro">
+      <p class="olho">Resumo</p>
+      <h2>Os 7 pontos do Brasismo</h2>
+      <ol class="pontos">
+        <li><span class="num">1</span><div><h3>Brasil no peito</h3><p>Um povo novo, feito de todos os povos. Nossa cultura, nossa fé e nossa festa são a nossa assinatura.</p></div></li>
+        <li><span class="num">2</span><div><h3>O Brasil não está à venda</h3><p>Soberania no conhecimento, na tecnologia e nos recursos. Vira-lata, nunca mais.</p></div></li>
+        <li><span class="num">3</span><div><h3>Nascemos para ser sol</h3><p>Pensar grande, por gerações e não por mandatos. O sol do Sul Global e do mundo.</p></div></li>
+        <li><span class="num">4</span><div><h3>Revolução de raiz</h3><p>Mudar tudo sem deixar de ser quem somos.</p></div></li>
+        <li><span class="num">5</span><div><h3>Cada brasista é uma brasa</h3><p>Juntas, acendem um país. Mobilização de baixo para cima, em cada canto do Brasil.</p></div></li>
+        <li><span class="num">6</span><div><h3>Ninguém se salva sozinho</h3><p>A família como base, e o bairro, o mutirão e a vizinhança como força.</p></div></li>
+        <li><span class="num">7</span><div><h3>Trabalho que vira prosperidade</h3><p>Prosperidade que vira paz. Quem dá duro merece colher. Pobreza zero e dignidade para todos.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="convite">
+    <div class="dentro convite-grade">
+      <h2>Seja <span>brasista.</span></h2>
+      <div>
+        <p>Se você quer um Brasil soberano e melhor, puxa uma cadeira: o lugar é seu.</p>
+        <div class="acoes">
+          <a class="botao verde grande" href="index.html#faca-parte">Quero me filiar <svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
+          <a class="botao amarelo grande" style="background:var(--creme)" href="index.html">Conhecer a BRASA</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape"><div class="dentro"><span>© 2026 BRASA. Um Brasil, uma visão.</span><a href="index.html">Voltar ao site</a></div></footer>
+
+<script>
+(function(){
+  const bar=document.getElementById('progresso');
+  const at=()=>{const h=document.documentElement.scrollHeight-innerHeight; bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`;};
+  addEventListener('scroll',at,{passive:true}); addEventListener('resize',at); at();
+})();
+</script>
+</body>
+</html>
