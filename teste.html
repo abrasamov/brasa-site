@@ -526,39 +526,31 @@ section[id]{scroll-margin-top:68px}
 
 
 /* ================= ABERTURA EM ROLAGEM (TESTE) ================= */
-.palco-hero{position:relative;height:300vh;background:var(--creme)}
+.palco-hero{position:relative;height:200vh;background:var(--creme)}
 .palco-fixo{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--creme);isolation:isolate}
-.los{position:absolute;left:50%;top:var(--los-y,70%);width:min(34vw,240px);translate:-50% -50%;transform-origin:center;z-index:-2}
-.los-sol{position:absolute;left:50%;top:var(--los-y,70%);width:min(18vw,128px);translate:-50% -50%;will-change:transform,opacity;z-index:-1}
-.sol-nasce{position:absolute;left:50%;bottom:0;width:min(120vw,780px,92vh);translate:-50% 100%;will-change:transform;z-index:-1;opacity:0}
-.sol-gira{transform-box:fill-box;transform-origin:center}
-.hero-txt{position:absolute;inset:0;display:flex;flex-direction:column;padding:calc(68px + clamp(28px,6vh,72px)) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));max-width:1280px;margin:0 auto}
+.hero-txt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:calc(68px + clamp(16px,3vh,32px)) max(16px,env(safe-area-inset-right,0px)) 72px max(16px,env(safe-area-inset-left,0px));max-width:1280px;margin:0 auto}
 .hero-olho2{font-weight:800;font-stretch:118%;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--verde);transition:color .4s;margin-bottom:18px}
 .frase-h{font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(46px,9.5vw,148px);line-height:.86;letter-spacing:-.025em;color:var(--verde);transition:color .4s}
 .frase-h .pal{display:inline-block;will-change:transform,opacity}
 .frase-h .br-m{display:none}
-.hero-fim{margin-top:clamp(22px,4vh,40px);max-width:46ch;display:flex;flex-direction:column;gap:22px;opacity:0;translate:0 20px;pointer-events:none}
-.hero-fim p{font-size:clamp(16px,1.4vw,19px);line-height:1.5;color:var(--creme)}
-.palco-fixo.final .hero-fim{pointer-events:auto}
-.palco-fixo.escuro .frase-h{color:var(--amarelo)}
-.palco-fixo.escuro .hero-olho2{color:var(--creme)}
-.role{position:absolute;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));translate:-50% 0;display:flex;align-items:center;gap:8px;
+.hero-fim{margin-top:clamp(22px,4vh,40px);max-width:46ch;display:flex;flex-direction:column;gap:22px}
+.hero-fim p{font-size:clamp(16px,1.4vw,19px);line-height:1.5;color:var(--verde-escuro)}
+.hero-fim .botao.contorno{color:var(--verde)}
+.hero-fim .botao.contorno:hover{background:var(--verde);color:var(--creme);border-color:var(--verde)}
+.hero-fim .botao.amarelo:hover{background:var(--verde);color:var(--creme)}
+.role{position:absolute;transition:opacity .2s;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));translate:-50% 0;display:flex;align-items:center;gap:8px;
   font-weight:800;font-stretch:115%;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--verde)}
 .role svg{animation:quica 1.4s ease-in-out infinite}
 @keyframes quica{50%{translate:0 5px}}
 @media (max-width:600px){
   .frase-h .br-m{display:inline}
-  .los{width:46vw}.los-sol{width:24vw}
 }
-/* sem animação: mostra o estado final direto */
+/* sem animação: frase já montada */
 @media (prefers-reduced-motion:reduce){
   .palco-hero{height:auto}
-  .palco-fixo{position:relative;height:auto;min-height:100svh;background:var(--verde)}
-  .los,.los-sol,.role{display:none}
-  .sol-nasce{opacity:1;translate:-50% 45%}
-  .hero-txt{position:relative;padding-bottom:42vh}
-  .frase-h{color:var(--amarelo)}.hero-olho2{color:var(--creme)}
-  .hero-fim{opacity:1;translate:0 0;pointer-events:auto}
+  .palco-fixo{position:relative;height:auto;min-height:100svh}
+  .hero-txt{position:relative;padding-bottom:12vh}
+  .role{display:none}
 }
 
 /* rodapé */
@@ -657,15 +649,6 @@ section[id]{scroll-margin-top:68px}
 <!-- ============ ABERTURA EM ROLAGEM (TESTE) ============ -->
 <section class="palco-hero" id="inicio" aria-label="Início">
   <div class="palco-fixo" id="palco-fixo">
-    <svg class="los" id="los" viewBox="-24 -24 848 578" aria-hidden="true">
-      <polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-    </svg>
-    <svg class="los-sol" id="los-sol" viewBox="-115 -115 230 230" aria-hidden="true">
-      <use href="#sol" fill="#D93A2B" transform="translate(9 8)"/><use href="#sol" fill="#FFC72C"/>
-    </svg>
-    <svg class="sol-nasce" id="sol-nasce" viewBox="-115 -115 230 230" aria-hidden="true">
-      <g class="sol-gira"><use href="#sol" fill="#D93A2B" transform="translate(6 5)"/><use href="#sol" fill="#FFC72C"/></g>
-    </svg>
     <div class="hero-txt">
       <p class="hero-olho2" id="hero-olho2">Brasismo · Plataforma cívica</p>
       <h1 class="frase-h" id="frase-h"><span class="pal" data-i="0">O</span> <span class="pal" data-i="1">Brasil</span><br><span class="pal" data-i="2">que</span> <span class="pal" data-i="3">há</span> <span class="pal" data-i="4">de</span> <br class="br-m"><span class="pal" data-i="5">raiar</span></h1>
@@ -1119,49 +1102,31 @@ const DIAS_PARA_MOSTRAR_DE_NOVO = 30;       // depois desse tempo a abertura vol
 })();
 
 
-/* ---------- abertura em rolagem: frase se monta, losango cresce, sol nasce ---------- */
+/* ---------- abertura em rolagem: a frase se monta ---------- */
 (function(){
   const sec=document.querySelector('.palco-hero'), palco=document.getElementById('palco-fixo'); if(!sec) return;
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const los=document.getElementById('los'), losSol=document.getElementById('los-sol'), solN=document.getElementById('sol-nasce'),
-        fim=document.getElementById('hero-fim'), role=document.getElementById('role'), pals=[...document.querySelectorAll('.frase-h .pal')];
+  const fim=document.getElementById('hero-fim'), role=document.getElementById('role'), pals=[...document.querySelectorAll('.frase-h .pal')];
   const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
   const fase=(p,a,b)=>cl((p-a)/(b-a));
   const suave=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   // de onde cada palavra vem (em vw/vh), para se montar no lugar
-  const origem=[[-38,-18,-14],[34,-26,10],[-30,22,-8],[42,14,16],[-46,8,-20],[24,34,12]];
+  const origem=[[-30,18,-14],[38,6,10],[-26,40,-8],[44,30,16],[-40,26,-20],[22,48,12]];
   let alvo=0, atual=0, raf=0;
   function desenha(p){
     const w=innerWidth, h=innerHeight;
-    // 1) frase se monta (0 → 0.28)
-    const t1=suave(fase(p,0,.28));
+    // a frase se monta ao rolar
+    const t1=suave(fase(p,0,.75));
     pals.forEach((el,i)=>{const [x,y,r]=origem[i%origem.length];
       el.style.transform=`translate(${x*(1-t1)}vw,${y*(1-t1)}vh) rotate(${r*(1-t1)}deg)`;
       el.style.opacity=(.12+.88*t1).toFixed(3);});
     role.style.opacity=(1-fase(p,0,.08)).toFixed(3);
-    // 2) losango cresce até cobrir a tela (0.26 → 0.62)
-    const t2=suave(fase(p,.22,.5));
-    const r=los.getBoundingClientRect(), W0=r.width/(parseFloat(los.dataset.s||1)), H0=W0*578/848;
-    const cy=parseFloat(getComputedStyle(palco).getPropertyValue('--los-y'))||70;
-    const yC=h*cy/100, needX=(w/2)/(W0/2), needY=Math.max(yC,h-yC)/(H0/2*0.9);
-    const S=1+(needX+needY)*1.08*t2;
-    los.dataset.s=S; los.style.transform=`scale(${S})`;
-    const tS=suave(fase(p,.2,.4));
-    losSol.style.transform=`scale(${1-tS}) rotate(${tS*-160}deg)`;
-    palco.classList.toggle('escuro',t2>.55);
-    // 3) o sol nasce no horizonte (0.55 → 0.88)
-    const t3=suave(fase(p,.36,.7));
-    solN.style.opacity=t3>0?1:0;
-    solN.style.translate=`-50% ${100-52*t3}%`;
-    // 4) texto final e botões (0.78 → 0.95)
-    const t4=fase(p,.62,.8);
-    fim.style.opacity=t4.toFixed(3); fim.style.translate=`0 ${20*(1-t4)}px`;
-    palco.classList.toggle('final',t4>.6);
+    const t2=fase(p,.6,.85); fim.style.opacity=t2.toFixed(3); fim.style.visibility=t2>0?'visible':'hidden';
   }
   function mede(){ const tot=sec.offsetHeight-innerHeight; alvo=tot>0?cl((scrollY-sec.offsetTop)/tot):0; }
   function loop(){ atual+= (alvo-atual)*0.18; if(Math.abs(alvo-atual)<.0005) atual=alvo; desenha(atual); raf= atual!==alvo ? requestAnimationFrame(loop) : 0; }
   function agenda(){ mede(); if(!raf) raf=requestAnimationFrame(loop); }
-  addEventListener('scroll',agenda,{passive:true}); addEventListener('resize',()=>{los.dataset.s=1; agenda();});
+  addEventListener('scroll',agenda,{passive:true}); addEventListener('resize',agenda);
   mede(); atual=alvo; desenha(atual);
 })();
 
