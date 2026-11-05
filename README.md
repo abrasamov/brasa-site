@@ -3,8 +3,7 @@
 *Um Brasil, uma visão.*
 
 Páginas:
-- `index.html` — início (tela de carregamento com os personagens e a frase de abertura).
-- `manifesto.html` — Brasismo: o Brasil que há de raiar.
+- `index.html` — manifesto (primeira página, com a tela de carregamento dos personagens).
 - `pontos.html` — os 7 pontos do Brasismo.
 - `primeiros-passos.html` — como a BRASA faz acontecer.
 - `faca-parte.html` — filiação.
