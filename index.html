@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BRASA - Plataforma cívica</title>
-<meta name="description" content="Brasismo: o Brasil que há de raiar. O manifesto da BRASA.">
+<meta name="description" content="BRASA - Plataforma cívica. Um Brasil, uma visão.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,700..900&family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 <style>
 /* ================= TELA DE CARREGAMENTO ================= */
@@ -45,19 +45,34 @@
 .pular{
   position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));right:calc(26px + env(safe-area-inset-right,0px));
   background:none;border:0;cursor:pointer;padding:8px;
-  font:700 12px/1 var(--mono);font-stretch:115%;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.6;
+  font:700 12px/1 var(--fonte);font-stretch:115%;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.6;
 }
 .pular:hover{opacity:1}
 @media (prefers-reduced-motion:reduce){.abertura.saindo{transform:none;opacity:0}}
 
 
-.titulo .sub{display:block;margin-top:.32em;font-family:var(--serif);font-style:italic;font-weight:400;font-stretch:100%;text-transform:none;letter-spacing:0;font-size:.42em;line-height:1.05}
-.texto p{font-size:clamp(20px,1.9vw,24px);line-height:1.42;margin-bottom:1em}
-.texto p em{font-style:italic;color:var(--vermelho)}
-.texto p.abre::first-letter{float:left;font-size:3.6em;line-height:.82;margin:.06em .08em 0 0;color:var(--vermelho)}
-.texto p.forte{font-style:italic;font-size:clamp(24px,2.4vw,30px);line-height:1.25;margin-block:1.2em}
-.fecho{padding-block:clamp(40px,7vw,88px) 0}
-.fecho .grande{font-size:clamp(40px,6.6vw,88px)}
+.palco-hero{position:relative;height:190vh}
+.palco-fixo{position:sticky;top:var(--topo-h,64px);height:calc(100vh - var(--topo-h,64px));height:calc(100svh - var(--topo-h,64px));overflow:hidden;display:flex;align-items:center}
+.hero-txt{width:100%}
+.frase-h{margin-top:16px;font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:clamp(46px,9.5vw,148px);line-height:.86;letter-spacing:-.025em;color:var(--verde)}
+.frase-h .pal{display:inline-block;will-change:transform,opacity}
+.frase-h .br-m{display:none}
+.hero-fim{margin-top:clamp(22px,4vh,40px);max-width:46ch;display:flex;flex-direction:column;gap:22px}
+.hero-fim p{font-size:clamp(17px,1.4vw,19px);line-height:1.5}
+.role{position:absolute;left:50%;bottom:20px;translate:-50% 0;display:flex;align-items:center;gap:8px;font-weight:800;font-stretch:115%;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--verde)}
+.role svg{animation:quica 1.4s ease-in-out infinite}
+@keyframes quica{50%{translate:0 5px}}
+.indice{padding-block:clamp(56px,8vw,96px)}
+.lista-indice{list-style:none;margin-top:18px;border-top:2px solid var(--verde)}
+.lista-indice a{display:grid;grid-template-columns:48px 1fr auto;grid-template-areas:"n b s" "n e s";column-gap:16px;align-items:center;padding:24px 0;border-bottom:1px solid var(--linha);text-decoration:none;color:var(--verde)}
+.lista-indice .n{grid-area:n;font-weight:900;font-size:18px;color:var(--vermelho)}
+.lista-indice b{grid-area:b;font-weight:900;font-stretch:122%;font-size:clamp(24px,3.2vw,40px);letter-spacing:-.01em}
+.lista-indice em{grid-area:e;font-style:normal;font-size:16px;color:var(--verde-escuro);opacity:.8;margin-top:4px}
+.lista-indice svg{grid-area:s;width:26px;height:26px;transition:transform .2s}
+.lista-indice a:hover svg{transform:translateX(6px)}
+.lista-indice a:hover b{color:var(--vermelho)}
+@media (max-width:600px){.frase-h .br-m{display:inline}.lista-indice a{grid-template-columns:32px 1fr auto}}
+@media (prefers-reduced-motion:reduce){.palco-hero{height:auto}.palco-fixo{position:relative;top:0;height:auto;padding-block:12vh}.role{display:none}}
 </style>
 </head>
 <body>
@@ -100,74 +115,54 @@
 </div>
 
 
-<header class="barra">
-  <div class="barra-dentro">
-    <a class="marca" href="./" aria-label="BRASA, manifesto"><svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg><b>BRASA</b></a>
-    <span class="onde" aria-hidden="true">Manifesto</span>
-    <nav aria-label="Seções">
-      <ul class="abas">
-        <li><a href="./" aria-current="page"><span class="l">Manifesto</span><span class="c" aria-hidden="true">Manifesto</span></a></li>
-        <li><a href="pontos.html"><span class="l">Os 7 pontos</span><span class="c" aria-hidden="true">7 pontos</span></a></li>
-        <li><a href="primeiros-passos.html"><span class="l">Os primeiros passos</span><span class="c" aria-hidden="true">Primeiros passos</span></a></li>
-        <li><a href="faca-parte.html"><span class="l">Faça parte</span><span class="c" aria-hidden="true">Faça parte</span></a></li>
-      </ul>
-    </nav>
+<header class="topo">
+  <div class="topo-dentro">
+    <a class="marca" href="./" aria-label="BRASA, página inicial"><svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg><span>BRASA</span></a>
+    <nav aria-label="Seções"><ul class="abas">
+      <li><a href="manifesto.html"><span class="l">Manifesto</span><span class="c" aria-hidden="true">Manifesto</span></a></li>
+      <li><a href="pontos.html"><span class="l">Os 7 pontos</span><span class="c" aria-hidden="true">7 pontos</span></a></li>
+      <li><a href="primeiros-passos.html"><span class="l">Os primeiros passos</span><span class="c" aria-hidden="true">Primeiros passos</span></a></li>
+      <li><a href="faca-parte.html"><span class="l">Faça parte</span><span class="c" aria-hidden="true">Faça parte</span></a></li>
+    </ul></nav>
   </div>
 </header>
 <main>
-  <header class="cabeca largo">
-    <p class="trilha">BRASA / Manifesto</p>
-    <h1 class="titulo">Brasismo<span class="sub">O Brasil que há de raiar</span></h1>
-    <p class="legenda">Manifesto da BRASA · Plataforma cívica</p>
-  </header>
-  <div class="coluna texto">
-    <p class="abre">Todo dia alguém te diz que o Brasil não tem jeito. No jornal, no grupo da família, na fila do banco. “Isso aqui é uma porcaria.” “O negócio é ir embora.” De tanto ouvir, a gente quase acredita. Quem nunca disse isso num dia ruim? E, enquanto isso, num escritório com vista para outro país, alguém bate o martelo e coloca o Brasil em leilão. Terra, riqueza, futuro. Tudo com desconto.</p>
-    <p>Mas repara: mesmo cansado, você levanta. Antes do sol, milhões de brasileiros abrem a portinha do comércio, pegam o primeiro ônibus, estudam mais uma hora antes do expediente. Se você é um deles, saiba: você é a prova viva de que o Brasil tem jeito.</p>
-    <p>Somos um povo novo. Indígenas, africanos, portugueses, italianos, japoneses, árabes, alemães, tudo no mesmo caldeirão, mexido pelas mães e avós e temperado na reza, na comida e nas histórias de antes de dormir. Não somos cópia de ninguém. Ganhamos uma terra imensa e um destino do mesmo tamanho. E, mesmo assim, estamos a derivar, perdidos no espaço e no tempo. Não por azar, mas por escolha. Copiamos o que vem de fora, esquecemos o que é nosso, e cada um foi cuidar do seu quintal. Nelson Rodrigues deu nome a isso: <em>complexo de vira-latas</em>, a inferioridade em que o brasileiro se coloca voluntariamente. Voluntariamente. Então dá para sair dela do mesmo jeito: por vontade própria.</p>
-    <p>Olha em volta. O motoboy que corta a cidade para a sua comida chegar quente. O servente de pedreiro que levanta a casa dos outros antes da dele. A mãe que cria os filhos sozinha e ainda sonha por eles. Gente que dá duro, faz certo e não desiste. Com todo o descalabro, o brasileiro ainda tenta. O Brasil não funciona apesar dele, funciona por causa dele. Esse é o Brasil virtuoso. Tem mais gente boa do que ruim, em toda classe e em todo canto. Só não dá manchete.</p>
-    <p>E esse Brasil tem raiz: na festa e na procissão, no mutirão, na roda, no terreiro, na igreja, na mesa de domingo que nunca tem cadeira suficiente. Tradição não é guardar cinzas, é manter a brasa acesa. Ninguém chega ao mundo fugindo de casa. Chega mergulhando no que é seu.</p>
-  </div>
-  <blockquote class="citacao">Tradição não é guardar cinzas, é manter a <span class="brasa">brasa</span> acesa.<cite>Brasismo · Raiz</cite></blockquote>
-  <div class="coluna texto">
-    <p>Existe uma luz, como um sol, chamando a gente para algo maior que qualquer projeto individual. Ela está no trabalhador e no empreendedor, na professora e no pesquisador, no agricultor e no jovem da periferia. Do Oiapoque ao Chuí, é a mesma luz. A gente só esqueceu de reparar.</p>
-    <p>É dessa luz que nasce o Brasismo: um movimento de ação e otimismo com o país. O antídoto para o complexo de vira-lata. Otimismo sem ação é só torcida. Ação sem otimismo é só cansaço. Brasismo é os dois juntos. Brasista é quem ama o Brasil e arregaça as mangas. Se você quer um Brasil soberano e melhor, puxa uma cadeira: o lugar é seu. Somos irmãos de pátria. Nosso adversário não é o vizinho que pensa diferente. É o leiloeiro, quem olha para a nossa terra, o nosso conhecimento e o nosso futuro e só enxerga uma etiqueta de preço. Recado dado: o Brasil não está à venda.</p>
-  </div>
-  <blockquote class="citacao">Recado dado: o Brasil não está à venda.<cite>Brasismo · Soberania</cite></blockquote>
-  <div class="coluna texto">
-    <p>Por isso o Brasismo propõe uma revolução. Não a que derruba tudo, mas a que restaura. Uma revolução de raiz, que puxa a seiva lá do fundo para fazer crescer a árvore mais alta. Restaurar o orgulho, a comunidade, o valor do trabalho e o comando sobre o nosso destino, com conhecimento, tecnologia e os recursos que são nossos.</p>
-    <p>E essa revolução não vai descer de Brasília embrulhada para presente. Ela sobe: do bairro, da escola, da universidade, da igreja, do coletivo, da empresa, da associação de moradores. Cada brasista é uma brasa. Sozinha, uma brasa aquece. Juntas, em rede, por gerações e não por mandatos, as brasas acendem um país.</p>
-  </div>
-  <blockquote class="citacao">Cada brasista é uma brasa.<cite>Brasismo · Mobilização</cite></blockquote>
-  <div class="coluna texto">
-    <p class="forte">“Isso é utopia.” É, sim. Toda nação que deu certo começou como a utopia de alguém.</p>
-    <p>Agora imagina. Um Brasil soberano e em paz, que não nasceu para ser satélite, mas para ser sol: o sol do Sul Global e do mundo. Trabalho valorizado, riqueza chegando a todos, pobreza extinta. Favelas reurbanizadas virando bairros prósperos, com casa digna, comércio forte e oportunidade em cada esquina. Todas as pessoas, de todos os gêneros e grupos sociais, seguras e livres para chegar aonde quiserem. Jovens prosperando, viajando, conquistando o mundo, construindo suas famílias e conquistando seu lar. Um Brasil que realinhou a sua história, encontrou as suas raízes e entrou nos trilhos do seu destino. Um Brasil potência.</p>
-    <p class="forte">Exagero? Exagero é achar que um país deste tamanho, com este povo, nasceu para dar errado.</p>
-    <p>Esse dia ainda não chegou. E só existe um caminho até ele: todos os brasileiros, de todas as realidades e regiões, num único projeto. Um Brasil, uma visão. Isso é Brasismo.</p>
-    <p>Se você chegou até aqui achando tudo lindo e impossível, ótimo. É com você mesmo que a gente quer falar. A luz já está aí dentro. Só falta acender.</p>
-    <p>Pelos que vieram antes, pelos que ainda vão nascer e pelos sonhos de todos eles.</p>
-  </div>
-  <section class="fecho largo" aria-label="Encerramento">
-    <p class="grande">O Brasil verdadeiro ainda há de raiar. E o Brasil que há de raiar depende de nós.</p>
+  <section class="palco-hero" aria-label="Início">
+    <div class="palco-fixo" id="palco-fixo">
+      <div class="hero-txt largura">
+        <p class="olho">Brasismo · Plataforma cívica</p>
+        <h1 class="frase-h"><span class="pal">O</span> <span class="pal">Brasil</span><br><span class="pal">que</span> <span class="pal">há</span> <span class="pal">de</span> <br class="br-m"><span class="pal">raiar</span></h1>
+        <div class="hero-fim" id="hero-fim">
+          <p>Um movimento de ação e otimismo com o país. Otimismo sem ação é só torcida. Ação sem otimismo é só cansaço. Brasismo é os dois juntos.</p>
+          <div class="botoes">
+            <a class="botao cheio" href="manifesto.html">Ler o manifesto <svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
+            <a class="botao contorno" href="faca-parte.html">Quero me filiar</a>
+          </div>
+        </div>
+      </div>
+      <p class="role" id="role">Role <svg width="16" height="16" aria-hidden="true" style="rotate:90deg"><use href="#seta"/></svg></p>
+    </div>
   </section>
-  <div class="largo proximas">
-    <a href="pontos.html"><div class="janela ">
-      <div class="janela-barra"><i aria-hidden="true"></i><span>Os 7 pontos</span></div>
-      <div class="janela-corpo"><h3>Os 7 pontos do Brasismo</h3><p>O manifesto em sete pontos, um por um.</p><span class="ir">Abrir <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></span></div>
-    </div></a>
-    <a href="faca-parte.html"><div class="janela ">
-      <div class="janela-barra"><i aria-hidden="true"></i><span>Faça parte</span></div>
-      <div class="janela-corpo"><h3>Seja brasista</h3><p>Puxa uma cadeira: o lugar é seu.</p><span class="ir">Quero me filiar <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></span></div>
-    </div></a>
-  </div>
+
+  <section class="indice largura" aria-labelledby="comece">
+    <p class="olho" id="comece">Comece por aqui</p>
+    <ol class="lista-indice">
+      <li><a href="manifesto.html"><span class="n">1</span><b>Manifesto</b><em>O texto que dá origem ao Brasismo.</em><svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a></li>
+      <li><a href="pontos.html"><span class="n">2</span><b>Os 7 pontos</b><em>Os pontos que guiam o movimento, um por um.</em><svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a></li>
+      <li><a href="primeiros-passos.html"><span class="n">3</span><b>Os primeiros passos</b><em>Como a BRASA transforma ideias em impacto.</em><svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a></li>
+      <li><a href="faca-parte.html"><span class="n">4</span><b>Faça parte</b><em>Seja brasista. O lugar é seu.</em><svg width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a></li>
+    </ol>
+  </section>
 </main>
-<div class="faixa" aria-hidden="true"><div class="faixa-trilho"><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i><span>Um Brasil, uma visão</span><i>◆</i></div></div>
 <footer class="rodape">
-  <nav aria-label="Rodapé"><ul>
-    <li><a href="./">Manifesto</a></li><li><a href="pontos.html">Os 7 pontos</a></li><li><a href="primeiros-passos.html">Os primeiros passos</a></li><li><a href="faca-parte.html">Faça parte</a></li>
-  </ul></nav>
-  <p>© 2026 BRASA · Plataforma cívica</p>
+  <div class="largura rodape-dentro">
+    <a class="marca" href="./" aria-label="BRASA, página inicial"><svg aria-hidden="true" viewBox="-24 -24 848 578"><use href="#logo-mini"/></svg><span>BRASA</span></a>
+    <p>Um Brasil, uma visão.</p>
+    <p class="rodape-c">© 2026 BRASA · Plataforma cívica</p>
+  </div>
 </footer>
 <script>
+(function(){const t=document.querySelector('.topo'); const f=()=>document.documentElement.style.setProperty('--topo-h',t.offsetHeight+'px'); f(); addEventListener('resize',f);})();
 /* ============ CONFIGURE AQUI ============ */
 const PERSONAGENS = [
   'personagens/torcedor.webp',
@@ -256,6 +251,34 @@ const DIAS_PARA_MOSTRAR_DE_NOVO = 30;       // depois desse tempo a abertura vol
     sair();
   }
   setTimeout(abrir, 150);
+})();
+
+/* ---------- abertura em rolagem: a frase se monta ---------- */
+(function(){
+  const sec=document.querySelector('.palco-hero'), palco=document.getElementById('palco-fixo'); if(!sec) return;
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const fim=document.getElementById('hero-fim'), role=document.getElementById('role'), pals=[...document.querySelectorAll('.frase-h .pal')];
+  const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+  const fase=(p,a,b)=>cl((p-a)/(b-a));
+  const suave=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  // de onde cada palavra vem (em vw/vh), para se montar no lugar
+  const origem=[[-30,18,-14],[38,6,10],[-26,40,-8],[44,30,16],[-40,26,-20],[22,48,12]];
+  let alvo=0, atual=0, raf=0;
+  function desenha(p){
+    const w=innerWidth, h=innerHeight;
+    // a frase se monta ao rolar
+    const t1=suave(fase(p,0,.75));
+    pals.forEach((el,i)=>{const [x,y,r]=origem[i%origem.length];
+      el.style.transform=`translate(${x*(1-t1)}vw,${y*(1-t1)}vh) rotate(${r*(1-t1)}deg)`;
+      el.style.opacity=(.12+.88*t1).toFixed(3);});
+    role.style.opacity=(1-fase(p,0,.08)).toFixed(3);
+    const t2=fase(p,.6,.85); fim.style.opacity=t2.toFixed(3); fim.style.visibility=t2>0?'visible':'hidden';
+  }
+  function mede(){ const tot=sec.offsetHeight-innerHeight; alvo=tot>0?cl((scrollY-sec.offsetTop)/tot):0; }
+  function loop(){ atual+= (alvo-atual)*0.18; if(Math.abs(alvo-atual)<.0005) atual=alvo; desenha(atual); raf= atual!==alvo ? requestAnimationFrame(loop) : 0; }
+  function agenda(){ mede(); if(!raf) raf=requestAnimationFrame(loop); }
+  addEventListener('scroll',agenda,{passive:true}); addEventListener('resize',agenda);
+  mede(); atual=alvo; desenha(atual);
 })();
 </script>
 </body>
