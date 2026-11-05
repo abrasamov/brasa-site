@@ -1,8 +1,13 @@
-# BRASA — site provisório
+# BRASA — Plataforma cívica
 
-Plataforma cívica. *Um Brasil, uma visão.*
+*Um Brasil, uma visão.*
 
-- `index.html` — página única (abertura animada, narrativa em capítulos, mapa interativo da rede).
-- `personagens/` — animações dos personagens da tela de carregamento.
+Páginas:
+- `index.html` — início (tela de carregamento com os personagens e a frase de abertura).
+- `manifesto.html` — Brasismo: o Brasil que há de raiar.
+- `pontos.html` — os 7 pontos do Brasismo.
+- `primeiros-passos.html` — como a BRASA faz acontecer.
+- `faca-parte.html` — filiação.
+- `estilo.css` — estilo comum; `personagens/` — animações da abertura.
 
 Publicado com GitHub Pages a partir da branch `main`.
