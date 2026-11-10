@@ -116,6 +116,9 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
 .faixa-verde{background:var(--verde);color:var(--amarelo);border-block:3px solid var(--tinta)}
 .faixa-verde .faixa-trilho{padding:16px 0;animation-duration:50s}
 .faixa-verde span{font-size:clamp(15px,1.6vw,20px)}.faixa-verde i{color:var(--vermelho)}
+.faixa-vermelha{background:var(--vermelho);color:var(--branco);border-block:3px solid var(--tinta)}
+.faixa-vermelha .faixa-trilho{padding:14px 0;animation-duration:55s;animation-direction:reverse}
+.faixa-vermelha span{font-size:clamp(14px,1.5vw,18px)}.faixa-vermelha i{color:var(--amarelo)}
 @media (prefers-reduced-motion:reduce){.faixa-trilho{animation:none}}
 
 /* ---------- barra ---------- */
@@ -227,8 +230,11 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
 .losango-n b{transform:rotate(-45deg);font-family:var(--display);font-weight:800;font-size:22px}
 .l-amarelo{background:var(--amarelo);color:var(--verde)}
 .l-vermelho{background:var(--vermelho);color:var(--branco)}
-.passo h3{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,30px);color:var(--creme)}
-.passo p{margin-top:6px;font-size:17px;opacity:.9;max-width:44ch}
+.passo h3{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,30px);color:var(--verde)}
+.passo p{margin-top:6px;font-size:17px;max-width:44ch}
+.como-fazer .losango-n{box-shadow:4px 4px 0 var(--verde)}
+.como-fazer .destaque-amarelo{color:var(--verde);text-shadow:none;background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo) 92%,transparent 92%);padding:0 .08em}
+.estrela-cf{right:-30px;top:40px}
 @media (max-width:640px){.passo:nth-child(2),.passo:nth-child(3){margin-left:0}.passo{grid-template-columns:64px 1fr;gap:16px}.losango-n{width:50px;height:50px}}
 
 /* onde atuamos */
@@ -317,10 +323,10 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     <a class="marca" href="#inicio" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
     <nav aria-label="Seções">
       <ul class="menu" id="menu">
+        <li><a href="#como-fazer">Como fazer</a></li>
         <li><a href="#espirito">O espírito</a></li>
         <li><a href="#bandeiras">Bandeiras</a></li>
         <li><a href="#circulos">Círculos</a></li>
-        <li><a href="#como-funciona">Como funciona</a></li>
         <li><a href="#onde-atuamos">Onde atuamos</a></li>
       </ul>
     </nav>
@@ -342,15 +348,13 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
         <p class="hero-p">A BRASA existe para encontrar quem é capaz, em todas as cidades, e colocar essa gente para trabalhar junta.</p>
         <div class="botoes">
           <a class="botao b-verde" href="#faca-parte">Faça parte da BRASA <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
-          <a class="botao b-contorno" href="#como-funciona">Como funciona</a>
+          <a class="botao b-contorno" href="#como-fazer">Como fazer</a>
         </div>
       </div>
     </div>
     <svg class="estrela estrela-he" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
     <svg class="estrela estrela-hd" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
   </section>
-
-  <div class="faixa faixa-verde" aria-hidden="true"><div class="faixa-trilho"><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i></div></div>
 
   <!-- ============ A PERGUNTA ============ -->
   <section class="secao s-verde pergunta" id="pergunta">
@@ -362,6 +366,22 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
       <p class="etiqueta e-amarelo e-bloco">A BRASA existe para encontrá-los e colocá-los para trabalhar juntos.</p>
     </div>
   </section>
+
+  <!-- ============ COMO FAZER ============ -->
+  <section class="secao s-creme como-fazer" id="como-fazer">
+    <div class="dentro">
+      <p class="olho">Como fazer</p>
+      <h2>Da ideia ao <span class="destaque-amarelo">impacto</span></h2>
+      <ol class="passos">
+      <li class="passo"><span class="losango-n l-amarelo"><b>1</b></span><div><h3>Ideias</h3><p>Propostas, pesquisas e debate mostram o que o país precisa.</p></div></li>
+      <li class="passo"><span class="losango-n l-amarelo"><b>2</b></span><div><h3>Projetos</h3><p>Ideias formadas ganham apoio e são desenvolvidas pelo povo.</p></div></li>
+      <li class="passo"><span class="losango-n l-vermelho"><b>3</b></span><div><h3>Influência</h3><p>Resultados viram políticas públicas, pilotos que escalam e lideranças em rede.</p></div></li>
+      </ol>
+    </div>
+    <svg class="estrela estrela-cf" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
+  </section>
+
+  <div class="faixa faixa-verde" aria-hidden="true"><div class="faixa-trilho"><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i></div></div>
 
   <!-- ============ O ESPÍRITO ============ -->
   <section class="secao s-creme" id="espirito">
@@ -416,19 +436,7 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     </div>
   </section>
 
-  <!-- ============ COMO FUNCIONA ============ -->
-  <section class="secao s-verde" id="como-funciona">
-    <span class="canto canto-e" aria-hidden="true"></span>
-    <div class="dentro">
-      <p class="olho">Como funciona</p>
-      <h2>Da ideia ao <span class="destaque-amarelo">impacto</span></h2>
-      <ol class="passos">
-      <li class="passo"><span class="losango-n l-amarelo"><b>1</b></span><div><h3>Ideias</h3><p>Propostas, pesquisas e debate mostram o que o país precisa.</p></div></li>
-      <li class="passo"><span class="losango-n l-amarelo"><b>2</b></span><div><h3>Projetos</h3><p>Ideias formadas ganham apoio e são desenvolvidas pelo povo.</p></div></li>
-      <li class="passo"><span class="losango-n l-vermelho"><b>3</b></span><div><h3>Influência</h3><p>Resultados viram políticas públicas, pilotos que escalam e lideranças em rede.</p></div></li>
-      </ol>
-    </div>
-  </section>
+  <div class="faixa faixa-vermelha" aria-hidden="true"><div class="faixa-trilho"><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i></div></div>
 
   <!-- ============ ONDE ATUAMOS ============ -->
   <section class="secao s-creme" id="onde-atuamos">
@@ -475,7 +483,7 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     </div>
     <div>
       <p class="rodape-t">Navegue</p>
-      <ul><li><a href="#espirito">O espírito</a></li><li><a href="#bandeiras">Bandeiras</a></li><li><a href="#circulos">Círculos</a></li><li><a href="#como-funciona">Como funciona</a></li><li><a href="#onde-atuamos">Onde atuamos</a></li><li><a href="#faca-parte">Faça parte</a></li></ul>
+      <ul><li><a href="#como-fazer">Como fazer</a></li><li><a href="#espirito">O espírito</a></li><li><a href="#bandeiras">Bandeiras</a></li><li><a href="#circulos">Círculos</a></li><li><a href="#onde-atuamos">Onde atuamos</a></li><li><a href="#faca-parte">Faça parte</a></li></ul>
     </div>
   </div>
   <div class="rodape-faixa"><span>Ideias</span><i></i><span>Projetos</span><i></i><span>Influência</span></div>
