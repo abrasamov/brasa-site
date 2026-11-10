@@ -2,7 +2,11 @@
 
 *O Brasil tem talento de sobra. Falta juntar.*
 
-- `index.html` — página única: tela de carregamento com os personagens, apresentação, o espírito da BRASA, bandeiras, círculos de influência, como funciona, onde atuamos e faça parte.
-- `personagens/` — animações da tela de carregamento.
+Páginas:
+- `index.html` — início: tela de carregamento, apresentação, a pergunta, como fazer, o espírito, bandeiras, círculos, onde atuamos, chamadas para Manifesto e Artigos, e convite.
+- `manifesto.html` — manifesto (esqueleto, texto em breve).
+- `artigos.html` — índice dos artigos do Substack da BRASA (esqueleto).
+- `faca-parte.html` — filiação (esqueleto do cadastro).
+- `estilo.css` — estilo comum; `personagens/` — animações da abertura.
 
 Publicado com GitHub Pages a partir da branch `main`.

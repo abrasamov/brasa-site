@@ -10,268 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..900&family=Lexend:wght@300..700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="personagens/torcedor.webp">
-<style>
-/* =====================================================================
-   BRASA — site (estrutura inspirada em manifesto de movimento;
-   identidade do carrossel: Unbounded + Lexend, creme, verde, amarelo, vermelho,
-   etiquetas com sombra dura, numerais vazados, estrelas do sol)
-   ===================================================================== */
-:root{
-  --creme:#F3E9D2;--creme-2:#EADDBE;--verde:#0E5130;--verde-escuro:#0A3A23;--tinta:#0B2A1A;
-  --amarelo:#FFC72C;--vermelho:#E0262E;--branco:#FFFAF0;
-  --display:'Unbounded','Arial Black',system-ui,sans-serif;
-  --texto:'Lexend',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --sombra:6px 6px 0;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{background:var(--creme);color:var(--tinta);font-family:var(--texto);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--vermelho);outline-offset:3px}
-html.carregando{overflow:hidden}
-.dentro{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.estreito{max-width:860px}
-.pular-conteudo{position:absolute;left:-999px;top:8px;z-index:200;background:var(--amarelo);padding:10px 14px;font-weight:700}
-.pular-conteudo:focus{left:12px}
-/* ================= TELA DE CARREGAMENTO ================= */
-.abertura{
-  position:fixed;inset:0;z-index:1000;background:var(--creme);color:var(--verde);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 16px;text-align:center;cursor:pointer;
-  transition:transform .8s cubic-bezier(.76,0,.24,1),opacity .5s ease;
-}
-.abertura.saindo{transform:translateY(-100%)}
-.abertura.fim{display:none}
-.cena{position:relative;width:100%;height:min(340px,44vh)}
-.boneco{
-  position:absolute;left:50%;top:0;height:100%;aspect-ratio:1/1;translate:-50% 0;
-  background-repeat:no-repeat;background-size:2400% 100%;mix-blend-mode:multiply;
-  transition:opacity .2s ease,scale .3s cubic-bezier(.5,0,.75,0);
-}
-.cena.sai-boneco .boneco{opacity:0;scale:.85}
-.logo{position:absolute;left:50%;top:50%;height:86%;max-width:calc(100vw - 40px);translate:-50% -50%;overflow:visible}
-.logo .losango{transform-box:fill-box;transform-origin:center;scale:0;transition:scale .55s cubic-bezier(.34,1.4,.64,1)}
-.logo .sol{transform-box:fill-box;transform-origin:center;opacity:0;scale:.2;rotate:-140deg;
-  transition:opacity .2s ease,scale .6s cubic-bezier(.34,1.56,.64,1),rotate .8s cubic-bezier(.2,.8,.2,1)}
-.logo .sombra{transition:transform .5s .25s cubic-bezier(.2,.8,.2,1)}
-.logo .gira{transform-box:fill-box;transform-origin:center}
-.cena.mostra-sol .sol{opacity:1;scale:1;rotate:0deg}
-.cena.mostra-sol .sombra{transform:translate(10px,9px)}
-.cena.mostra-logo .losango{scale:1}
-.cena.mostra-logo .gira{animation:giro 50s linear .5s infinite}
-@keyframes giro{to{transform:rotate(360deg)}}
-.nome-marca{margin-top:clamp(14px,2.4vh,26px);font-weight:900;font-stretch:125%;font-size:clamp(28px,4.4vw,52px);letter-spacing:.14em;padding-left:.14em;line-height:1}
-.frase{margin-top:clamp(12px,2vh,20px);font-weight:500;font-stretch:112%;font-size:clamp(17px,2vw,24px);letter-spacing:-.01em}
-.nome-marca,.frase{opacity:0;translate:0 14px;transition:opacity .5s ease,translate .6s cubic-bezier(.2,.7,.2,1)}
-.abertura.texto .nome-marca{opacity:1;translate:0 0}
-.abertura.texto .frase{opacity:1;translate:0 0;transition-delay:.12s}
-.pular{
-  position:absolute;bottom:calc(26px + env(safe-area-inset-bottom,0px));right:calc(26px + env(safe-area-inset-right,0px));
-  background:none;border:0;cursor:pointer;padding:8px;
-  font:700 12px/1 var(--texto);font-stretch:115%;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);opacity:.6;
-}
-.pular:hover{opacity:1}
-@media (prefers-reduced-motion:reduce){.abertura.saindo{transform:none;opacity:0}}
-
-
-
-/* ---------- tipografia ---------- */
-.olho{font-family:var(--texto);font-weight:600;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--vermelho);margin-bottom:16px}
-h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.06;text-wrap:balance}
-h2{font-size:clamp(30px,4.2vw,54px);color:var(--verde)}
-h3{font-family:var(--texto);font-weight:700;line-height:1.25}
-.p-grande{font-size:clamp(18px,1.6vw,21px);line-height:1.5}
-mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo) 92%,transparent 92%);color:inherit;padding:0 .08em}
-.destaque-amarelo{color:var(--amarelo);text-shadow:4px 4px 0 var(--vermelho)}
-
-/* ---------- etiqueta com sombra dura ---------- */
-.etiqueta{display:inline-block;font-family:var(--display);font-weight:800;border-radius:10px;padding:.12em .42em .18em;box-shadow:var(--sombra) var(--vermelho);transform:rotate(-2deg)}
-.e-verde{background:var(--verde);color:var(--creme)}
-.e-amarelo{background:var(--amarelo);color:var(--verde)}
-.e-bloco{display:block;transform:none;font-family:var(--texto);font-weight:700;font-size:clamp(18px,1.7vw,22px);line-height:1.4;padding:18px 22px;margin-top:28px}
-
-/* ---------- botões ---------- */
-.botoes{display:flex;flex-wrap:wrap;gap:14px}
-.botao{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:12px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.01em;border:2px solid var(--verde);transition:transform .12s,box-shadow .12s,background .15s}
-.botao:hover{transform:translate(-2px,-2px)}
-.botao:active{transform:translate(3px,3px);box-shadow:0 0 0 transparent!important}
-.botao .i-seta{transition:transform .15s}.botao:hover .i-seta{transform:translateX(3px)}
-.b-verde{background:var(--verde);color:var(--creme);box-shadow:5px 5px 0 var(--vermelho)}
-.b-verde:hover{box-shadow:7px 7px 0 var(--vermelho)}
-.b-amarelo{background:var(--amarelo);color:var(--verde);border-color:var(--verde);box-shadow:5px 5px 0 var(--verde)}
-.b-amarelo:hover{box-shadow:7px 7px 0 var(--verde)}
-.b-contorno{background:transparent;color:var(--verde)}
-.b-contorno:hover{background:var(--verde);color:var(--creme)}
-.b-pequeno{padding:10px 16px;font-size:13px;box-shadow:4px 4px 0 var(--verde)}
-.b-grande{padding:20px 30px;font-size:17px}
-
-/* ---------- faixas corridas ---------- */
-.faixa{overflow:hidden;white-space:nowrap}
-.faixa-trilho{display:inline-flex;align-items:center;gap:26px;padding:10px 0;animation:corre 70s linear infinite}
-.faixa span{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
-.faixa i{font-style:normal;font-size:11px}
-@keyframes corre{to{transform:translateX(-50%)}}
-.faixa-topo{background:var(--tinta);color:var(--creme)}.faixa-topo i{color:var(--amarelo)}
-.faixa-verde{background:var(--verde);color:var(--amarelo);border-block:3px solid var(--tinta)}
-.faixa-verde .faixa-trilho{padding:16px 0;animation-duration:50s}
-.faixa-verde span{font-size:clamp(15px,1.6vw,20px)}.faixa-verde i{color:var(--vermelho)}
-.faixa-vermelha{background:var(--vermelho);color:var(--branco);border-block:3px solid var(--tinta)}
-.faixa-vermelha .faixa-trilho{padding:14px 0;animation-duration:55s;animation-direction:reverse}
-.faixa-vermelha span{font-size:clamp(14px,1.5vw,18px)}.faixa-vermelha i{color:var(--amarelo)}
-@media (prefers-reduced-motion:reduce){.faixa-trilho{animation:none}}
-
-/* ---------- barra ---------- */
-.topo{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:var(--creme);border-bottom:2px solid var(--verde)}
-.topo-dentro{max-width:1200px;margin:0 auto;height:72px;display:flex;align-items:center;gap:22px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.marca{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--verde);margin-right:auto}
-.marca svg{width:48px;height:auto;display:block}
-.marca span{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.14em}
-.menu{list-style:none;display:flex;gap:4px}
-.menu a{display:block;padding:8px 12px;text-decoration:none;font-family:var(--texto);font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--verde);border-bottom:3px solid transparent}
-.menu a:hover{border-bottom-color:var(--amarelo)}
-.menu a.ativo{border-bottom-color:var(--vermelho)}
-.menu-botao{display:none;width:46px;height:46px;border:2px solid var(--verde);border-radius:10px;background:transparent;color:var(--verde);cursor:pointer;place-items:center}
-.menu-botao line{transition:transform .25s,opacity .2s;transform-box:fill-box;transform-origin:center}
-.topo.aberto .menu-botao .l1{transform:translateY(5px) rotate(45deg)}
-.topo.aberto .menu-botao .l2{opacity:0}
-.topo.aberto .menu-botao .l3{transform:translateY(-5px) rotate(-45deg)}
-@media (max-width:1000px){
-  .menu-botao{display:grid}
-  .topo-dentro{gap:12px}
-  nav[aria-label="Seções"]{position:absolute;left:0;right:0;top:100%;background:var(--creme);border-bottom:2px solid var(--verde);display:none}
-  .topo.aberto nav[aria-label="Seções"]{display:block}
-  .menu{flex-direction:column;padding:10px max(20px,env(safe-area-inset-left,0px)) 18px}
-  .menu a{padding:14px 4px;font-size:15px;border-bottom:1px solid rgba(14,81,48,.15)}
-}
-
-/* ---------- elementos do carrossel ---------- */
-.canto{position:absolute;top:0;width:clamp(90px,14vw,190px);aspect-ratio:3/2;background:var(--vermelho);z-index:0;pointer-events:none}
-.canto-d{right:0;clip-path:polygon(0 0,100% 0,100% 100%)}
-.canto-e{left:0;clip-path:polygon(0 0,100% 0,0 100%)}
-.estrela{position:absolute;width:clamp(90px,12vw,160px);pointer-events:none;z-index:0}
-.contorno{font-family:var(--display);font-weight:800;color:transparent;-webkit-text-stroke:2px var(--verde);text-shadow:none;font-size:clamp(44px,5vw,64px);line-height:.9}
-
-/* ---------- seções ---------- */
-.secao{position:relative;padding-block:clamp(72px,10vw,128px);overflow:hidden}
-.secao > .dentro{position:relative;z-index:1}
-.s-creme{background:var(--creme)}
-.s-verde{background:var(--verde);color:var(--creme)}
-.s-verde h2{color:var(--creme)}
-.s-verde .olho{color:var(--amarelo)}
-.s-escuro{background:var(--tinta);color:var(--creme)}
-.duas{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px);align-items:start}
-.duas-meio{align-items:center}
-.duas > *{min-width:0}
-@media (max-width:900px){.duas{grid-template-columns:1fr}}
-
-/* hero */
-.hero{position:relative;overflow:hidden;padding-block:clamp(64px,10vw,128px) clamp(72px,10vw,136px)}
-.estrela-hd{right:clamp(-40px,-2vw,-10px);top:52%;width:clamp(140px,22vw,320px);opacity:.95}
-.hero-grade{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
-.hero-grade > *{min-width:0}
-.hero h1{font-size:clamp(42px,7.4vw,104px);color:var(--verde);line-height:1.02;max-width:14ch}
-.hero h1 .etiqueta{margin-top:.18em;font-size:.86em}
-.hero-p{margin-top:30px;max-width:42ch;font-size:clamp(18px,1.6vw,21px)}
-.hero .botoes{margin-top:34px}
-@keyframes gira{to{rotate:360deg}}
-.estrela-he{left:-30px;bottom:-40px}
-@media (max-width:700px){.estrela-hd{top:auto;bottom:-50px;right:-40px;width:150px}}
-/* pergunta */
-.interroga{font-family:var(--display);font-weight:900;font-size:clamp(90px,12vw,150px);line-height:.8;color:var(--amarelo);text-shadow:7px 7px 0 var(--vermelho);margin-bottom:22px}
-.pergunta h2{font-size:clamp(28px,4vw,52px)}
-.pergunta .p-grande{margin-top:24px;opacity:.9}
-
-/* espírito */
-.lista-esp{list-style:none;display:grid;gap:30px;padding-top:8px}
-.lista-esp li{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}
-.lista-esp li:nth-child(3) .contorno{-webkit-text-stroke-color:var(--verde);color:var(--amarelo)}
-.lista-esp h3{font-size:clamp(19px,1.7vw,22px);color:var(--verde)}
-.lista-esp p{margin-top:6px;font-size:17px;opacity:.85}
-.estrela-ee{right:-34px;bottom:-30px}
-
-/* bandeiras */
-#bandeiras h2{max-width:16ch}
-.cartoes{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:clamp(36px,5vw,56px)}
-.cartao{display:flex;flex-direction:column;gap:14px;padding:26px 22px 28px;border-radius:14px;border:2px solid var(--tinta);color:var(--verde);box-shadow:var(--sombra) var(--vermelho);transition:transform .15s,box-shadow .15s}
-.cartao:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--vermelho)}
-.cartao-n{font-family:var(--display);font-weight:800;font-size:40px;line-height:1;color:var(--vermelho)}
-.cartao h3{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.15}
-.cartao p{margin-top:8px;font-size:16px;line-height:1.45}
-.c-amarelo{background:var(--amarelo)}
-.c-creme{background:var(--creme)}
-.c-vermelho{background:var(--vermelho);color:var(--branco);box-shadow:var(--sombra) var(--amarelo)}
-.c-vermelho:hover{box-shadow:9px 9px 0 var(--amarelo)}
-.c-vermelho .cartao-n{color:var(--amarelo)}
-@media (max-width:1000px){.cartoes{grid-template-columns:1fr 1fr}}
-@media (max-width:560px){.cartoes{grid-template-columns:1fr}}
-
-/* círculos */
-.legenda{list-style:none;display:grid;gap:16px;margin-top:32px}
-.legenda li{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.45}
-.legenda b{color:var(--verde)}
-.legenda i{flex:none;width:20px;height:20px;margin-top:2px}
-.lg-sol{border-radius:50%;background:var(--amarelo);box-shadow:0 0 0 2px var(--vermelho)}
-.lg-pontos{background:radial-gradient(circle at 30% 50%,var(--verde) 3.5px,transparent 4px),radial-gradient(circle at 75% 50%,var(--vermelho) 3.5px,transparent 4px)}
-.lg-losango{width:15px!important;height:15px!important;margin:4px 2px 0;border:2px solid var(--verde);transform:rotate(45deg)}
-.rede svg{width:100%;max-width:520px;display:block;margin:0 auto;overflow:visible}
-.rede-losango{fill:none;stroke:#6E9278;stroke-width:1.6}
-#rede-linhas line{stroke-width:1.1}
-#rede-linhas .l-sol{stroke:rgba(14,81,48,.28)}
-#rede-linhas .l-viz{stroke:var(--vermelho);stroke-opacity:.65}
-#rede-pontos circle{transform-box:fill-box;transform-origin:center}
-
-/* como funciona */
-.passos{list-style:none;display:grid;gap:clamp(22px,3vw,34px);margin-top:clamp(36px,5vw,56px);max-width:780px}
-.passo{display:grid;grid-template-columns:78px 1fr;gap:22px;align-items:center}
-.passo:nth-child(2){margin-left:clamp(0px,6vw,80px)}
-.passo:nth-child(3){margin-left:clamp(0px,12vw,160px)}
-.losango-n{width:64px;height:64px;display:grid;place-items:center;transform:rotate(45deg);border-radius:8px;margin:7px}
-.losango-n b{transform:rotate(-45deg);font-family:var(--display);font-weight:800;font-size:22px}
-.l-amarelo{background:var(--amarelo);color:var(--verde)}
-.l-vermelho{background:var(--vermelho);color:var(--branco)}
-.passo h3{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,30px);color:var(--verde)}
-.passo p{margin-top:6px;font-size:17px;max-width:44ch}
-.como-fazer .losango-n{box-shadow:4px 4px 0 var(--verde)}
-.como-fazer .destaque-amarelo{color:var(--verde);text-shadow:none;background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo) 92%,transparent 92%);padding:0 .08em}
-.estrela-cf{right:-30px;top:40px}
-@media (max-width:640px){.passo:nth-child(2),.passo:nth-child(3){margin-left:0}.passo{grid-template-columns:64px 1fr;gap:16px}.losango-n{width:50px;height:50px}}
-
-/* onde atuamos */
-.p-motores{margin-top:30px;font-weight:700;color:var(--verde)}
-.pilulas{list-style:none;display:flex;flex-wrap:wrap;gap:14px;margin-top:16px}
-.pilulas li{padding:10px 18px;border-radius:999px;font-weight:700;font-size:16px;border:2px solid var(--verde)}
-.p-verde{background:var(--verde);color:var(--creme);box-shadow:4px 4px 0 var(--vermelho)}
-.p-amarelo{background:var(--amarelo);color:var(--verde);box-shadow:4px 4px 0 var(--verde)}
-.p-vermelho{background:var(--vermelho);color:var(--branco);border-color:var(--vermelho);box-shadow:4px 4px 0 var(--verde)}
-.p-creme{background:var(--creme);color:var(--verde);box-shadow:4px 4px 0 var(--vermelho)}
-.venn svg{width:100%;max-width:560px;display:block;margin:0 auto}
-.v-t{font-family:var(--display);font-weight:800;font-size:24px;fill:var(--verde)}
-.v-claro{fill:var(--creme)}
-.v-brasa{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.06em;fill:var(--branco)}
-.estrela-oa{left:-30px;bottom:-40px}
-
-/* final */
-.final{text-align:center;display:flex;flex-direction:column;align-items:center}
-.final-logo svg{width:clamp(150px,18vw,220px);height:auto;display:block}
-.final h2{margin-top:32px;color:var(--creme);font-size:clamp(32px,4.6vw,60px);max-width:18ch}
-.final h2 span{display:block;color:var(--amarelo)}
-.final .p-grande{margin-top:22px;max-width:46ch;opacity:.9}
-.final .botao{margin-top:38px}
-
-/* rodapé */
-.rodape{background:var(--creme);padding-top:56px;border-top:3px solid var(--tinta)}
-.rodape-grade{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px}
-.rodape .marca{margin:0}
-.rodape-desc{margin-top:12px;font-size:15px;opacity:.8}
-.rodape-t{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--vermelho);margin-bottom:14px}
-.rodape ul{list-style:none;display:grid;grid-template-columns:repeat(2,auto);gap:10px 40px}
-.rodape ul a{font-size:15px;text-underline-offset:3px}
-.rodape ul a:hover{color:var(--vermelho)}
-.rodape-faixa{background:var(--verde);color:var(--creme);display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:12px 20px;padding:20px 16px;font-family:var(--display);font-weight:700;font-size:clamp(13px,1.5vw,17px);letter-spacing:.16em;text-transform:uppercase}
-.rodape-faixa i{width:28px;height:6px;background:var(--amarelo);border-radius:2px}
-.rodape-c{padding-block:16px 24px;font-size:13px;opacity:.7;background:var(--creme)}
-</style>
+<link rel="stylesheet" href="estilo.css">
 <noscript><style>.abertura{display:none}html.carregando{overflow:auto}</style></noscript>
 </head>
 <body>
@@ -316,21 +55,17 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
 
 <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
 
-<div class="faixa faixa-topo" aria-hidden="true"><div class="faixa-trilho"><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Faça parte da rede</span><i aria-hidden="true">◆</i></div></div>
-
 <header class="topo" id="topo">
   <div class="topo-dentro">
-    <a class="marca" href="#inicio" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-    <nav aria-label="Seções">
+    <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
+    <nav aria-label="Principal">
       <ul class="menu" id="menu">
-        <li><a href="#como-fazer">Como fazer</a></li>
-        <li><a href="#espirito">O espírito</a></li>
-        <li><a href="#bandeiras">Bandeiras</a></li>
-        <li><a href="#circulos">Círculos</a></li>
-        <li><a href="#onde-atuamos">Onde atuamos</a></li>
+        <li><a href="index.html#como-fazer">Como fazer</a></li>
+        <li><a href="manifesto.html">Manifesto</a></li>
+        <li><a href="artigos.html">Artigos</a></li>
       </ul>
     </nav>
-    <a class="botao b-amarelo b-pequeno" href="#faca-parte">Faça parte</a>
+    <a class="botao b-amarelo b-pequeno" href="faca-parte.html">Faça parte</a>
     <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line class="l1" x1="3" y1="6" x2="19" y2="6"/><line class="l2" x1="3" y1="11" x2="19" y2="11"/><line class="l3" x1="3" y1="16" x2="19" y2="16"/></svg>
     </button>
@@ -347,7 +82,7 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
         <h1>O Brasil tem talento de sobra. <span class="etiqueta e-verde">Falta juntar.</span></h1>
         <p class="hero-p">A BRASA existe para encontrar quem é capaz, em todas as cidades, e colocar essa gente para trabalhar junta.</p>
         <div class="botoes">
-          <a class="botao b-verde" href="#faca-parte">Faça parte da BRASA <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
+          <a class="botao b-verde" href="faca-parte.html">Faça parte da BRASA <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
           <a class="botao b-contorno" href="#como-fazer">Como fazer</a>
         </div>
       </div>
@@ -380,8 +115,6 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     </div>
     <svg class="estrela estrela-cf" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
   </section>
-
-  <div class="faixa faixa-verde" aria-hidden="true"><div class="faixa-trilho"><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i></div></div>
 
   <!-- ============ O ESPÍRITO ============ -->
   <section class="secao s-creme" id="espirito">
@@ -436,8 +169,6 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     </div>
   </section>
 
-  <div class="faixa faixa-vermelha" aria-hidden="true"><div class="faixa-trilho"><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i><span>Seu talento é uma brasa</span><i aria-hidden="true">◆</i><span>Juntas, acendem um país</span><i aria-hidden="true">◆</i></div></div>
-
   <!-- ============ ONDE ATUAMOS ============ -->
   <section class="secao s-creme" id="onde-atuamos">
     <div class="dentro duas duas-meio">
@@ -463,28 +194,48 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
     <svg class="estrela estrela-oa" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
   </section>
 
+  <!-- ============ LEIA (chamadas) ============ -->
+  <section class="secao s-creme" id="leia">
+    <div class="dentro">
+      <p class="olho">Leia</p>
+      <h2>Ideias para um Brasil potência</h2>
+      <div class="chamadas">
+        <a class="chamada ch-verde" href="manifesto.html">
+          <span class="ch-tag">Manifesto</span>
+          <h3>O manifesto da BRASA</h3>
+          <p>No que a gente acredita e por que fazemos o que fazemos.</p>
+          <span class="ch-ir">Ler o manifesto <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></span>
+        </a>
+        <a class="chamada ch-amarelo" href="artigos.html">
+          <span class="ch-tag">Artigos</span>
+          <h3>Artigos da BRASA</h3>
+          <p>Textos publicados no Substack da BRASA, reunidos aqui.</p>
+          <span class="ch-ir">Ver os artigos <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ FAÇA PARTE ============ -->
-  <section class="secao s-escuro" id="faca-parte">
+  <section class="secao s-escuro" id="convite">
     <div class="dentro final">
       <div class="final-logo" aria-hidden="true"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg></div>
       <h2>Seu talento é uma brasa. <span>Juntas, acendem um país.</span></h2>
       <p class="p-grande">Pesquisadores, artistas, devs, organizações e lideranças: faça parte da rede.</p>
-      <!-- troque o href pelo endereço da página de filiação -->
-      <a class="botao b-amarelo b-grande" href="#filiacao">Faça parte da BRASA <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
+      <a class="botao b-amarelo b-grande" href="faca-parte.html">Faça parte da BRASA <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
     </div>
   </section>
 </main>
 
 <footer class="rodape">
   <div class="dentro rodape-grade">
-    <div>
-      <a class="marca" href="#inicio" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
+    <div class="rodape-marca">
+      <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
       <p class="rodape-desc">Plataforma cívica brasileira.</p>
     </div>
-    <div>
-      <p class="rodape-t">Navegue</p>
-      <ul><li><a href="#como-fazer">Como fazer</a></li><li><a href="#espirito">O espírito</a></li><li><a href="#bandeiras">Bandeiras</a></li><li><a href="#circulos">Círculos</a></li><li><a href="#onde-atuamos">Onde atuamos</a></li><li><a href="#faca-parte">Faça parte</a></li></ul>
-    </div>
+    <div><p class="rodape-t">A BRASA</p><ul><li><a href="index.html#como-fazer">Como fazer</a></li><li><a href="index.html#espirito">O espírito</a></li><li><a href="index.html#bandeiras">Bandeiras</a></li><li><a href="index.html#circulos">Círculos</a></li><li><a href="index.html#onde-atuamos">Onde atuamos</a></li></ul></div>
+    <div><p class="rodape-t">Leia</p><ul><li><a href="manifesto.html">Manifesto</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="https://brasa.substack.com">Substack da BRASA</a></li></ul></div>
+    <div><p class="rodape-t">Participe</p><ul><li><a href="faca-parte.html">Faça parte</a></li></ul></div>
   </div>
   <div class="rodape-faixa"><span>Ideias</span><i></i><span>Projetos</span><i></i><span>Influência</span></div>
   <p class="rodape-c dentro">© 2026 BRASA · Plataforma cívica brasileira</p>
