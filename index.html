@@ -163,21 +163,17 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
 @media (max-width:900px){.duas{grid-template-columns:1fr}}
 
 /* hero */
-.hero{position:relative;overflow:hidden;padding-block:clamp(56px,8vw,104px) clamp(64px,9vw,120px)}
-.hero-grade{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
+.hero{position:relative;overflow:hidden;padding-block:clamp(64px,10vw,128px) clamp(72px,10vw,136px)}
+.estrela-hd{right:clamp(-40px,-2vw,-10px);top:52%;width:clamp(140px,22vw,320px);opacity:.95}
+.hero-grade{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,72px);align-items:center;position:relative;z-index:1}
 .hero-grade > *{min-width:0}
-.hero h1{font-size:clamp(40px,6.4vw,86px);color:var(--verde);line-height:1.02}
+.hero h1{font-size:clamp(42px,7.4vw,104px);color:var(--verde);line-height:1.02;max-width:14ch}
 .hero h1 .etiqueta{margin-top:.18em;font-size:.86em}
 .hero-p{margin-top:30px;max-width:42ch;font-size:clamp(18px,1.6vw,21px)}
 .hero .botoes{margin-top:34px}
-.hero-logo{position:relative;aspect-ratio:848/578}
-.hero-losango{width:100%;height:100%;display:block}
-.hero-sol{position:absolute;left:50%;top:50%;width:46%;translate:-50% -50%;animation:gira 80s linear infinite}
 @keyframes gira{to{rotate:360deg}}
 .estrela-he{left:-30px;bottom:-40px}
-@media (max-width:900px){.hero-grade{grid-template-columns:1fr}.hero-logo{max-width:260px;order:-1}}
-@media (prefers-reduced-motion:reduce){.hero-sol{animation:none}}
-
+@media (max-width:700px){.estrela-hd{top:auto;bottom:-50px;right:-40px;width:150px}}
 /* pergunta */
 .interroga{font-family:var(--display);font-weight:900;font-size:clamp(90px,12vw,150px);line-height:.8;color:var(--amarelo);text-shadow:7px 7px 0 var(--vermelho);margin-bottom:22px}
 .pergunta h2{font-size:clamp(28px,4vw,52px)}
@@ -221,11 +217,6 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
 #rede-linhas .l-sol{stroke:rgba(14,81,48,.28)}
 #rede-linhas .l-viz{stroke:var(--vermelho);stroke-opacity:.65}
 #rede-pontos circle{transform-box:fill-box;transform-origin:center}
-.rede.desenha #rede-linhas line{stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:traco 1.3s cubic-bezier(.4,0,.2,1) forwards;animation-delay:var(--d)}
-.rede.desenha #rede-pontos circle{animation:surge .5s ease both;animation-delay:var(--d)}
-@keyframes traco{to{stroke-dashoffset:0}}
-@keyframes surge{from{opacity:0;scale:.2}}
-@media (prefers-reduced-motion:reduce){.rede.desenha #rede-linhas line,.rede.desenha #rede-pontos circle{animation:none;stroke-dashoffset:0}}
 
 /* como funciona */
 .passos{list-style:none;display:grid;gap:clamp(22px,3vw,34px);margin-top:clamp(36px,5vw,56px);max-width:780px}
@@ -354,12 +345,9 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
           <a class="botao b-contorno" href="#como-funciona">Como funciona</a>
         </div>
       </div>
-      <div class="hero-logo" aria-hidden="true">
-        <svg class="hero-losango" viewBox="-24 -24 848 578"><polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/></svg>
-        <svg class="hero-sol" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
-      </div>
     </div>
     <svg class="estrela estrela-he" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
+    <svg class="estrela estrela-hd" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sol" fill="#D93A2B" transform="translate(7 6)"/><use href="#sol" fill="#FFC72C"/></svg>
   </section>
 
   <div class="faixa faixa-verde" aria-hidden="true"><div class="faixa-trilho"><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i><span>Unir quem é capaz é o caminho mais curto para um Brasil potência</span><i aria-hidden="true">◆</i></div></div>
@@ -422,7 +410,7 @@ mark{background:linear-gradient(transparent 52%,var(--amarelo) 52%,var(--amarelo
         <svg viewBox="0 0 400 400" role="img" aria-label="Um losango, o Brasil, com pontos ligados entre si e ao sol da BRASA no centro">
           <polygon class="rede-losango" points="200,8 392,200 200,392 8,200"/>
           <g id="rede-linhas"></g><g id="rede-pontos"></g>
-          <g transform="translate(200 200) scale(.34)"><use href="#sol" fill="#D93A2B" transform="translate(8 7)"/><use href="#sol" fill="#FFC72C"/></g>
+          <g id="rede-sol" transform="translate(200 200) scale(.34)"><use href="#sol" fill="#D93A2B" transform="translate(8 7)"/><use href="#sol" fill="#FFC72C"/></g>
         </svg>
       </figure>
     </div>
@@ -599,33 +587,68 @@ const DIAS_PARA_MOSTRAR_DE_NOVO = 30;       // depois desse tempo a abertura vol
   }
 })();
 
-/* ---------- círculos de influência: a rede se desenha ---------- */
+/* ---------- círculos de influência: a rede em movimento ---------- */
 (function(){
   const fig=document.getElementById('rede'); if(!fig) return;
-  const gL=document.getElementById('rede-linhas'), gP=document.getElementById('rede-pontos'), NS='http://www.w3.org/2000/svg';
-  let s=5; const rnd=()=>{s=(s*16807)%2147483647; return s/2147483647;};
+  const NS='http://www.w3.org/2000/svg', C={x:200,y:200};
+  const gL=document.getElementById('rede-linhas'), gP=document.getElementById('rede-pontos'), gS=document.getElementById('rede-sol');
+  const reduz=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const el=(t,a,pai)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); pai&&pai.appendChild(e); return e;};
+  let sd=5; const rnd=()=>{sd=(sd*16807)%2147483647; return sd/2147483647;};
+  const dentro=(x,y)=>Math.abs(x-200)+Math.abs(y-200)<=170;
+  // pontos (a rede): cada um flutua em volta da própria posição
   const pts=[];
   while(pts.length<34){
-    const x=24+rnd()*352, y=24+rnd()*352;
-    if(Math.abs(x-200)+Math.abs(y-200)>165) continue;
-    if(Math.hypot(x-200,y-200)<44) continue;
-    if(pts.some(p=>Math.hypot(p.x-x,p.y-y)<30)) continue;
-    pts.push({x,y,v:rnd()<.5});
+    const x=26+rnd()*348, y=26+rnd()*348;
+    if(Math.abs(x-200)+Math.abs(y-200)>158||Math.hypot(x-200,y-200)<46||pts.some(p=>Math.hypot(p.bx-x,p.by-y)<30)) continue;
+    pts.push({bx:x,by:y,x,y,ax:5+rnd()*9,ay:5+rnd()*9,fx:.25+rnd()*.5,fy:.25+rnd()*.5,ph:rnd()*6.28,v:rnd()<.5,r:pts.length%5===0?6.5:(pts.length%2?4.6:3.6),brilho:0});
   }
-  const linha=(a,b,cls,d)=>{const l=document.createElementNS(NS,'line');
-    l.setAttribute('x1',a.x);l.setAttribute('y1',a.y);l.setAttribute('x2',b.x);l.setAttribute('y2',b.y);l.setAttribute('class',cls);
-    l.style.setProperty('--l',Math.hypot(a.x-b.x,a.y-b.y));l.style.setProperty('--d',d+'s');gL.appendChild(l);};
-  const c={x:200,y:200};
+  // ligações: todos ao sol (linhas finas) + vizinhos próximos (linhas vermelhas)
+  const lig=[];
   pts.forEach((p,i)=>{
-    linha(c,p,'l-sol',.2+rnd()*.5);
-    const viz=pts.map((q,j)=>({j,d:Math.hypot(q.x-p.x,q.y-p.y)})).filter(o=>o.j>i&&o.d<70).sort((a,b)=>a.d-b.d).slice(0,1);
-    viz.forEach(o=>linha(p,pts[o.j],'l-viz',.7+rnd()*.6));
-    const k=document.createElementNS(NS,'circle'); k.setAttribute('cx',p.x);k.setAttribute('cy',p.y);
-    k.setAttribute('r',i%5===0?6.5:(i%2?4.6:3.6)); k.setAttribute('fill',p.v?'#0E5130':'#E0262E'); k.style.setProperty('--d',(.3+rnd()*.8)+'s'); gP.appendChild(k);
+    lig.push({a:C,b:p,cls:'l-sol'});
+    pts.map((q,j)=>({j,d:Math.hypot(q.bx-p.bx,q.by-p.by)})).filter(o=>o.j>i&&o.d<72).sort((a,b)=>a.d-b.d).slice(0,1)
+      .forEach(o=>lig.push({a:p,b:pts[o.j],cls:'l-viz'}));
   });
-  if('IntersectionObserver' in window){
-    const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){fig.classList.add('desenha');o.disconnect();}},{threshold:.3}); o.observe(fig);
+  lig.forEach(l=>l.el=el('line',{class:l.cls},gL));
+  pts.forEach(p=>{ p.halo=el('circle',{r:p.r+7,fill:'#FFC72C',opacity:0},gP); p.el=el('circle',{r:p.r,fill:p.v?'#0E5130':'#E0262E'},gP); });
+  // pulsos: faíscas que saem do sol e correm até um ponto
+  const pulsos=[]; let proximo=0;
+  const gF=el('g',{},gP);
+  function novoPulso(t){
+    const alvo=pts[Math.floor(rnd()*pts.length)];
+    pulsos.push({alvo,t0:t,dur:900+rnd()*700,c:el('circle',{r:3.2,fill:'#FFC72C',stroke:'#E0262E','stroke-width':1.2},gF)});
   }
+  function quadro(t){
+    const s=t/1000;
+    pts.forEach(p=>{
+      p.x=p.bx+Math.sin(s*p.fx+p.ph)*p.ax; p.y=p.by+Math.cos(s*p.fy+p.ph*1.3)*p.ay;
+      if(!dentro(p.x,p.y)){p.x=p.bx;p.y=p.by;}
+      p.brilho=Math.max(0,p.brilho-0.02);
+      p.el.setAttribute('cx',p.x.toFixed(1)); p.el.setAttribute('cy',p.y.toFixed(1));
+      p.el.setAttribute('r',(p.r+p.brilho*2.5).toFixed(2));
+      p.halo.setAttribute('cx',p.x.toFixed(1)); p.halo.setAttribute('cy',p.y.toFixed(1)); p.halo.setAttribute('opacity',(p.brilho*.55).toFixed(2));
+    });
+    lig.forEach(l=>{l.el.setAttribute('x1',l.a.x.toFixed(1));l.el.setAttribute('y1',l.a.y.toFixed(1));l.el.setAttribute('x2',l.b.x.toFixed(1));l.el.setAttribute('y2',l.b.y.toFixed(1));});
+    if(t>proximo){ novoPulso(t); proximo=t+260+rnd()*380; }
+    for(let i=pulsos.length-1;i>=0;i--){
+      const u=pulsos[i], k=(t-u.t0)/u.dur;
+      if(k>=1){ u.alvo.brilho=1; u.c.remove(); pulsos.splice(i,1); continue; }
+      const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      u.c.setAttribute('cx',(C.x+(u.alvo.x-C.x)*e).toFixed(1)); u.c.setAttribute('cy',(C.y+(u.alvo.y-C.y)*e).toFixed(1));
+    }
+    gS.setAttribute('transform',`translate(200 200) rotate(${(s*6)%360}) scale(${.34+Math.sin(s*1.6)*.012})`);
+  }
+  quadro(0);
+  if(reduz) return;
+  let rodando=false, raf=0;
+  const loop=t=>{quadro(t); if(rodando) raf=requestAnimationFrame(loop);};
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(e=>{const v=e[0].isIntersecting;
+      if(v&&!rodando){rodando=true;raf=requestAnimationFrame(loop);}
+      if(!v){rodando=false;cancelAnimationFrame(raf);}
+    }).observe(fig);
+  } else { rodando=true; raf=requestAnimationFrame(loop); }
 })();
 </script>
 </body>
