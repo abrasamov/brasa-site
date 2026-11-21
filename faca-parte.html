@@ -1,104 +1,740 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Faça parte · BRASA - Plataforma cívica</title>
-<meta name="description" content="Faça parte da rede da BRASA.">
-<meta name="theme-color" content="#F3E9D2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..900&family=Lexend:wght@300..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Faça parte — BRASA</title>
+<meta name="description" content="Encontrando talentos, conectando brasas. Crie sua conta e conte quem você é." />
+<link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/share.css?v=share1" />
+<style>
+  :root {
+    --beige: #f4ead4; --paper: #fbf6ea; --white: #fffdf8; --green: #0f4f2e; --green-2: #1d6a43; --sun: #fdc010; --red: #b3161f;
+    --muted: #4e5a4c; --line: rgba(15, 79, 46, .18);
+    --font-display: "Archivo", system-ui, sans-serif; --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "EB Garamond", Georgia, serif; --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; background: var(--beige); color: var(--green); font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(15, 79, 46, .07) 1px, transparent 1.4px); background-size: 22px 22px;
+  }
+  a { color: inherit; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  [hidden] { display: none !important; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: clamp(32px, 6vw, 72px) clamp(16px, 4vw, 32px) 40px; }
+  .narrow { max-width: 520px; }
+
+  /* topo do espaço do membro */
+  .topbar { display: flex; align-items: center; gap: 14px; padding: 18px 80px 18px clamp(16px, 4vw, 32px); border-bottom: 1px solid var(--line); background: rgba(251, 246, 234, .7); backdrop-filter: blur(8px); }
+  .topbar img { width: 46px; height: auto; }
+  .topbar b { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; letter-spacing: .14em; }
+  .topbar span { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .top-links { margin-left: auto; display: flex; gap: 18px; align-items: center; }
+  .topbar .back { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-mono); font-size: 13px; font-weight: 700; text-decoration: none; }
+  .topbar .back:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* cabeçalho da entrada */
+  .hero { text-align: center; }
+  .hero h1 { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: clamp(30px, 4.2vw, 54px); line-height: 1; letter-spacing: -.01em; text-wrap: balance; }
+  .hero h1 em { display: block; font-style: normal; color: var(--green-2); }
+  .hero p { margin: 18px auto 0; max-width: 620px; font-size: clamp(16px, 1.4vw, 19px); color: var(--muted); }
+
+  /* cartão */
+  .card { position: relative; margin-top: 36px; padding: clamp(24px, 4vw, 40px); background: var(--white); border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 24px 50px -34px rgba(15, 79, 46, .5); }
+  .card::before { content: ""; position: absolute; left: 18px; right: 18px; top: -1px; height: 4px; border-radius: 0 0 4px 4px; background: var(--green); }
+  .card h2 { text-align: center; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 24px; }
+  .card .sub { text-align: center; margin-top: 6px; color: var(--muted); font-size: 15px; }
+  .icon-badge { display: grid; place-items: center; width: 64px; height: 64px; margin: 0 auto 16px; border-radius: 50%; background: rgba(15, 79, 46, .1); }
+  .icon-badge svg { width: 30px; height: 30px; }
+
+  /* campos */
+  .field { margin-top: 20px; }
+  .field label, .field .label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 15px; }
+  .req { color: var(--red); }
+  .input, select.input, textarea.input {
+    width: 100%; min-height: 50px; padding: 12px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper);
+    transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  textarea.input { min-height: 110px; resize: vertical; }
+  .input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(15, 79, 46, .12); }
+  .input.code { text-align: center; font-family: var(--font-mono); font-size: 26px; letter-spacing: .4em; font-weight: 700; }
+  .hint { margin-top: 6px; font-size: 13px; color: var(--muted); }
+  .error { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding: 12px 16px; border-left: 4px solid var(--red); border-radius: 8px; background: rgba(179, 22, 31, .08); color: var(--red); font-size: 14px; font-weight: 500; }
+  .terms { margin-top: 20px; padding: 14px 16px; border-radius: 10px; background: var(--paper); border: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--muted); }
+  .terms a { font-weight: 700; color: var(--green); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 52px; margin-top: 20px; padding: 0 20px;
+    border: 0; border-radius: 10px; background: var(--green); color: var(--beige); cursor: pointer;
+    font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 16px; letter-spacing: .02em;
+    transition: transform .2s var(--ease), background-color .2s var(--ease), opacity .2s;
+  }
+  .btn:hover { background: var(--green-2); transform: translateY(-1px); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+  .btn.is-busy { opacity: .7; cursor: progress; }
+  .btn.sun { background: var(--sun); color: var(--green); }
+  .btn.ghost { background: transparent; color: var(--green); border: 1.5px dashed var(--green); font-family: var(--font-body); font-weight: 700; font-size: 15px; min-height: 56px; }
+  .btn.ghost:hover { background: rgba(15, 79, 46, .06); }
+  .link-btn { display: block; margin: 14px auto 0; background: none; border: 0; cursor: pointer; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .note { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--muted); }
+  .proto { margin-top: 18px; padding: 10px 14px; border-radius: 8px; background: rgba(253, 192, 16, .22); font-size: 13px; text-align: center; }
+  .expire { margin-top: 20px; padding: 14px; border-radius: 10px; background: var(--paper); border: 1px solid var(--line); text-align: center; font-size: 14px; }
+  .expire small { display: block; color: var(--muted); }
+
+  /* início do membro */
+  .welcome { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .avatar { display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--green); color: var(--sun); font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 28px; }
+  .welcome h1 { font-family: var(--font-display); font-stretch: 112%; font-weight: 900; font-size: clamp(26px, 3.4vw, 38px); line-height: 1.05; }
+  .welcome p { color: var(--muted); font-size: 15px; }
+  .welcome p b { color: var(--green-2); }
+  .welcome .actions { margin-left: auto; display: flex; gap: 18px; }
+  .welcome .actions button { background: none; border: 0; cursor: pointer; font-weight: 500; }
+  .sec-title { margin-top: 44px; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 24px; }
+  .sec-sub { color: var(--muted); }
+  .forms { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin-top: 20px; }
+  .fcard { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 22px; background: var(--white); border: 1px solid var(--line); border-radius: 16px; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+  .fcard::before { content: ""; position: absolute; left: 14px; right: 14px; top: -1px; height: 4px; border-radius: 0 0 4px 4px; background: var(--green); }
+  .fcard:hover { transform: translateY(-3px); box-shadow: 0 22px 40px -28px rgba(15, 79, 46, .55); }
+  .fcard .ic { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 12px; background: rgba(15, 79, 46, .1); }
+  .fcard .ic svg { width: 26px; height: 26px; }
+  .fcard .badge { position: absolute; right: 18px; top: 22px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: var(--paper); border: 1px solid var(--line); color: var(--muted); }
+  .fcard .badge.done { background: rgba(15, 79, 46, .12); color: var(--green); border-color: transparent; }
+  .fcard .badge.need { background: rgba(179, 22, 31, .1); color: var(--red); border-color: transparent; }
+  .fcard h3 { margin-top: 12px; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 19px; }
+  .fcard p { color: var(--muted); font-size: 14px; }
+  .fcard .btn { margin-top: auto; padding-top: 0; min-height: 46px; font-size: 15px; }
+  .fcard .btn.edit { background: var(--paper); color: var(--green); border: 1px solid var(--line); }
+  .fcard .spacer { height: 14px; }
+
+  /* formulários */
+  .page-title { text-align: center; font-family: var(--font-display); font-stretch: 112%; font-weight: 900; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.05; }
+  .page-sub { text-align: center; color: var(--muted); margin-top: 8px; }
+  .block { margin-top: 26px; padding: clamp(20px, 3vw, 30px); background: var(--white); border: 1px solid var(--line); border-radius: 16px; }
+  .block-head { display: flex; align-items: center; gap: 12px; }
+  .block-head svg { width: 26px; height: 26px; flex: none; }
+  .block-head h2 { font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 21px; }
+  .block-head p { color: var(--muted); font-size: 14px; }
+  .block-head.mark { padding-left: 14px; border-left: 4px solid var(--red); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+  .check { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 15px; cursor: pointer; }
+  .check input { width: 18px; height: 18px; accent-color: var(--green); }
+  .choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin-top: 10px; }
+  .choice { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 10px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); cursor: pointer; transition: border-color .2s, background-color .2s; }
+  .choice:hover { border-color: var(--green); }
+  .choice input { width: 18px; height: 18px; accent-color: var(--green); flex: none; }
+  .choice:has(input:checked) { border-color: var(--green); background: rgba(15, 79, 46, .08); font-weight: 700; }
+  .entry { position: relative; margin-top: 16px; padding: 18px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--paper); }
+  .entry-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+  .entry-del { background: none; border: 0; cursor: pointer; color: var(--red); font-weight: 700; font-size: 14px; }
+  .upload { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 64px; border: 1.5px dashed var(--line); border-radius: 10px; background: var(--paper); cursor: pointer; }
+  .upload:hover { border-color: var(--green); }
+  .upload input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; }
+  .btn.small { width: auto; min-height: 44px; margin: 0; font-size: 14px; }
+
+  /* teste de personalidade */
+  .q { margin-top: 18px; padding: 20px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; transition: border-color .2s; }
+  .q.answered { border-color: rgba(15, 79, 46, .45); }
+  .q-title { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; font-size: 17px; }
+  .q-num { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--sun); font-family: var(--font-mono); font-size: 13px; }
+  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
+  .likert label { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 6px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); text-align: center; font-size: 13px; cursor: pointer; transition: border-color .2s, background-color .2s; }
+  .likert label:hover { border-color: var(--green); }
+  .likert input { width: 18px; height: 18px; accent-color: var(--green); }
+  .likert label:has(input:checked) { border-color: var(--green); background: rgba(15, 79, 46, .1); font-weight: 700; }
+  .progress { position: sticky; top: 0; z-index: 5; margin: 20px -6px 0; padding: 10px 6px; background: var(--beige); }
+  .progress-bar { height: 8px; border-radius: 99px; background: rgba(15, 79, 46, .12); overflow: hidden; }
+  .progress-bar i { display: block; height: 100%; width: 0; background: var(--green); transition: width .4s var(--ease); }
+  .progress small { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+  .toast { position: fixed; left: 50%; bottom: 28px; transform: translate(-50%, 20px); opacity: 0; padding: 12px 20px; border-radius: 10px; background: var(--green); color: var(--beige); font-weight: 700; z-index: 40; transition: opacity .3s, transform .3s var(--ease); pointer-events: none; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  footer.site { margin-top: 48px; text-align: center; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .topbar { gap: 10px; }
+    .topbar span { display: none; }
+    .topbar img { width: 38px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .likert { grid-template-columns: 1fr; }
+    .likert label { flex-direction: row; justify-content: flex-start; text-align: left; }
+    .welcome .actions { margin-left: 0; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+</style>
 </head>
 <body>
-<!-- sol do logo, desenhado uma vez e reutilizado -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <polygon id="sol" points="0.0,-100.0 9.0,-45.1 29.8,-72.1 25.6,-38.2 70.7,-70.7 38.2,-25.6 72.1,-29.8 45.1,-9.0 100.0,0.0 45.1,9.0 72.1,29.8 38.2,25.6 70.7,70.7 25.6,38.2 29.8,72.1 9.0,45.1 0.0,100.0 -9.0,45.1 -29.8,72.1 -25.6,38.2 -70.7,70.7 -38.2,25.6 -72.1,29.8 -45.1,9.0 -100.0,0.0 -45.1,-9.0 -72.1,-29.8 -38.2,-25.6 -70.7,-70.7 -25.6,-38.2 -29.8,-72.1 -9.0,-45.1"/>
-    <symbol id="logo-mini" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="logo-mini-contorno" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#F4EAD5" stroke-opacity=".35" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  </defs>
-</svg>
-<a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
-<header class="topo" id="topo">
-  <div class="topo-dentro">
-    <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-    <nav aria-label="Principal">
-      <ul class="menu" id="menu">
-        <li><a href="index.html#como-fazer">Como fazer</a></li>
-        <li><a href="manifesto.html">Manifesto</a></li>
-        <li><a href="artigos.html">Artigos</a></li>
-      </ul>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-mail" viewBox="0 0 256 256"><path fill="currentColor" d="M224 48H32a8 8 0 0 0-8 8v136a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a8 8 0 0 0-8-8m-20.57 16L128 133.15L52.57 64ZM216 192H40V74.19l82.59 75.71a8 8 0 0 0 10.82 0L216 74.19z"/></symbol>
+      <symbol id="i-user" viewBox="0 0 256 256"><path fill="currentColor" d="M230.92 212c-15.23-26.33-38.7-45.21-66.09-54.16a72 72 0 1 0-73.66 0c-27.39 8.94-50.86 27.82-66.09 54.16a8 8 0 1 0 13.85 8c18.84-32.56 52.14-52 89.07-52s70.23 19.44 89.07 52a8 8 0 1 0 13.85-8M72 96a56 56 0 1 1 56 56a56.06 56.06 0 0 1-56-56"/></symbol>
+      <symbol id="i-brief" viewBox="0 0 256 256"><path fill="currentColor" d="M216 64h-40v-8a24 24 0 0 0-24-24h-48a24 24 0 0 0-24 24v8H40a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16M96 56a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v8H96Zm120 24v41.61A184 184 0 0 1 128 144a184.1 184.1 0 0 1-88-22.38V80Zm0 128H40v-68.36A200.2 200.2 0 0 0 128 160a200.25 200.25 0 0 0 88-20.37zm-112-96a8 8 0 0 1 8-8h32a8 8 0 0 1 0 16h-32a8 8 0 0 1-8-8"/></symbol>
+      <symbol id="i-bulb" viewBox="0 0 256 256"><path fill="currentColor" d="M176 232a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h80a8 8 0 0 1 8 8m40-128a87.55 87.55 0 0 1-33.64 69.21A16.24 16.24 0 0 0 176 186v6a16 16 0 0 1-16 16H96a16 16 0 0 1-16-16v-6a16 16 0 0 0-6.23-12.66A87.59 87.59 0 0 1 40 104.49C39.74 56.83 78.26 17.14 125.88 16A88 88 0 0 1 216 104m-16 0a72 72 0 0 0-73.74-72c-39 .92-70.47 33.39-70.26 72.39a71.65 71.65 0 0 0 27.64 56.3A32 32 0 0 1 96 186v6h64v-6a32.15 32.15 0 0 1 12.47-25.35A71.65 71.65 0 0 0 200 104"/></symbol>
+      <symbol id="i-smile" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m-36-100a12 12 0 1 1 12 12a12 12 0 0 1-12-12m72 0a12 12 0 1 1 12 12a12 12 0 0 1-12-12m12.92 39.89a56 56 0 0 1-97.84 0a8 8 0 1 1 13.84-8a40 40 0 0 0 70.16 0a8 8 0 1 1 13.84 8"/></symbol>
+      <symbol id="i-cap" viewBox="0 0 256 256"><path fill="currentColor" d="m251.76 88.94l-120-64a8 8 0 0 0-7.52 0l-120 64a8 8 0 0 0 0 14.12L32 117.87v48.42a15.9 15.9 0 0 0 4.06 10.65C49.16 191.53 78.51 216 128 216a130 130 0 0 0 48-8.76V240a8 8 0 0 0 16 0v-40.49a115.6 115.6 0 0 0 27.94-22.57a15.9 15.9 0 0 0 4.06-10.65v-48.42l27.76-14.81a8 8 0 0 0 0-14.12M128 200c-43.27 0-68.72-21.14-80-33.71V126.4l76.24 40.66a8 8 0 0 0 7.52 0L176 143.47v46.34c-12.6 5.88-28.48 10.19-48 10.19m80-33.75a97.8 97.8 0 0 1-16 14.25v-45.57l16-8.53Zm-20-47.31l-.22-.13l-56-29.87a8 8 0 0 0-7.52 14.12L171 128l-43 22.93L25 96l103-54.93L231 96Z"/></symbol>
+      <symbol id="i-star" viewBox="0 0 256 256"><path fill="currentColor" d="M239.18 97.26A16.38 16.38 0 0 0 224.92 86l-59-4.76l-22.78-55.09a16.36 16.36 0 0 0-30.27 0L90.11 81.23L31.08 86a16.46 16.46 0 0 0-9.37 28.86l45 38.83L53 211.75a16.38 16.38 0 0 0 24.5 17.82l50.5-31.08l50.53 31.08A16.4 16.4 0 0 0 203 211.75l-13.76-58.07l45-38.83a16.43 16.43 0 0 0 4.94-17.59m-15.34 5.47l-48.7 42a8 8 0 0 0-2.56 7.91l14.88 62.8a.37.37 0 0 1-.17.48c-.18.14-.23.11-.38 0l-54.72-33.65a8 8 0 0 0-8.38 0l-54.72 33.67c-.15.09-.19.12-.38 0a.37.37 0 0 1-.17-.48l14.88-62.8a8 8 0 0 0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16a8 8 0 0 0 6.72-4.94l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153 91.86a8 8 0 0 0 6.75 4.92l63.92 5.16c.15 0 .24 0 .33.29s0 .4-.16.5"/></symbol>
+      <symbol id="i-flag" viewBox="0 0 256 256"><path fill="currentColor" d="M42.76 50A8 8 0 0 0 40 56v168a8 8 0 0 0 16 0v-44.23c26.79-21.16 49.87-9.75 76.45 3.41c16.4 8.11 34.06 16.85 53 16.85c13.93 0 28.54-4.75 43.82-18a8 8 0 0 0 2.76-6V56a8 8 0 0 0-13.27-6c-28 24.23-51.72 12.49-79.21-1.12C111.07 34.76 78.78 18.79 42.76 50M216 172.25c-26.79 21.16-49.87 9.74-76.45-3.41c-25-12.35-52.81-26.13-83.55-8.4V59.79c26.79-21.16 49.87-9.75 76.45 3.4c25 12.35 52.82 26.13 83.55 8.4Z"/></symbol>
+      <symbol id="i-up" viewBox="0 0 256 256"><path fill="currentColor" d="M178.34 165.66L160 147.31V208a8 8 0 0 1-16 0v-60.69l-18.34 18.35a8 8 0 0 1-11.32-11.32l32-32a8 8 0 0 1 11.32 0l32 32a8 8 0 0 1-11.32 11.32M160 40a88.08 88.08 0 0 0-78.71 48.68A64 64 0 1 0 72 216h40a8 8 0 0 0 0-16H72a48 48 0 0 1 0-96c1.1 0 2.2 0 3.29.12A88 88 0 0 0 72 128a8 8 0 0 0 16 0a72 72 0 1 1 100.8 66a8 8 0 0 0 3.2 15.34a7.9 7.9 0 0 0 3.2-.68A88 88 0 0 0 160 40"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8"/></symbol>
+      <symbol id="i-check" viewBox="0 0 256 256"><path fill="currentColor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <img src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+    <b>BRASA</b><span>Faça parte</span>
+    <nav class="top-links" aria-label="Navegação">
+      <a class="back" href="#inicio" id="to-home" hidden>← Meus formulários</a>
+      <a class="back" href="index.html">Voltar ao site</a>
     </nav>
-    <a class="botao b-amarelo b-pequeno" href="faca-parte.html" aria-current="page">Faça parte</a>
-    <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line class="l1" x1="3" y1="6" x2="19" y2="6"/><line class="l2" x1="3" y1="11" x2="19" y2="11"/><line class="l3" x1="3" y1="16" x2="19" y2="16"/></svg>
-    </button>
-  </div>
-</header>
-<main id="conteudo">
-  <section class="pagina-topo">
-    <span class="canto canto-d" aria-hidden="true"></span>
-    <div class="dentro">
-      <p class="olho">Faça parte</p>
-      <h1>Seu talento é uma brasa. <span style="color:var(--vermelho)">Juntas, acendem um país.</span></h1>
-      <p class="intro">Pesquisadores, artistas, devs, organizações e lideranças: faça parte da rede.</p>
-    </div>
-  </section>
-  <section class="secao s-creme">
-    <div class="dentro estreito">
-      <!-- ESQUELETO: formulário de filiação / cadastro entra aqui -->
-      <div class="vazio">
-        <span class="vz-tag">Cadastro</span>
-        <h2>Formulário de filiação</h2>
-        <p>Aqui entra o cadastro para fazer parte da rede: nome, contato, cidade e como a pessoa quer contribuir.</p>
+  </header>
+
+  <main>
+    <!-- 1. Entrar / criar conta -->
+    <section data-view="entrar" class="wrap">
+      <div class="hero">
+        <h1>Encontrando talentos, <em>conectando brasas</em></h1>
+        <p>Nosso objetivo é encontrar os talentos capazes de transformar o Brasil e conectar quem quer agir, de bairro em bairro, fortalecendo a rede.</p>
       </div>
-    </div>
-  </section>
-</main>
-<footer class="rodape">
-  <div class="dentro rodape-grade">
-    <div class="rodape-marca">
-      <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-      <p class="rodape-desc">Plataforma cívica brasileira.</p>
-    </div>
-    <div><p class="rodape-t">A BRASA</p><ul><li><a href="index.html#como-fazer">Como fazer</a></li><li><a href="index.html#espirito">O espírito</a></li><li><a href="index.html#bandeiras">Bandeiras</a></li><li><a href="index.html#circulos">Círculos</a></li><li><a href="index.html#onde-atuamos">Onde atuamos</a></li></ul></div>
-    <div><p class="rodape-t">Leia</p><ul><li><a href="manifesto.html">Manifesto</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="https://brasa.substack.com">Substack da BRASA</a></li></ul></div>
-    <div><p class="rodape-t">Participe</p><ul><li><a href="faca-parte.html">Faça parte</a></li></ul></div>
-  </div>
-  <div class="rodape-faixa"><span>Ideias</span><i></i><span>Projetos</span><i></i><span>Influência</span></div>
-  <p class="rodape-c dentro">© 2026 BRASA · Plataforma cívica brasileira</p>
-</footer>
+      <form class="card narrow" style="margin-inline:auto" id="f-login" novalidate>
+        <h2>Entrar / Criar conta</h2>
+        <p class="sub">Você receberá um código de verificação no seu e-mail.</p>
+        <div class="field">
+          <label for="login-email">E-mail</label>
+          <input class="input" id="login-email" type="email" autocomplete="email" placeholder="seu@email.com" required />
+        </div>
+        <div class="error" id="login-err" hidden>Digite um e-mail válido.</div>
+        <p class="terms">Ao criar sua conta você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
+        <button class="btn" type="submit">Confirmar</button>
+        <p class="note">Sistema de autenticação seguro via e-mail</p>
+      </form>
+    </section>
+
+    <!-- 2. Verificar código -->
+    <section data-view="verificar" class="wrap" hidden>
+      <form class="card narrow" style="margin-inline:auto" id="f-code" novalidate>
+        <div class="icon-badge"><svg aria-hidden="true"><use href="#i-mail"/></svg></div>
+        <h2>Verificar código</h2>
+        <p class="sub">Enviamos um código de 6 dígitos para<br /><b id="code-email"></b></p>
+        <div class="field">
+          <label for="code">Código de verificação</label>
+          <input class="input code" id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000" />
+          <p class="hint" style="text-align:center">Digite o código de 6 dígitos que você recebeu</p>
+        </div>
+        <div class="error" id="code-err" hidden></div>
+        <button class="btn" type="submit" id="code-btn" disabled>Verificar código</button>
+        <button class="link-btn" type="button" id="resend">Reenviar código</button>
+        <button class="link-btn" type="button" id="other-email">Usar outro e-mail</button>
+        <div class="expire">⏰ <b>O código expira em 1 hora</b><small>Não recebeu? Verifique a pasta de spam.</small></div>
+        <p class="proto" id="proto-note">Protótipo: nenhum e-mail é enviado ainda. Digite quaisquer 6 números para continuar.</p>
+      </form>
+    </section>
+
+    <!-- 3. Início do membro -->
+    <section data-view="inicio" class="wrap" hidden>
+      <div class="welcome">
+        <div class="avatar" id="avatar" aria-hidden="true">B</div>
+        <div>
+          <h1 id="hello">Bem-vindo(a)!</h1>
+          <p>Logado como: <b id="logged-email"></b></p>
+        </div>
+        <div class="actions">
+          <button type="button" data-go="infos">Perfil</button>
+          <button type="button" id="logout">Sair</button>
+        </div>
+      </div>
+      <h2 class="sec-title">Formulários</h2>
+      <p class="sec-sub">Preencha os formulários abaixo para que possamos te conhecer melhor.</p>
+      <div class="forms">
+        <article class="fcard" data-form="infos">
+          <span class="ic"><svg aria-hidden="true"><use href="#i-user"/></svg></span>
+          <span class="badge need">Obrigatório</span>
+          <h3>Informações básicas</h3>
+          <p>Dados pessoais e contato</p><div class="spacer"></div>
+          <button class="btn" type="button" data-go="infos">Preencher formulário</button>
+        </article>
+        <article class="fcard" data-form="experiencias">
+          <span class="ic"><svg aria-hidden="true"><use href="#i-brief"/></svg></span>
+          <span class="badge">Opcional</span>
+          <h3>Experiências profissionais</h3>
+          <p>Trabalhos, projetos e prêmios</p><div class="spacer"></div>
+          <button class="btn" type="button" data-go="experiencias">Preencher formulário</button>
+        </article>
+        <article class="fcard" data-form="competencias">
+          <span class="ic"><svg aria-hidden="true"><use href="#i-bulb"/></svg></span>
+          <span class="badge">Opcional</span>
+          <h3>Competências e habilidades</h3>
+          <p>Suas áreas de conhecimento e habilidades</p><div class="spacer"></div>
+          <button class="btn" type="button" data-go="competencias">Preencher formulário</button>
+        </article>
+        <article class="fcard" data-form="personalidade">
+          <span class="ic"><svg aria-hidden="true"><use href="#i-smile"/></svg></span>
+          <span class="badge">Opcional</span>
+          <h3>Teste de personalidade</h3>
+          <p>Teste de personalidade com 24 perguntas</p><div class="spacer"></div>
+          <button class="btn" type="button" data-go="personalidade">Preencher formulário</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Informações básicas -->
+    <section data-view="infos" class="wrap" hidden>
+      <h1 class="page-title">Informações básicas</h1>
+      <p class="page-sub">Dados pessoais, contato e formação</p>
+      <form id="f-infos" novalidate>
+        <div class="block">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-user"/></svg><div><h2>Dados pessoais</h2></div></div>
+          <div class="grid2">
+            <div class="field"><label for="nome">Nome completo <span class="req">*</span></label><input class="input" id="nome" name="nome" autocomplete="name" required /></div>
+            <div class="field"><label for="tel">WhatsApp</label><input class="input" id="tel" name="tel" type="tel" autocomplete="tel" placeholder="(11) 90000-0000" /></div>
+            <div class="field"><label for="nasc">Data de nascimento</label><input class="input" id="nasc" name="nasc" type="date" /></div>
+            <div class="field"><label for="uf">Estado <span class="req">*</span></label>
+              <select class="input" id="uf" name="uf" required><option value="">Selecione o estado</option></select></div>
+          </div>
+          <label class="check"><input type="checkbox" id="exterior" name="exterior" /> Moro fora do Brasil</label>
+          <div class="grid2">
+            <div class="field"><label for="cidade">Cidade <span class="req">*</span></label><input class="input" id="cidade" name="cidade" list="cidades" placeholder="Ex: São Paulo" required /><p class="hint">💡 Comece a digitar e selecione da lista.</p></div>
+            <div class="field"><label for="endereco">Endereço completo</label><input class="input" id="endereco" name="endereco" autocomplete="street-address" placeholder="Ex: Avenida Brasil, número 11" /></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-cap"/></svg><div><h2>Profissional e acadêmico</h2><p>Sua formação, carreira e currículo</p></div></div>
+          <div class="field"><label for="linkedin">LinkedIn</label><input class="input" id="linkedin" name="linkedin" type="url" placeholder="Ex: www.linkedin.com/in/joaosilva/" /></div>
+          <div class="field"><span class="label">Currículo/CV</span>
+            <label class="upload"><svg width="22" height="22" aria-hidden="true"><use href="#i-up"/></svg><span id="cv-name">Clique para adicionar seu currículo</span><input type="file" id="cv" accept=".pdf,.doc,.docx" /></label>
+            <p class="hint">📎 Formatos aceitos: PDF, DOC, DOCX · Tamanho máximo: 5 MB</p></div>
+          <div class="field"><label for="escolaridade">Nível de escolaridade <span class="req">*</span></label>
+            <select class="input" id="escolaridade" name="escolaridade" required>
+              <option value="">Selecione seu nível de escolaridade</option>
+              <option>Cursando o Ensino Médio/Técnico</option>
+              <option>Graduado no Ensino Médio/Técnico</option>
+              <option data-grad>Cursando uma Graduação no Ensino Superior</option>
+              <option data-grad>Comecei uma Graduação no Ensino Superior, mas interrompi</option>
+              <option data-grad>Graduado no Ensino Superior</option>
+              <option data-grad>Pós-graduação, mestrado ou doutorado</option>
+            </select></div>
+          <div id="grad-area" hidden>
+            <div class="row-between"><span class="label" style="font-weight:700">Graduações <span class="req">*</span></span>
+              <button class="btn small" type="button" id="add-grad"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar graduação</button></div>
+            <div id="grads"></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-head mark"><div><h2>Na BRASA</h2><p>Selecione as frentes de que você já participou ou quer participar</p></div></div>
+          <p class="field label" style="font-weight:700">Quais destas frentes da BRASA mais combinam com você?</p>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="frentes" value="rede" /> Trabalhar em rede (núcleos)</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="tecnologia" /> Tecnologia para a sociedade civil</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="think-tank" /> Think tank e políticas públicas</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="liderancas" /> Lideranças locais</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="nucleo" /> Já faço parte de um núcleo</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="coordenacao" /> Quero coordenar um núcleo</label>
+          </div>
+        </div>
+
+        <div class="error" id="infos-err" hidden></div>
+        <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
+        <button class="btn" type="submit">Enviar formulário</button>
+      </form>
+    </section>
+
+    <!-- 5. Experiências -->
+    <section data-view="experiencias" class="wrap" hidden>
+      <h1 class="page-title">Experiências profissionais</h1>
+      <p class="page-sub">Compartilhe suas experiências de trabalho, projetos e prêmios</p>
+      <form id="f-exp" novalidate>
+        <div class="block" data-list="trabalho">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-brief"/></svg><h2>Experiências de trabalho</h2></div>
+          <div class="entries"></div>
+          <button class="btn ghost" type="button" data-add="trabalho"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar experiência de trabalho</button>
+        </div>
+        <div class="block" data-list="projeto">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-flag"/></svg><h2>Projetos</h2></div>
+          <div class="entries"></div>
+          <button class="btn ghost" type="button" data-add="projeto"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar projeto</button>
+        </div>
+        <div class="block" data-list="premio">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-star"/></svg><h2>Prêmios e reconhecimentos</h2></div>
+          <div class="entries"></div>
+          <button class="btn ghost" type="button" data-add="premio"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar prêmio</button>
+        </div>
+        <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
+        <button class="btn" type="submit">Salvar experiências</button>
+      </form>
+    </section>
+
+    <!-- 6. Competências -->
+    <section data-view="competencias" class="wrap" hidden>
+      <h1 class="page-title">Competências e habilidades</h1>
+      <p class="page-sub">Suas áreas de conhecimento, habilidades e idiomas</p>
+      <form id="f-comp" novalidate>
+        <div class="block">
+          <div class="block-head mark"><div><h2>Áreas de conhecimento</h2><p>Escolha as áreas em que você tem experiência ou formação</p></div></div>
+          <div class="choices" id="areas"></div>
+        </div>
+        <div class="block">
+          <div class="block-head mark"><div><h2>Habilidades</h2><p>O que você sabe fazer bem</p></div></div>
+          <div class="choices" id="skills"></div>
+        </div>
+        <div class="block">
+          <div class="block-head mark"><div><h2>Idiomas</h2><p>Idiomas que você domina tanto na conversação quanto na escrita</p></div></div>
+          <div class="choices" id="langs"></div>
+        </div>
+        <div class="block">
+          <div class="block-head mark"><div><h2>Tem portfólio/GitHub?</h2><p>Insira o link abaixo</p></div></div>
+          <div class="field"><input class="input" name="portfolio" type="url" placeholder="https://github.com/seuusuario ou https://seuportfolio.com" /></div>
+        </div>
+        <button class="btn" type="submit">Salvar competências</button>
+      </form>
+    </section>
+
+    <!-- 7. Personalidade -->
+    <section data-view="personalidade" class="wrap" hidden>
+      <h1 class="page-title">Teste de personalidade</h1>
+      <p class="page-sub">24 afirmações. Responda o quanto cada uma combina com você.</p>
+      <div class="progress"><div class="progress-bar"><i id="pbar"></i></div><small id="ptext">0 de 24 respondidas</small></div>
+      <form id="f-pers" novalidate>
+        <div id="questions"></div>
+        <div class="block">
+          <div class="block-head mark"><div><h2>Pergunta reflexiva (opcional)</h2><p>Esta pergunta é opcional, mas sua resposta nos ajuda a entender melhor seu perfil.</p></div></div>
+          <div class="field"><label for="reflexiva">Qual verdade importante você acredita que pouquíssimas pessoas concordam com você?</label>
+            <textarea class="input" id="reflexiva" name="reflexiva" placeholder="Compartilhe seu pensamento... (opcional)"></textarea>
+            <p class="hint">💡 Dica: seja autêntico e reflexivo. Não há resposta certa ou errada.</p></div>
+        </div>
+        <div class="error" id="pers-err" hidden></div>
+        <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
+        <button class="btn" type="submit">Enviar avaliação</button>
+      </form>
+    </section>
+
+    <footer class="site wrap" style="padding-top:0">BRASA · Plataforma de Mobilização Cívica · Neste protótipo, seus dados ficam salvos apenas neste navegador.</footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/supabase-config.js"></script>
 <script>
-/* ---------- menu do celular + destaque da seção ---------- */
-(function(){
-  const topo=document.getElementById('topo'), botao=document.getElementById('menu-botao');
-  const fecha=()=>{topo.classList.remove('aberto');botao.setAttribute('aria-expanded','false');botao.setAttribute('aria-label','Abrir menu');};
-  botao.addEventListener('click',()=>{const a=!topo.classList.contains('aberto');topo.classList.toggle('aberto',a);botao.setAttribute('aria-expanded',a);botao.setAttribute('aria-label',a?'Fechar menu':'Abrir menu');});
-  topo.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',fecha));
-  addEventListener('keydown',e=>{if(e.key==='Escape')fecha();});
-  const links=[...topo.querySelectorAll('.menu a')];
-  if('IntersectionObserver' in window){
-    const o=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) links.forEach(a=>a.classList.toggle('ativo',a.getAttribute('href')==='#'+e.target.id)); }),{rootMargin:'-45% 0px -50% 0px'});
-    links.forEach(a=>{const s=document.querySelector(a.getAttribute('href')); s&&o.observe(s);});
+(() => {
+  /* ---------- armazenamento local (protótipo) ---------- */
+  const KEY = 'brasa-faca-parte';
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+  const save = d => { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} };
+  /* ---------- Supabase (quando configurado em assets/supabase-config.js) ---------- */
+  const CFG = window.BRASA_SUPABASE || {};
+  const live = !!(CFG.url && CFG.anonKey && window.supabase);
+  const sb = live ? window.supabase.createClient(CFG.url, CFG.anonKey) : null;
+  let userId = null, cvFile = null;
+  let db = load();
+  if (live) {
+    // com o banco ligado, as respostas NÃO ficam no navegador (só o e-mail que está aguardando código)
+    db = { pendingEmail: db.pendingEmail };
   }
+  const persist = save;
+  function saveLocal(d) { if (live) persist({ pendingEmail: d.pendingEmail }); else persist(d); }
+  async function pull() {
+    const { data, error } = await sb.from('cadastros').select('*').maybeSingle();
+    if (error) throw error;
+    db.infos = data?.infos || undefined; db.exp = data?.experiencias || undefined;
+    db.comp = data?.competencias || undefined; db.pers = data?.personalidade || undefined;
+    db.infosDone = !!data?.infos;
+    db.experienciasDone = !!(data?.experiencias && Object.values(data.experiencias).some(a => a && a.length));
+    db.competenciasDone = !!data?.competencias;
+    db.personalidadeDone = !!data?.personalidade;
+  }
+  async function push(fields) {
+    if (!live) return true;
+    const { error } = await sb.from('cadastros').upsert({ user_id: userId, email: db.email, ...fields, updated_at: new Date().toISOString() });
+    if (error) { console.error(error); toast('Não foi possível salvar agora. Tente de novo.'); return false; }
+    return true;
+  }
+  // mensagens claras para os erros mais comuns no envio do código
+  function sendErrorMsg(error) {
+    const st = error?.status, m = (error?.message || '').toLowerCase();
+    if (st === 429 || m.includes('rate limit') || m.includes('security purposes')) return 'Você pediu códigos demais em pouco tempo. Espere alguns minutos e tente de novo.';
+    if (m.includes('not authorized')) return 'Este e-mail ainda não pode receber códigos (o envio está em modo de teste). Fale com a equipe da BRASA.';
+    if (m.includes('invalid') && m.includes('email')) return 'Esse e-mail parece inválido. Confira e tente de novo.';
+    if (st >= 500 || m.includes('sending')) return 'Não conseguimos enviar o e-mail com o código agora. Tente de novo em alguns minutos.';
+    return 'Não conseguimos enviar o código agora. Tente de novo em alguns minutos.';
+  }
+  const busy = (btn, on, label) => {
+    if (!btn) return;
+    if (on) { btn.dataset.label = btn.textContent; btn.textContent = label || 'Aguarde…'; btn.classList.add('is-busy'); btn.disabled = true; }
+    else { btn.textContent = btn.dataset.label || btn.textContent; btn.classList.remove('is-busy'); btn.disabled = false; }
+  };
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2400); };
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  /* ---------- navegação entre telas (#entrar, #verificar, #inicio, #infos...) ---------- */
+  const views = $$('[data-view]');
+  const needsLogin = ['inicio', 'infos', 'experiencias', 'competencias', 'personalidade'];
+  function route() {
+    let v = location.hash.slice(1) || (db.logged ? 'inicio' : 'entrar');
+    if (needsLogin.includes(v) && !db.logged) v = 'entrar';
+    if (v === 'verificar' && !db.pendingEmail) v = 'entrar';
+    views.forEach(s => s.hidden = s.dataset.view !== v);
+    $('#to-home').hidden = !['infos', 'experiencias', 'competencias', 'personalidade'].includes(v);
+    if (v === 'inicio') renderHome();
+    if (v === 'infos') fillInfos();
+    if (v === 'experiencias') fillExp();
+    if (v === 'competencias') fillComp();
+    if (v === 'personalidade') fillPers();
+    if (v === 'verificar') { $('#code-email').textContent = db.pendingEmail; setTimeout(() => $('#code').focus(), 50); }
+    scrollTo({ top: 0 });
+  }
+  const go = v => { location.hash = v; };
+  addEventListener('hashchange', route);
+  document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
+
+  /* ---------- 1. entrar ---------- */
+  $('#f-login').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = $('#login-email').value.trim(), err = $('#login-err');
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    err.textContent = 'Digite um e-mail válido.'; err.hidden = ok;
+    if (!ok) { $('#login-email').focus(); return; }
+    if (live) {
+      const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Enviando código…');
+      const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
+      busy(btn, false);
+      if (error) { err.textContent = sendErrorMsg(error); err.hidden = false; console.error(error); return; }
+    }
+    db.pendingEmail = email; saveLocal(db); go('verificar');
+  });
+
+  /* ---------- 2. verificar código ---------- */
+  const code = $('#code');
+  code.addEventListener('input', () => { code.value = code.value.replace(/\D/g, '').slice(0, 6); $('#code-btn').disabled = code.value.length !== 6; });
+  $('#f-code').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (code.value.length !== 6) return;
+    const err = $('#code-err'); err.hidden = true;
+    if (live) {
+      const btn = $('#code-btn'); busy(btn, true, 'Verificando…');
+      const { data, error } = await sb.auth.verifyOtp({ email: db.pendingEmail, token: code.value, type: 'email' });
+      if (error) { busy(btn, false); err.textContent = 'Código inválido ou expirado. Confira o e-mail ou peça um novo código.'; err.hidden = false; return; }
+      userId = data.user.id;
+      try { await pull(); } catch (x) { console.error(x); }
+      busy(btn, false);
+    }
+    db.logged = true; db.email = db.pendingEmail; delete db.pendingEmail; saveLocal(db);
+    code.value = ''; $('#code-btn').disabled = true; go('inicio');
+  });
+  $('#resend').addEventListener('click', async () => {
+    if (!live) { toast('Código reenviado (simulação).'); return; }
+    const { error } = await sb.auth.signInWithOtp({ email: db.pendingEmail, options: { shouldCreateUser: true } });
+    toast(error ? sendErrorMsg(error) : 'Enviamos um novo código.');
+  });
+  $('#other-email').addEventListener('click', () => { delete db.pendingEmail; saveLocal(db); go('entrar'); });
+
+  /* ---------- 3. início ---------- */
+  function renderHome() {
+    const nome = db.infos?.nome?.trim();
+    $('#hello').textContent = nome ? `Bem-vindo(a), ${nome.split(' ')[0]}` : 'Bem-vindo(a)!';
+    $('#avatar').textContent = (nome || db.email || 'B').trim()[0].toUpperCase();
+    $('#logged-email').textContent = db.email || '';
+    $$('.fcard').forEach(card => {
+      const f = card.dataset.form, done = !!db[f + 'Done'], badge = card.querySelector('.badge'), btn = card.querySelector('.btn');
+      if (done) { badge.className = 'badge done'; badge.textContent = '✓ Preenchido'; btn.classList.add('edit'); btn.textContent = 'Editar respostas'; }
+      else { badge.className = f === 'infos' ? 'badge need' : 'badge'; badge.textContent = f === 'infos' ? 'Obrigatório' : 'Opcional'; btn.classList.remove('edit'); btn.textContent = 'Preencher formulário'; }
+    });
+  }
+  $('#logout').addEventListener('click', async () => {
+    if (live) { await sb.auth.signOut(); db = {}; userId = null; }
+    db.logged = false; saveLocal(db); go('entrar');
+  });
+
+  /* ---------- 4. informações básicas ---------- */
+  const UFS = ['Acre','Alagoas','Amapá','Amazonas','Bahia','Ceará','Distrito Federal','Espírito Santo','Goiás','Maranhão','Mato Grosso','Mato Grosso do Sul','Minas Gerais','Pará','Paraíba','Paraná','Pernambuco','Piauí','Rio de Janeiro','Rio Grande do Norte','Rio Grande do Sul','Rondônia','Roraima','Santa Catarina','São Paulo','Sergipe','Tocantins'];
+  $('#uf').insertAdjacentHTML('beforeend', UFS.map(u => `<option>${u}</option>`).join(''));
+  const CIDADES = ['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Salvador','Fortaleza','Recife','Porto Alegre','Curitiba','Manaus','Belém','Goiânia','Campinas','São Luís','Maceió','Natal','Teresina','João Pessoa','Florianópolis','Vitória','Cuiabá','Campo Grande','Aracaju','Porto Velho','Macapá','Boa Vista','Palmas','Rio Branco'];
+  document.body.insertAdjacentHTML('beforeend', `<datalist id="cidades">${CIDADES.map(c => `<option value="${c}">`).join('')}</datalist>`);
+  $('#exterior').addEventListener('change', e => { $('#uf').disabled = e.target.checked; $('#uf').required = !e.target.checked; });
+  $('#cv').addEventListener('change', e => {
+    const f = e.target.files[0]; if (!f) return;
+    if (f.size > 5 * 1024 * 1024) { toast('Arquivo maior que 5 MB.'); e.target.value = ''; return; }
+    $('#cv-name').textContent = f.name; cvFile = f;
+  });
+  const gradTpl = (i, g = {}) => `<div class="entry" data-grad>
+      <div class="entry-head">Graduação ${i}<button class="entry-del" type="button" aria-label="Remover graduação ${i}">Remover</button></div>
+      <div class="field"><label>Tipo <span class="req">*</span></label><select class="input" name="g-tipo" required>
+        ${['', 'Bacharelado', 'Licenciatura', 'Tecnólogo', 'Especialização / MBA', 'Mestrado', 'Doutorado'].map(o => `<option value="${o}" ${g.tipo === o ? 'selected' : ''}>${o || 'Selecione o tipo'}</option>`).join('')}</select></div>
+      <div class="field"><label>Instituição <span class="req">*</span></label><input class="input" name="g-inst" value="${esc(g.inst)}" placeholder="Digite para buscar... Ex: USP, UFRJ, PUC" required /></div>
+      <div class="field"><label>Curso <span class="req">*</span></label><input class="input" name="g-curso" value="${esc(g.curso)}" placeholder="Ex: Engenharia Civil, Direito" required /></div>
+    </div>`;
+  const renumber = () => $$('#grads [data-grad]').forEach((el, i) => { el.querySelector('.entry-head').firstChild.textContent = `Graduação ${i + 1}`; });
+  const addGrad = g => { $('#grads').insertAdjacentHTML('beforeend', gradTpl($$('#grads [data-grad]').length + 1, g)); };
+  $('#add-grad').addEventListener('click', () => addGrad());
+  $('#grads').addEventListener('click', e => { if (e.target.closest('.entry-del')) { e.target.closest('[data-grad]').remove(); renumber(); } });
+  const toggleGrad = () => {
+    const opt = $('#escolaridade').selectedOptions[0], show = !!opt?.hasAttribute('data-grad');
+    $('#grad-area').hidden = !show;
+    if (show && !$$('#grads [data-grad]').length) addGrad();
+  };
+  $('#escolaridade').addEventListener('change', toggleGrad);
+
+  function fillInfos() {
+    const d = db.infos || {}, f = $('#f-infos');
+    ['nome', 'tel', 'nasc', 'uf', 'cidade', 'endereco', 'linkedin', 'escolaridade'].forEach(k => { if (d[k] != null) f.elements[k].value = d[k]; });
+    f.elements.exterior.checked = !!d.exterior; $('#exterior').dispatchEvent(new Event('change'));
+    $$('#f-infos [name=frentes]').forEach(c => c.checked = (d.frentes || []).includes(c.value));
+    if (d.cv) $('#cv-name').textContent = d.cv;
+    $('#grads').innerHTML = ''; (d.grads || []).forEach(addGrad); toggleGrad();
+  }
+  $('#f-infos').addEventListener('submit', async e => {
+    e.preventDefault();
+    const f = e.target, err = $('#infos-err'), problems = [];
+    if (!f.elements.nome.value.trim()) problems.push('nome completo');
+    if (!f.elements.exterior.checked && !f.elements.uf.value) problems.push('estado');
+    if (!f.elements.cidade.value.trim()) problems.push('cidade');
+    if (!f.elements.escolaridade.value) problems.push('nível de escolaridade');
+    const grads = $$('#grads [data-grad]').map(g => ({ tipo: g.querySelector('[name=g-tipo]').value, inst: g.querySelector('[name=g-inst]').value.trim(), curso: g.querySelector('[name=g-curso]').value.trim() }));
+    if (!$('#grad-area').hidden) {
+      if (!grads.length) problems.push('pelo menos uma graduação');
+      else if (grads.some(g => !g.tipo || !g.inst || !g.curso)) problems.push('tipo, instituição e curso de cada graduação');
+    }
+    if (problems.length) { err.hidden = false; err.textContent = 'Por favor, preencha: ' + problems.join(', ') + '.'; err.scrollIntoView({ block: 'center' }); return; }
+    err.hidden = true;
+    db.infos = {
+      nome: f.elements.nome.value.trim(), tel: f.elements.tel.value, nasc: f.elements.nasc.value, uf: f.elements.uf.value, exterior: f.elements.exterior.checked,
+      cidade: f.elements.cidade.value.trim(), endereco: f.elements.endereco.value, linkedin: f.elements.linkedin.value, escolaridade: f.elements.escolaridade.value,
+      cv: $('#cv-name').textContent.startsWith('Clique') ? '' : $('#cv-name').textContent, cvPath: db.infos?.cvPath || '', grads: $('#grad-area').hidden ? [] : grads,
+      frentes: $$('#f-infos [name=frentes]:checked').map(c => c.value)
+    };
+    if (live && cvFile) {
+      const ext = (cvFile.name.split('.').pop() || 'pdf').toLowerCase();
+      const path = `${userId}/curriculo-${Date.now()}.${ext}`;
+      const { error } = await sb.storage.from('curriculos').upload(path, cvFile, { upsert: true, contentType: cvFile.type || undefined });
+      if (error) { console.error(error); toast('Não foi possível enviar o currículo.'); return; }
+      db.infos.cvPath = path; cvFile = null;
+    }
+    const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
+    const ok = await push({ infos: db.infos }); busy(btn, false); if (!ok) return;
+    db.infosDone = true; saveLocal(db); toast('Informações básicas salvas!'); go('inicio');
+  });
+
+  /* ---------- 5. experiências ---------- */
+  const EXP = {
+    trabalho: { label: 'Experiência', fields: [['cargo', 'Cargo', 'Ex: Analista de projetos'], ['org', 'Empresa ou organização', 'Ex: Prefeitura de Recife'], ['periodo', 'Período', 'Ex: 2021 – atual'], ['desc', 'O que você fez', '', true]] },
+    projeto: { label: 'Projeto', fields: [['nome', 'Nome do projeto', 'Ex: Horta comunitária do bairro'], ['link', 'Link', 'https://'], ['desc', 'Descrição', '', true]] },
+    premio: { label: 'Prêmio', fields: [['nome', 'Prêmio ou reconhecimento', 'Ex: Olimpíada de Matemática'], ['ano', 'Ano', 'Ex: 2023'], ['desc', 'Descrição', '', true]] },
+  };
+  const entryTpl = (type, i, v = {}) => `<div class="entry" data-entry>
+      <div class="entry-head">${EXP[type].label} ${i}<button class="entry-del" type="button">Remover</button></div>
+      <div class="grid2">${EXP[type].fields.map(([k, l, ph, area]) => area
+        ? `<div class="field" style="grid-column:1/-1"><label>${l}</label><textarea class="input" name="${k}" placeholder="${ph}">${esc(v[k])}</textarea></div>`
+        : `<div class="field"><label>${l}</label><input class="input" name="${k}" value="${esc(v[k])}" placeholder="${ph}" /></div>`).join('')}</div></div>`;
+  const addEntry = (type, v) => { const box = $(`[data-list=${type}] .entries`); box.insertAdjacentHTML('beforeend', entryTpl(type, box.children.length + 1, v)); };
+  $('#f-exp').addEventListener('click', e => {
+    const add = e.target.closest('[data-add]'); if (add) addEntry(add.dataset.add);
+    const del = e.target.closest('.entry-del'); if (del) del.closest('[data-entry]').remove();
+  });
+  function fillExp() { Object.keys(EXP).forEach(t => { $(`[data-list=${t}] .entries`).innerHTML = ''; (db.exp?.[t] || []).forEach(v => addEntry(t, v)); }); }
+  $('#f-exp').addEventListener('submit', async e => {
+    e.preventDefault();
+    db.exp = {};
+    Object.keys(EXP).forEach(t => { db.exp[t] = $$(`[data-list=${t}] [data-entry]`).map(en => Object.fromEntries(EXP[t].fields.map(([k]) => [k, en.querySelector(`[name=${k}]`).value.trim()]))).filter(v => Object.values(v).some(Boolean)); });
+    if (!(await push({ experiencias: db.exp }))) return;
+    db.experienciasDone = Object.values(db.exp).some(a => a.length); saveLocal(db); toast('Experiências salvas!'); go('inicio');
+  });
+
+  /* ---------- 6. competências ---------- */
+  const AREAS = ['Educação', 'Saúde', 'Segurança pública', 'Economia e finanças', 'Direito', 'Tecnologia e dados', 'Engenharia', 'Comunicação e marketing', 'Ciência política', 'Meio ambiente', 'Agronegócio', 'Cultura e artes', 'Gestão pública', 'Empreendedorismo', 'Ciências sociais', 'Relações internacionais'];
+  const SKILLS = ['Liderança', 'Organização de eventos', 'Oratória', 'Escrita', 'Design', 'Programação', 'Análise de dados', 'Pesquisa', 'Mobilização comunitária', 'Captação de recursos', 'Gestão de projetos', 'Redes sociais', 'Vídeo e fotografia', 'Negociação', 'Ensino e formação', 'Atendimento ao público'];
+  const LANGS = ['Português', 'Inglês', 'Espanhol', 'Francês', 'Alemão', 'Italiano', 'Mandarim', 'Japonês', 'Árabe', 'Russo', 'Libras', 'Guarani', 'Coreano', 'Hebraico', 'Holandês', 'Outro'];
+  const chips = (id, name, list) => { $(id).innerHTML = list.map(x => `<label class="choice"><input type="checkbox" name="${name}" value="${x}" /> ${x}</label>`).join(''); };
+  chips('#areas', 'areas', AREAS); chips('#skills', 'skills', SKILLS); chips('#langs', 'langs', LANGS);
+  function fillComp() {
+    const d = db.comp || {};
+    ['areas', 'skills', 'langs'].forEach(n => $$(`#f-comp [name=${n}]`).forEach(c => c.checked = (d[n] || []).includes(c.value)));
+    $('#f-comp').elements.portfolio.value = d.portfolio || '';
+  }
+  $('#f-comp').addEventListener('submit', async e => {
+    e.preventDefault();
+    db.comp = Object.fromEntries(['areas', 'skills', 'langs'].map(n => [n, $$(`#f-comp [name=${n}]:checked`).map(c => c.value)]));
+    db.comp.portfolio = e.target.elements.portfolio.value.trim();
+    if (!(await push({ competencias: db.comp }))) return;
+    db.competenciasDone = true; saveLocal(db); toast('Competências salvas!'); go('inicio');
+  });
+
+  /* ---------- 7. personalidade (24 afirmações, escala de 5 pontos) ---------- */
+  const QS = [
+    'Gosto de conhecer pessoas novas e puxar conversa.',
+    'Termino o que começo, mesmo quando perde a graça.',
+    'Fico tranquilo(a) em situações de muita pressão.',
+    'Gosto de ideias novas, mesmo as que parecem estranhas.',
+    'Procuro entender o lado do outro antes de discordar.',
+    'Prefiro planejar a improvisar.',
+    'Em grupo, costumo tomar a iniciativa.',
+    'Me preocupo bastante com coisas que podem dar errado.',
+    'Leio ou estudo assuntos que não têm nada a ver com meu trabalho.',
+    'Evito que pequenas discussões virem grandes conflitos.',
+    'Meus compromissos e horários são organizados.',
+    'Prefiro atividades em que estou com outras pessoas.',
+    'Mudo de humor com facilidade.',
+    'Aprecio arte, música e cultura de diferentes lugares.',
+    'Não me sentiria bem enganando alguém, mesmo que isso me trouxesse vantagem.',
+    'Dou atenção aos detalhes.',
+    'Me sinto energizado(a) depois de estar com muita gente.',
+    'Costumo me recuperar rápido de frustrações.',
+    'Questiono as coisas que todo mundo aceita.',
+    'Gosto de ajudar, mesmo sem ganhar nada em troca.',
+    'Cumpro prazos sem precisar que me cobrem.',
+    'Fico à vontade falando em público.',
+    'Raramente perco a calma.',
+    'Gosto de pensar sobre como o mundo poderia ser diferente.',
+  ];
+  const SCALE = ['Discordo totalmente', 'Discordo parcialmente', 'Neutro', 'Concordo parcialmente', 'Concordo totalmente'];
+  $('#questions').innerHTML = QS.map((q, i) => `<fieldset class="q" data-q="${i}">
+      <legend class="q-title"><span class="q-num">${i + 1}</span>${q}</legend>
+      <div class="likert">${SCALE.map((s, v) => `<label><input type="radio" name="q${i}" value="${v + 1}" />${s}</label>`).join('')}</div>
+    </fieldset>`).join('');
+  const updateProgress = () => {
+    const n = QS.filter((_, i) => document.querySelector(`[name=q${i}]:checked`)).length;
+    $('#pbar').style.width = (n / QS.length * 100) + '%'; $('#ptext').textContent = `${n} de ${QS.length} respondidas`;
+    $$('.q').forEach(q => q.classList.toggle('answered', !!q.querySelector('input:checked')));
+  };
+  $('#questions').addEventListener('change', updateProgress);
+  function fillPers() {
+    const d = db.pers || {};
+    QS.forEach((_, i) => { const v = d['q' + i]; $$(`[name=q${i}]`).forEach(r => r.checked = String(r.value) === String(v)); });
+    $('#reflexiva').value = d.reflexiva || ''; updateProgress();
+  }
+  $('#f-pers').addEventListener('submit', async e => {
+    e.preventDefault();
+    const missing = QS.map((_, i) => i).filter(i => !document.querySelector(`[name=q${i}]:checked`));
+    const err = $('#pers-err');
+    if (missing.length) { err.hidden = false; err.textContent = `Faltam ${missing.length} afirmações. A primeira é a de número ${missing[0] + 1}.`; document.querySelector(`[data-q="${missing[0]}"]`).scrollIntoView({ block: 'center' }); return; }
+    err.hidden = true;
+    db.pers = Object.fromEntries(QS.map((_, i) => ['q' + i, document.querySelector(`[name=q${i}]:checked`).value]));
+    db.pers.reflexiva = $('#reflexiva').value.trim();
+    if (!(await push({ personalidade: db.pers }))) return;
+    db.personalidadeDone = true; saveLocal(db); toast('Avaliação enviada!'); go('inicio');
+  });
+
+  async function start() {
+    $('#proto-note').hidden = live;
+    if (live) {
+      const { data: { session } } = await sb.auth.getSession();
+      if (session) {
+        userId = session.user.id; db.logged = true; db.email = session.user.email;
+        try { await pull(); } catch (x) { console.error(x); }
+      } else { db.logged = false; }
+    }
+    route();
+  }
+  start();
 })();
-
-
 </script>
+<script src="assets/share.js?v=share2"></script>
 </body>
 </html>

@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="pt-BR" class="js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Como funciona — BRASA</title>
+<meta name="description" content="Uma rede que acende o país: quatro frentes para mudar o Brasil." />
+<link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/dock.css?v=share1" />
+<link rel="stylesheet" href="assets/share.css?v=share1" />
+<style>
+  :root {
+    --beige: #f4ead4; --paper: #fbf6ea; --green: #0f4f2e; --green-2: #1d5a36; --sun: #fdc010; --red: #b3161f; --muted: #4e5a4c;
+    --font-display: "Archivo", system-ui, sans-serif; --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "EB Garamond", Georgia, serif; --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1); /* easeOutQuint (pocket-design get_easing) */
+    --pad: clamp(20px, 5vw, 64px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--beige); color: var(--green); font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(15, 79, 46, .07) 1px, transparent 1.4px); background-size: 22px 22px;
+  }
+  html, body { overflow-x: clip; }
+  #tecnologia { overflow-x: clip; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+  section { scroll-margin-top: 24px; }
+
+  .eyebrow { font-family: var(--font-mono); font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
+  .on-dark .eyebrow { color: var(--sun); }
+  h1, h2 { font-family: var(--font-display); font-stretch: 125%; font-weight: 900; text-transform: uppercase; letter-spacing: -.005em; line-height: 1; text-wrap: balance; }
+  h1 { font-size: clamp(40px, 6.4vw, 92px); }
+  h2 { font-size: clamp(30px, 4vw, 56px); margin-top: 12px; }
+  .kicker { margin-top: 12px; font-family: var(--font-serif); font-style: italic; font-size: clamp(20px, 2vw, 28px); color: var(--red); }
+  .on-dark .kicker { color: var(--sun); }
+  .lead { margin-top: 18px; max-width: 780px; font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); }
+  .on-dark { background: var(--green); color: var(--beige); }
+  .on-dark .lead { color: rgba(244, 234, 212, .82); }
+  .block { padding: clamp(56px, 9vw, 120px) var(--pad); }
+  .block.on-dark { margin: 0 clamp(8px, 1.4vw, 20px); border-radius: 28px; }
+
+  /* entrada suave */
+  .js .reveal { opacity: 0; transform: translateY(22px); }
+  .js .reveal.in { opacity: 1; transform: none; transition: opacity .9s var(--ease) var(--d, 0s), transform .9s var(--ease) var(--d, 0s); }
+
+  /* ---------- abertura ---------- */
+  .opening { min-height: 86vh; min-height: 86dvh; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: center; padding: clamp(56px, 8vw, 96px) var(--pad); }
+  .opening .body p { font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); }
+  .opening .body p + p { margin-top: 16px; }
+  .opening .quote { margin-top: 28px; font-family: var(--font-serif); font-style: italic; font-size: clamp(24px, 2.4vw, 34px); line-height: 1.15; color: var(--red); }
+  /* da faísca à fogueira: três sóis que crescem */
+  .sparks { display: flex; align-items: flex-end; gap: clamp(10px, 2vw, 24px); margin-top: 32px; }
+  .sparks svg { animation: spark 3s ease-in-out infinite alternate; }
+  .sparks svg:nth-child(1) { width: 34px; }
+  .sparks svg:nth-child(2) { width: 64px; animation-delay: -1s; }
+  .sparks svg:nth-child(3) { width: 110px; animation-delay: -2s; }
+  @keyframes spark { from { transform: rotate(0) scale(1); } to { transform: rotate(18deg) scale(1.06); } }
+
+  /* ---------- quatro frentes ---------- */
+  .fronts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); margin-top: clamp(28px, 4vw, 48px); }
+  .front {
+    display: flex; flex-direction: column; gap: 12px; min-height: 280px; padding: clamp(20px, 2vw, 28px); border-radius: 20px;
+    background: var(--paper); border: 1px solid rgba(15, 79, 46, .14); text-decoration: none;
+    transition: transform .5s var(--ease), box-shadow .4s var(--ease), border-color .3s var(--ease);
+  }
+  .front:hover { transform: translateY(-5px); box-shadow: 0 28px 50px -28px rgba(15, 79, 46, .55); border-color: rgba(15, 79, 46, .3); }
+  .front.is-green { background: var(--green); color: var(--beige); border-color: transparent; }
+  .front-top { display: flex; justify-content: space-between; align-items: center; }
+  .front-num { font-family: var(--font-mono); font-weight: 700; font-size: 18px; color: var(--red); }
+  .front.is-green .front-num, .front.is-green .front-icon { color: var(--sun); }
+  .front-icon { width: 28px; height: 28px; color: var(--green); }
+  .front h3 { margin-top: 8px; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.12; }
+  .front p { font-size: 15px; color: var(--muted); }
+  .front.is-green p { color: rgba(244, 234, 212, .8); }
+  .front-more { margin-top: auto; padding-top: 12px; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .front-more::after { content: " ↓"; }
+
+  /* ---------- 01 rede: centro → núcleos → alianças ---------- */
+  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: clamp(10px, 1.4vw, 18px); align-items: stretch; margin-top: clamp(28px, 4vw, 48px); }
+  .node { padding: clamp(20px, 2vw, 28px); border-radius: 18px; background: var(--green-2); border: 1px solid rgba(244, 234, 212, .14); }
+  .node.is-sun { background: var(--sun); color: var(--green); border-color: transparent; }
+  .node svg { width: 30px; height: 30px; color: var(--sun); }
+  .node.is-sun svg { color: #d2202a; }
+  .node-tag { display: block; margin-top: 14px; font-family: var(--font-mono); font-weight: 700; font-size: 12px; color: var(--sun); }
+  .node.is-sun .node-tag { color: var(--green); }
+  .node h3 { margin-top: 4px; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: clamp(20px, 1.8vw, 26px); }
+  .node p { margin-top: 8px; font-size: 15px; color: rgba(244, 234, 212, .8); }
+  .node.is-sun p { color: var(--green); }
+  .flow-arrow { align-self: center; width: 28px; height: 3px; background: var(--sun); position: relative; }
+  .flow-arrow::after { content: ""; position: absolute; right: -2px; top: -5px; border: 6.5px solid transparent; border-left: 9px solid var(--sun); border-right: 0; }
+  .js .flow-arrow { transform: scaleX(0); transform-origin: left; transition: transform .7s var(--ease) var(--d, 0s); }
+  .js .flow.in .flow-arrow { transform: scaleX(1); }
+  .closing-line { margin-top: clamp(28px, 4vw, 44px); font-family: var(--font-serif); font-style: italic; font-size: clamp(22px, 2.4vw, 32px); color: var(--sun); }
+
+  /* ---------- 02 tecnologia: encontro de dois círculos ---------- */
+  .venn-wrap { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: center; margin-top: clamp(24px, 4vw, 40px); }
+  .venn { position: relative; aspect-ratio: 1.6; max-width: 620px; width: 100%; }
+  .venn .c { position: absolute; top: 0; width: 62.5%; aspect-ratio: 1; border-radius: 50%; display: grid; align-items: center; font-family: var(--font-display); font-stretch: 112%; font-weight: 900; font-size: clamp(18px, 2vw, 30px); transition: transform 1.2s var(--ease); }
+  .venn .c-br { left: 0; background: var(--green); color: var(--beige); padding-left: 14%; }
+  .venn .c-tec { right: 0; background: rgba(253, 192, 16, .82); color: var(--green); padding-left: 40%; }
+  .js .venn .c-br { transform: translateX(-18%); }
+  .js .venn .c-tec { transform: translateX(18%); }
+  .js .venn.in .c { transform: none; }
+  .venn .meet {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(.6); opacity: 0; z-index: 2;
+    padding: 8px 20px; border-radius: 999px; background: #d2202a; color: var(--beige);
+    font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: clamp(14px, 1.4vw, 18px); letter-spacing: .08em;
+    box-shadow: 3px 3px 0 var(--green); transition: transform .8s var(--ease) .9s, opacity .5s var(--ease) .9s;
+  }
+  .venn.in .meet, html:not(.js) .venn .meet { transform: translate(-50%, -50%); opacity: 1; }
+  .motors-title { font-weight: 700; font-size: 19px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .pill { padding: 10px 20px; border-radius: 999px; border: 2px solid var(--green); font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 16px; box-shadow: 3px 3px 0 var(--green); background: var(--paper); transition: transform .3s var(--ease); }
+  .pill:hover { transform: translate(-2px, -2px); }
+  .pill.g { background: var(--green); color: var(--beige); box-shadow: 3px 3px 0 var(--sun); border-color: var(--green); }
+  .pill.y { background: var(--sun); }
+  .pill.r { background: #d2202a; color: var(--beige); border-color: #d2202a; box-shadow: 3px 3px 0 var(--green); }
+
+  /* ---------- ecossistema: sol no centro, núcleos e alianças em rede ---------- */
+  .rede-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 72px); align-items: center; }
+  .eco { position: relative; margin: 0; width: 100%; max-width: 560px; aspect-ratio: 1; justify-self: center; }
+  .eco canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .eco::before { content: ""; position: absolute; inset: 18%; border-radius: 50%; background: radial-gradient(closest-side, rgba(253, 192, 16, .35), transparent); }
+  .eco-sun { position: absolute; left: 50%; top: 50%; width: 26%; transform: translate(-50%, -50%); animation: eco-breathe 5s ease-in-out infinite alternate; }
+  @keyframes eco-breathe { from { transform: translate(-50%, -50%) scale(1) rotate(0); } to { transform: translate(-50%, -50%) scale(1.06) rotate(8deg); } }
+  .eco-legend { list-style: none; margin-top: 24px; display: grid; gap: 10px; font-size: 16px; color: rgba(244, 234, 212, .85); }
+  .eco-legend b { color: #f4ead4; }
+  .eco-legend li { display: flex; align-items: center; gap: 12px; }
+  .eco-legend span { flex: none; display: inline-block; }
+  .lg-sun { width: 18px; height: 18px; background: #fdc010; clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+  .lg-dot { width: 14px; height: 14px; border-radius: 50%; background: #fdc010; box-shadow: 0 0 0 2px rgba(253, 192, 16, .3); }
+  .lg-star { width: 12px; height: 12px; border-radius: 50%; background: #f4ead4; box-shadow: 0 0 10px rgba(244, 234, 212, .8); }
+  @media (max-width: 1100px) { .rede-head { grid-template-columns: 1fr; } }
+
+  /* ---------- tecnologia: a BRASA liga os dois conjuntos ---------- */
+  /* rótulos no alto de cada círculo, deixando o meio livre para o fio que passa pelo selo */
+  .venn .c { align-items: start; padding-top: 22%; }
+  .venn .c-br { justify-items: start; padding-left: 13%; }
+  .venn .c-tec { justify-items: end; padding-left: 0; padding-right: 11%; }
+  .venn .wire {
+    position: absolute; top: 50%; height: 3px; transform: translateY(-50%); z-index: 1; opacity: 0;
+    background: repeating-linear-gradient(90deg, #f4ead4 0 8px, transparent 8px 14px);
+    transition: opacity .6s var(--ease) 1.2s;
+  }
+  .venn .wire.l { left: 14%; right: 50%; animation: wire-l .9s linear infinite; background-color: transparent; }
+  .venn .wire.r { left: 50%; right: 14%; animation: wire-r .9s linear infinite; background-image: repeating-linear-gradient(90deg, #0f4f2e 0 8px, transparent 8px 14px); }
+  @keyframes wire-l { to { background-position: -14px 0; } }
+  @keyframes wire-r { to { background-position: 14px 0; } }
+  .venn .end { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; transform: translate(-50%, -50%); z-index: 2; opacity: 0; transition: opacity .5s var(--ease) 1.2s; }
+  .venn .end.l { left: 14%; background: #fdc010; box-shadow: 0 0 0 4px rgba(253, 192, 16, .25); }
+  .venn .end.r { left: 86%; background: #0f4f2e; box-shadow: 0 0 0 4px rgba(15, 79, 46, .2); }
+  /* faíscas que correm do selo para cada lado */
+  .venn .spark { position: absolute; top: 50%; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); z-index: 2; opacity: 0; }
+  .venn .spark.l { background: #fdc010; box-shadow: 0 0 10px #fdc010; }
+  .venn .spark.r { background: #d2202a; box-shadow: 0 0 10px rgba(210, 32, 42, .8); }
+  .venn.in .wire, .venn.in .end { opacity: 1; }
+  .venn.in .spark.l { animation: spark-l 2.2s var(--ease) 1.4s infinite; }
+  .venn.in .spark.r { animation: spark-r 2.2s var(--ease) 1.4s infinite; }
+  .venn.in .spark.l.b { animation-delay: 2.5s; }
+  .venn.in .spark.r.b { animation-delay: 2.5s; }
+  @keyframes spark-l { 0% { left: 50%; opacity: 0; } 10% { opacity: 1; } 85% { opacity: 1; } 100% { left: 14%; opacity: 0; } }
+  @keyframes spark-r { 0% { left: 50%; opacity: 0; } 10% { opacity: 1; } 85% { opacity: 1; } 100% { left: 86%; opacity: 0; } }
+  /* o selo pulsa, como quem conecta */
+  .venn .meet::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 2px solid #d2202a; opacity: 0; }
+  .venn.in .meet::after { animation: ring 2.2s var(--ease) 1.4s infinite; }
+  @keyframes ring { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.6, 2.2); opacity: 0; } }
+  .venn .meet { z-index: 3; }
+
+  /* ---------- 03 e 04: três passos ---------- */
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 20px); margin-top: clamp(28px, 4vw, 48px); counter-reset: s; }
+  .step { position: relative; padding: clamp(22px, 2.2vw, 30px); border-radius: 20px; background: var(--paper); border: 1px solid rgba(15, 79, 46, .14); }
+  .step:nth-child(2) { background: var(--sun); border-color: transparent; }
+  .step:nth-child(3) { background: var(--green); color: var(--beige); border-color: transparent; }
+  .step-num { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--green); color: var(--sun); font-family: var(--font-display); font-stretch: 125%; font-weight: 900; }
+  .step:nth-child(2) .step-num { background: #d2202a; color: var(--beige); }
+  .step:nth-child(3) .step-num { background: var(--sun); color: var(--green); }
+  .step-label { display: block; margin-top: 16px; font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
+  .step:nth-child(2) .step-label { color: var(--green); }
+  .step:nth-child(3) .step-label { color: var(--sun); }
+  .step h3 { margin-top: 6px; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: clamp(20px, 1.8vw, 26px); line-height: 1.1; }
+  .step p { margin-top: 10px; font-size: 15px; color: var(--muted); }
+  .step:nth-child(2) p { color: var(--green); }
+  .step:nth-child(3) p { color: rgba(244, 234, 212, .82); }
+  .step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: calc(-1 * clamp(12px, 1.4vw, 20px)); width: clamp(12px, 1.4vw, 20px); height: 3px; background: var(--green); opacity: .35; }
+
+  /* ---------- fechamento ---------- */
+  .final { text-align: center; padding: clamp(72px, 12vw, 140px) var(--pad) clamp(40px, 6vw, 72px); }
+  .final .logo { width: 110px; height: auto; margin: 0 auto 24px; display: block; }
+  .final h2 { max-width: 16ch; margin: 0 auto; }
+  .final .kicker { margin-top: 14px; }
+  .final .cta { display: inline-flex; align-items: center; margin-top: 36px; min-height: 52px; padding: 0 24px; border-radius: 10px; background: var(--sun); color: var(--green); text-decoration: none; border: 2px solid var(--green); box-shadow: 4px 4px 0 var(--green); font-family: var(--font-mono); font-weight: 700; font-size: 15px; letter-spacing: .05em; text-transform: uppercase; transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
+  .final .cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--green); }
+
+  @media (max-width: 1100px) {
+    .fronts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .opening, .venn-wrap { grid-template-columns: 1fr; }
+    .opening { min-height: auto; }
+  }
+  @media (max-width: 760px) {
+    .fronts, .steps { grid-template-columns: 1fr; }
+    .front { min-height: 0; }
+    .flow { grid-template-columns: 1fr; }
+    .flow-arrow { justify-self: center; width: 3px; height: 24px; }
+    .flow-arrow::after { right: -5px; top: auto; bottom: -4px; border: 6.5px solid transparent; border-top: 9px solid var(--sun); border-bottom: 0; }
+    .js .flow-arrow { transform: scaleY(0); transform-origin: top; }
+    .js .flow.in .flow-arrow { transform: scaleY(1); }
+    .step:not(:last-child)::after { display: none; }
+    .venn .c { font-size: 15px; padding-top: 20%; }
+    .venn .c-br { padding-left: 12%; }
+    .venn .c-tec { padding-right: 9%; }
+    .venn .meet { font-size: 12px; padding: 6px 14px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .js .reveal, .js .flow-arrow, .js .venn .c { opacity: 1; transform: none; }
+    .venn .meet { opacity: 1; transform: translate(-50%, -50%); }
+    .venn .wire, .venn .end { opacity: 1; }
+  }
+</style>
+</head>
+<body class="has-dock">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="sun" d="M0.0 -100.0 L4.4 -55.8 L13.1 -54.5 L24.1 -74.2 L21.4 -51.7 L29.3 -47.7 L58.8 -80.9 L36.4 -42.6 L42.6 -36.4 L63.1 -45.8 L47.7 -29.3 L51.7 -21.4 L95.1 -30.9 L54.5 -13.1 L55.8 -4.4 L78.0 -0.0 L55.8 4.4 L54.5 13.1 L95.1 30.9 L51.7 21.4 L47.7 29.3 L63.1 45.8 L42.6 36.4 L36.4 42.6 L58.8 80.9 L29.3 47.7 L21.4 51.7 L24.1 74.2 L13.1 54.5 L4.4 55.8 L0.0 100.0 L-4.4 55.8 L-13.1 54.5 L-24.1 74.2 L-21.4 51.7 L-29.3 47.7 L-58.8 80.9 L-36.4 42.6 L-42.6 36.4 L-63.1 45.8 L-47.7 29.3 L-51.7 21.4 L-95.1 30.9 L-54.5 13.1 L-55.8 4.4 L-78.0 0.0 L-55.8 -4.4 L-54.5 -13.1 L-95.1 -30.9 L-51.7 -21.4 L-47.7 -29.3 L-63.1 -45.8 L-42.6 -36.4 L-36.4 -42.6 L-58.8 -80.9 L-29.3 -47.7 L-21.4 -51.7 L-24.1 -74.2 L-13.1 -54.5 L-4.4 -55.8Z"/>
+      <symbol id="i-rede" viewBox="0 0 256 256"><g fill="currentColor"><path d="m218.34 119.6l-34.74 34.74a46.58 46.58 0 0 1-44.31 12.26c-.31.34-.62.67-.95 1l-34.74 34.74a46.63 46.63 0 1 1-65.94-65.94l34.74-34.74a46.6 46.6 0 0 1 44.31-12.26c.31-.34.62-.67 1-1l34.69-34.74a46.63 46.63 0 0 1 65.94 65.94" opacity=".2"/><path d="M240 88.23a54.43 54.43 0 0 1-16 37L189.25 160a54.27 54.27 0 0 1-38.63 16h-.05A54.63 54.63 0 0 1 96 119.84a8 8 0 0 1 16 .45A38.62 38.62 0 0 0 150.58 160a38.4 38.4 0 0 0 27.31-11.31l34.75-34.75a38.63 38.63 0 0 0-54.63-54.63l-11 11A8 8 0 0 1 135.7 59l11-11a54.65 54.65 0 0 1 77.3 0a54.86 54.86 0 0 1 16 40.23m-131 97.43l-11 11A38.4 38.4 0 0 1 70.6 208a38.63 38.63 0 0 1-27.29-65.94L78 107.31a38.63 38.63 0 0 1 66 28.4a8 8 0 0 0 7.78 8.22h.22a8 8 0 0 0 8-7.78A54.86 54.86 0 0 0 144 96a54.65 54.65 0 0 0-77.27 0L32 130.75A54.62 54.62 0 0 0 70.56 224a54.28 54.28 0 0 0 38.64-16l11-11a8 8 0 0 0-11.2-11.34"/></g></symbol>
+      <symbol id="i-tec" viewBox="0 0 256 256"><g fill="currentColor"><path d="m240 128l-48 40H64l-48-40l48-40h128Z" opacity=".2"/><path d="M69.12 94.15L28.5 128l40.62 33.85a8 8 0 1 1-10.24 12.29l-48-40a8 8 0 0 1 0-12.29l48-40a8 8 0 0 1 10.24 12.3m176 27.7l-48-40a8 8 0 1 0-10.24 12.3L227.5 128l-40.62 33.85a8 8 0 1 0 10.24 12.29l48-40a8 8 0 0 0 0-12.29m-82.39-89.37a8 8 0 0 0-10.25 4.79l-64 176a8 8 0 0 0 4.79 10.26A8.1 8.1 0 0 0 96 224a8 8 0 0 0 7.52-5.27l64-176a8 8 0 0 0-4.79-10.25"/></g></symbol>
+      <symbol id="i-ideia" viewBox="0 0 256 256"><g fill="currentColor"><path d="M208 104a79.86 79.86 0 0 1-30.59 62.92A24.29 24.29 0 0 0 168 186v6a8 8 0 0 1-8 8H96a8 8 0 0 1-8-8v-6a24.11 24.11 0 0 0-9.3-19A79.87 79.87 0 0 1 48 104.45C47.76 61.09 82.72 25 126.07 24A80 80 0 0 1 208 104" opacity=".2"/><path d="M176 232a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h80a8 8 0 0 1 8 8m40-128a87.55 87.55 0 0 1-33.64 69.21A16.24 16.24 0 0 0 176 186v6a16 16 0 0 1-16 16H96a16 16 0 0 1-16-16v-6a16 16 0 0 0-6.23-12.66A87.59 87.59 0 0 1 40 104.49C39.74 56.83 78.26 17.14 125.88 16A88 88 0 0 1 216 104m-16 0a72 72 0 0 0-73.74-72c-39 .92-70.47 33.39-70.26 72.39a71.65 71.65 0 0 0 27.64 56.3A32 32 0 0 1 96 186v6h64v-6a32.15 32.15 0 0 1 12.47-25.35A71.65 71.65 0 0 0 200 104m-16.11-9.34a57.6 57.6 0 0 0-46.56-46.55a8 8 0 0 0-2.66 15.78c16.57 2.79 30.63 16.85 33.44 33.45A8 8 0 0 0 176 104a9 9 0 0 0 1.35-.11a8 8 0 0 0 6.54-9.23"/></g></symbol>
+      <symbol id="i-casa" viewBox="0 0 256 256"><g fill="currentColor"><path d="M216 120v96h-64v-64h-48v64H40v-96a8 8 0 0 1 2.34-5.66l80-80a8 8 0 0 1 11.32 0l80 80A8 8 0 0 1 216 120" opacity=".2"/><path d="m219.31 108.68l-80-80a16 16 0 0 0-22.62 0l-80 80A15.87 15.87 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.87 15.87 0 0 0-4.69-11.32M208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80l80 80Z"/></g></symbol>
+      <symbol id="i-lider" viewBox="0 0 256 256"><g fill="currentColor"><path d="M168 144a40 40 0 1 1-40-40a40 40 0 0 1 40 40M64 56a32 32 0 1 0 32 32a32 32 0 0 0-32-32m128 0a32 32 0 1 0 32 32a32 32 0 0 0-32-32" opacity=".2"/><path d="M244.8 150.4a8 8 0 0 1-11.2-1.6A51.6 51.6 0 0 0 192 128a8 8 0 0 1 0-16a24 24 0 1 0-23.24-30a8 8 0 1 1-15.5-4A40 40 0 1 1 219 117.51a67.94 67.94 0 0 1 27.43 21.68a8 8 0 0 1-1.63 11.21M190.92 212a8 8 0 1 1-13.85 8a57 57 0 0 0-98.15 0a8 8 0 1 1-13.84-8a72.06 72.06 0 0 1 33.74-29.92a48 48 0 1 1 58.36 0A72.06 72.06 0 0 1 190.92 212M128 176a32 32 0 1 0-32-32a32 32 0 0 0 32 32m-56-56a8 8 0 0 0-8-8a24 24 0 1 1 23.24-30a8 8 0 1 0 15.5-4A40 40 0 1 0 37 117.51a67.94 67.94 0 0 0-27.4 21.68a8 8 0 1 0 12.8 9.61A51.6 51.6 0 0 1 64 128a8 8 0 0 0 8-8"/></g></symbol>
+    </defs>
+  </svg>
+
+  <main>
+    <section class="opening" aria-labelledby="como-title">
+      <div class="reveal">
+        <p class="eyebrow">Como funciona</p>
+        <h1 id="como-title">Uma rede que acende o país</h1>
+        <div class="sparks" aria-hidden="true">
+          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
+          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
+          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
+        </div>
+      </div>
+      <div class="body reveal" style="--d:.15s">
+        <p>A BRASA não vai mudar o Brasil sozinha, nem de cima para baixo. Ela acende no centro e conecta quem já está agindo: pessoas, comunidades e instituições de todo o país.</p>
+        <p>Juntando rede, tecnologia, ideias e lideranças locais, transformamos o que a sociedade deseja em mudança real, do bairro para todo Brasil.</p>
+        <p class="quote">De faísca em faísca, até virar fogueira.</p>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="frentes-title">
+      <div class="reveal">
+        <p class="eyebrow">Como fazer</p>
+        <h2 id="frentes-title">Quatro frentes para mudar o Brasil</h2>
+        <p class="kicker">Começa na rua e chega a Brasília.</p>
+      </div>
+      <div class="fronts">
+        <a class="front reveal" href="#rede" style="--d:0s">
+          <span class="front-top"><span class="front-num">01</span><svg class="front-icon" aria-hidden="true"><use href="#i-rede"/></svg></span>
+          <h3>Trabalhar em rede</h3>
+          <p>Conectar talentos, núcleos e instituições de todo o país. Sozinha, uma brasa aquece; juntas, acendem um país.</p>
+          <span class="front-more">Ver mais</span>
+        </a>
+        <a class="front reveal" href="#tecnologia" style="--d:.08s">
+          <span class="front-top"><span class="front-num">02</span><svg class="front-icon" aria-hidden="true"><use href="#i-tec"/></svg></span>
+          <h3>Tecnologia para a sociedade civil</h3>
+          <p>Usar e desenvolver sistemas, dados e plataformas que ajudem as pessoas a se organizar e resolver problemas reais.</p>
+          <span class="front-more">Ver mais</span>
+        </a>
+        <a class="front reveal" href="#think-tank" style="--d:.16s">
+          <span class="front-top"><span class="front-num">03</span><svg class="front-icon" aria-hidden="true"><use href="#i-ideia"/></svg></span>
+          <h3>Think tank e políticas públicas</h3>
+          <p>Formar ideias com pesquisa e debate e transformá-las em propostas e políticas públicas prontas para o país.</p>
+          <span class="front-more">Ver mais</span>
+        </a>
+        <a class="front is-green reveal" href="#liderancas" style="--d:.24s">
+          <span class="front-top"><span class="front-num">04</span><svg class="front-icon" aria-hidden="true"><use href="#i-lider"/></svg></span>
+          <h3>Lideranças locais</h3>
+          <p>Formar lideranças que venham do povo e representem o povo: gente que se importa de verdade com as pessoas e com a sociedade.</p>
+          <span class="front-more">Ver mais</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="rede" class="block on-dark" aria-labelledby="rede-title">
+      <div class="rede-head">
+        <div class="reveal">
+          <p class="eyebrow">01 · Trabalhar em rede</p>
+          <h2 id="rede-title">O calor se espalha</h2>
+          <p class="lead">Cada núcleo age no seu território com autonomia e se conecta aos outros para trocar ideias, recursos e conquistas. É o jeito mais rápido de a mudança chegar a todo o país.</p>
+          <ul class="eco-legend">
+            <li><span class="lg-sun" aria-hidden="true"></span><b>O sol:</b> a BRASA articula e conecta.</li>
+            <li><span class="lg-dot" aria-hidden="true"></span><b>Pontos de luz:</b> núcleos de norte a sul.</li>
+            <li><span class="lg-star" aria-hidden="true"></span><b>Estrelas:</b> alianças com empresas, ONGs e o poder público.</li>
+          </ul>
+        </div>
+        <figure class="eco reveal" style="--d:.15s" role="img" aria-label="Ecossistema da BRASA: o sol no centro, ligado a núcleos e alianças em rede, que se movem e criam novas conexões">
+          <canvas aria-hidden="true"></canvas>
+          <svg class="eco-sun" viewBox="-115 -115 230 230" aria-hidden="true"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
+        </figure>
+      </div>
+      <div class="flow reveal">
+        <div class="node is-sun">
+          <svg viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
+          <span class="node-tag">O centro</span>
+          <h3>A BRASA</h3>
+          <p>Articula, conecta e dá direção. Oferece método, ferramentas e apoio para quem quer agir.</p>
+        </div>
+        <span class="flow-arrow" style="--d:.4s" aria-hidden="true"></span>
+        <div class="node">
+          <svg aria-hidden="true"><use href="#i-casa"/></svg>
+          <span class="node-tag">Pontos de luz</span>
+          <h3>Os núcleos</h3>
+          <p>Grupos locais em bairros e cidades, de norte a sul, que organizam a comunidade e fazem acontecer.</p>
+        </div>
+        <span class="flow-arrow" style="--d:.8s" aria-hidden="true"></span>
+        <div class="node">
+          <svg aria-hidden="true"><use href="#i-rede"/></svg>
+          <span class="node-tag">Estrelas</span>
+          <h3>As alianças</h3>
+          <p>Instituições, universidades, empresas, ONGs e o poder público que somam forças e levam a luz mais longe.</p>
+        </div>
+      </div>
+      <p class="closing-line reveal">Sozinha, uma brasa aquece. Juntas, acendem um país.</p>
+    </section>
+
+    <section id="tecnologia" class="block" aria-labelledby="tec-title">
+      <div class="reveal">
+        <p class="eyebrow">02 · Tecnologia</p>
+        <h2 id="tec-title">O Brasil encontra tecnologia</h2>
+        <p class="kicker">Usar e desenvolver tecnologia para ajudar a sociedade civil.</p>
+      </div>
+      <div class="venn-wrap">
+        <div class="venn reveal" role="img" aria-label="Diagrama: o Brasil e a tecnologia se encontram, e no encontro está a BRASA">
+          <div class="c c-br">Brasil</div>
+          <div class="c c-tec">Tecnologia</div>
+          <span class="wire l" aria-hidden="true"></span><span class="wire r" aria-hidden="true"></span>
+          <span class="end l" aria-hidden="true"></span><span class="end r" aria-hidden="true"></span>
+          <span class="spark l" aria-hidden="true"></span><span class="spark r" aria-hidden="true"></span>
+          <span class="spark l b" aria-hidden="true"></span><span class="spark r b" aria-hidden="true"></span>
+          <span class="meet">BRASA</span>
+        </div>
+        <div class="reveal" style="--d:.2s">
+          <p class="motors-title">No encontro, os motores da rede:</p>
+          <div class="pills">
+            <span class="pill g">Pesquisa</span>
+            <span class="pill y">Talentos</span>
+            <span class="pill r">Comunidade e mobilização cívica</span>
+            <span class="pill">Projetos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="think-tank" class="block" aria-labelledby="tt-title">
+      <div class="reveal">
+        <p class="eyebrow">03 · Think tank</p>
+        <h2 id="tt-title">Da ideia à política pública</h2>
+        <p class="kicker">Conhecimento com base, propostas prontas para o país.</p>
+      </div>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-num">1</span>
+          <span class="step-label">1 · Pesquisar</span>
+          <h3>A faísca</h3>
+          <p>Pesquisas, dados e debate público mostram o que o país realmente precisa.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num">2</span>
+          <span class="step-label">2 · Formular</span>
+          <h3>A brasa</h3>
+          <p>O think tank da BRASA transforma o conhecimento em propostas concretas e viáveis.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num">3</span>
+          <span class="step-label">3 · Transformar</span>
+          <h3>A fogueira</h3>
+          <p>As propostas viram políticas públicas, leis, pilotos e soluções tecnológicas que mudam a vida das pessoas.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="liderancas" class="block" aria-labelledby="lid-title">
+      <div class="reveal">
+        <p class="eyebrow">04 · Lideranças</p>
+        <h2 id="lid-title">Lideranças que vêm do povo</h2>
+        <p class="lead">Vamos encontrar, por todo o Brasil, pessoas que querem de verdade representar suas comunidades, prepará-las para levar soluções reais e apoiá-las até vencer eleições.</p>
+      </div>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="step-num">1</span>
+          <span class="step-label">1 · Encontrar</span>
+          <h3>Quem quer representar</h3>
+          <p>Pessoas de todo o Brasil com o desejo real de representar as pessoas das suas comunidades.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num">2</span>
+          <span class="step-label">2 · Preparar</span>
+          <h3>Para levar soluções reais</h3>
+          <p>Formação, ferramentas e o apoio da rede para que cada liderança resolva problemas de verdade no seu bairro e na sua cidade.</p>
+        </li>
+        <li class="step reveal">
+          <span class="step-num">3</span>
+          <span class="step-label">3 · Apoiar</span>
+          <h3>Até vencer eleições</h3>
+          <p>E seguir juntos em toda a transformação impulsionada pela BRASA e pela sociedade brasileira.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="final" aria-labelledby="final-title">
+      <img class="logo reveal" src="assets/brasa-logo.webp" width="2000" height="1292" alt="BRASA" />
+      <h2 id="final-title" class="reveal">Unir talentos. Acender o Brasil.</h2>
+      <p class="kicker reveal">Uma visão, um novo Brasil.</p>
+      <a class="cta reveal" href="faca-parte.html">Faça parte</a>
+    </section>
+  </main>
+
+  <div class="dock">
+    <div class="dock-bar">
+      <a class="dock-tab dock-logo" href="index.html" aria-label="BRASA, início">
+        <img class="logo-img" src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+        <span>BRASA</span>
+      </a>
+      <nav class="dock-nav" aria-label="Principal">
+        <a class="dock-tab" href="descubra.html">Descubra</a>
+        <a class="dock-tab" href="como-funciona.html" aria-current="page">Como funciona</a>
+        <a class="dock-tab dock-manifesto" href="manifesto.html">Manifesto</a>
+        <a class="dock-tab" href="artigos.html">Artigos</a>
+      </nav>
+      <a class="dock-join" href="faca-parte.html">Faça parte</a>
+    </div>
+  </div>
+
+<script>
+(() => {
+  // entrada suave dos blocos (e das setas e círculos, que usam a mesma classe)
+  const els = document.querySelectorAll('.reveal');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    els.forEach(e => e.classList.add('in')); return;
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+    { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(e => io.observe(e));
+})();
+</script>
+<script>
+/* Ecossistema: pontos (núcleos amarelos e alianças creme) se movem dentro do losango e se
+   ligam quando ficam perto; os núcleos que passam perto do sol se ligam a ele. Só anima
+   quando a figura está na tela. Com "reduzir movimento", fica um quadro parado. */
+(() => {
+  const fig = document.querySelector('.eco');
+  if (!fig) return;
+  const canvas = fig.querySelector('canvas'), ctx = canvas.getContext('2d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let S, dpr, c, R, link, sunR, pts = [], raf = 0, running = false;
+  const inside = (x, y, pad = 0) => Math.abs(x - c) + Math.abs(y - c) <= R - pad;
+  function setup() {
+    const r = fig.getBoundingClientRect();
+    S = r.width; dpr = Math.min(devicePixelRatio || 1, 2);
+    canvas.width = S * dpr; canvas.height = S * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c = S / 2; R = S * 0.47; sunR = S * 0.15; link = R * 0.34;
+    const n = Math.round(Math.min(60, Math.max(30, S / 9)));
+    pts = [];
+    for (let i = 0; i < n; i++) {
+      let x, y;
+      do { x = c + (Math.random() * 2 - 1) * R; y = c + (Math.random() * 2 - 1) * R; }
+      while (!inside(x, y, 12) || Math.hypot(x - c, y - c) < sunR * 1.3);
+      const nuc = Math.random() < .3, a = Math.random() * Math.PI * 2, sp = (nuc ? .14 : .22) * (R / 250);
+      pts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, r: nuc ? 4.2 : 1.5 + Math.random() * 1.5, nuc, tw: Math.random() * 6 });
+    }
+  }
+  function step() {
+    for (const p of pts) {
+      p.x += p.vx; p.y += p.vy; p.tw += .03;
+      if (!inside(p.x, p.y, 8)) {
+        const sx = Math.sign(p.x - c), sy = Math.sign(p.y - c), dot = p.vx * sx + p.vy * sy;
+        if (dot > 0) { p.vx -= dot * sx; p.vy -= dot * sy; }
+        p.x -= sx * .8; p.y -= sy * .8;
+      }
+      const dx = p.x - c, dy = p.y - c, d = Math.hypot(dx, dy);
+      if (d < sunR * 1.15) { p.vx += dx / d * .03; p.vy += dy / d * .03; }
+      const max = (p.nuc ? .3 : .42) * (R / 250), sp = Math.hypot(p.vx, p.vy);
+      if (sp > max) { p.vx *= max / sp; p.vy *= max / sp; }
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, S, S);
+    ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(253, 192, 16, .55)'; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(c, c - R); ctx.lineTo(c + R, c); ctx.lineTo(c, c + R); ctx.lineTo(c - R, c); ctx.closePath(); ctx.stroke();
+    ctx.strokeStyle = 'rgba(253, 192, 16, .3)'; ctx.setLineDash([2, 6]);
+    const r2 = R * .88; ctx.beginPath(); ctx.moveTo(c, c - r2); ctx.lineTo(c + r2, c); ctx.lineTo(c, c + r2); ctx.lineTo(c - r2, c); ctx.closePath(); ctx.stroke();
+    ctx.setLineDash([]);
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i];
+      for (let j = i + 1; j < pts.length; j++) {
+        const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y), lim = (a.nuc || b.nuc) ? link * 1.15 : link;
+        if (d < lim) {
+          const t = 1 - d / lim;
+          ctx.strokeStyle = (a.nuc && b.nuc) ? `rgba(253, 192, 16, ${t * .9})` : `rgba(244, 234, 212, ${t * .45})`;
+          ctx.lineWidth = (a.nuc && b.nuc) ? 1.4 : .9;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      if (a.nuc) {
+        const d = Math.hypot(a.x - c, a.y - c), lim = sunR + link * 1.4;
+        if (d < lim) {
+          ctx.strokeStyle = `rgba(253, 192, 16, ${Math.min(1, 1 - (d - sunR) / (lim - sunR)) * .8})`; ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.moveTo(c + (a.x - c) / d * sunR * .6, c + (a.y - c) / d * sunR * .6); ctx.lineTo(a.x, a.y); ctx.stroke();
+        }
+      }
+    }
+    for (const p of pts) {
+      if (p.nuc) { ctx.fillStyle = '#fdc010'; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); }
+      else { ctx.fillStyle = `rgba(244, 234, 212, ${.55 + Math.sin(p.tw) * .35})`; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill(); }
+    }
+  }
+  const loop = () => { step(); draw(); raf = requestAnimationFrame(loop); };
+  const start = () => { if (running || reduce) return; running = true; loop(); };
+  const stop = () => { running = false; cancelAnimationFrame(raf); };
+  setup(); for (let i = 0; i < 40; i++) step(); draw();
+  addEventListener('resize', () => { setup(); draw(); });
+  if (reduce) return;
+  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? start() : stop())).observe(fig);
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+})();
+</script>
+<script src="assets/dock.js?v=share1" defer></script>
+<script src="assets/share.js?v=share2"></script>
+</body>
+</html>

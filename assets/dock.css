@@ -1,0 +1,169 @@
+/* ==========================================================
+   BRASA · navegação em abas de pasta (compartilhada)
+
+   A página inteira é a pasta: uma moldura verde contorna a tela
+   e se fecha na faixa do rodapé, de onde saem as abas. A aba
+   ativa é verde, da mesma cor da moldura, então ela "segura" a
+   folha que está aberta. A aba ativa fica branca; a do Manifesto fica vermelha quando ativa.
+
+   - Marque a página/seção atual com aria-current="page".
+   - assets/dock.js troca a aba no clique e conforme a rolagem.
+   ========================================================== */
+:root {
+  --dock-green: #0f4f2e;
+  --dock-active: #0f4f2e;   /* cor da pasta aberta (moldura, faixa e aba ativa) */
+  --dock-paper: #fbf6ea;
+  --dock-paper-2: #efe4cb;
+  --dock-sun: #fdc010;
+  --dock-red: #d2202a;
+  --dock-line: rgba(15, 79, 46, .28);
+  --dock-mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+  --dock-ease: cubic-bezier(0.22, 1, 0.36, 1); /* easeOutQuint (pocket-design get_easing) */
+  --dock-frame: 6px;
+  --dock-soft: cubic-bezier(0.37, 0, 0.63, 1); /* easeInOutSine: troca de aba quase imperceptível */
+}
+
+/* ---------- moldura da pasta (só na página do Manifesto) ---------- */
+.has-dock.is-manifesto::before {
+  content: ""; position: fixed; inset: 0; z-index: 29; pointer-events: none;
+  border: var(--dock-frame) solid var(--dock-active); border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+}
+/* preenche os cantos de fora da curva, para a moldura parecer recortada */
+.has-dock.is-manifesto::after {
+  content: ""; position: fixed; inset: 0; z-index: 28; pointer-events: none;
+  background:
+    radial-gradient(circle at 100% 100%, transparent 17px, var(--dock-active) 18px) 0 0 / 18px 18px no-repeat,
+    radial-gradient(circle at 0 100%, transparent 17px, var(--dock-active) 18px) 100% 0 / 18px 18px no-repeat;
+}
+.has-dock .corner { display: none; }
+/* reserva espaço para as abas não cobrirem o fim da página */
+.has-dock main { padding-bottom: calc(86px + env(safe-area-inset-bottom)); }
+
+/* ---------- rodapé ---------- */
+.dock {
+  position: fixed; z-index: 30; left: 0; right: 0; bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  pointer-events: none;                 /* só abas e botão recebem clique */
+  font-family: var(--dock-mono);
+  animation: dock-in .9s var(--dock-ease) .4s both; /* a barra sobe ao abrir a página */
+}
+@keyframes dock-in { from { transform: translateY(100%); } to { transform: none; } }
+/* faixa de baixo (continua a moldura) — só no Manifesto */
+.is-manifesto .dock::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+  height: calc(var(--dock-frame) + env(safe-area-inset-bottom));
+  background: var(--dock-active);
+  transition: background-color .6s var(--dock-soft);
+}
+.dock a { text-decoration: none; }
+
+.dock-bar { display: flex; align-items: flex-end; gap: 16px; padding: 0 clamp(14px, 3vw, 40px); }
+.dock-nav { display: flex; align-items: flex-end; flex: 1; padding-left: 6px; }
+
+/* ---------- a aba ---------- */
+.dock-tab {
+  --tab-bg: var(--dock-paper-2);
+  --tab-fg: var(--dock-green);
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  color: var(--tab-fg);
+  font-family: var(--dock-mono); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+}
+/* forma de aba de pasta: topo arredondado e laterais levemente inclinadas */
+.dock-tab::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--tab-bg);
+  border: 1px solid var(--dock-line); border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  transform: perspective(28px) rotateX(1.6deg); transform-origin: bottom;
+  transition: background-color .6s var(--dock-soft), border-color .6s var(--dock-soft);
+}
+.dock-tab {
+  pointer-events: auto;
+  height: 60px; padding: 0 38px; margin-left: -10px;
+  font-size: 15px;
+  transition: color .6s var(--dock-soft);
+}
+.dock-tab::before { box-shadow: 0 -6px 16px -10px rgba(15, 79, 46, .45); }
+
+.dock-tab:hover::before { background: var(--dock-paper); }
+.dock-tab:focus-visible { outline: none; }
+.dock-tab:focus-visible::before { box-shadow: 0 0 0 2px var(--dock-red); }
+
+/* aba ativa: fica branca e à frente das outras (sem animação de levantar) */
+.dock-tab[aria-current="page"] { --tab-bg: #ffffff; z-index: 3; }
+.dock-tab[aria-current="page"]::before { background: #ffffff; box-shadow: 0 -10px 22px -12px rgba(15, 79, 46, .5); }
+
+/* Manifesto: bege como as outras; fica vermelho só quando está ativo (clicado / aberto).
+   Na página dele a moldura também fica vermelha. */
+.is-manifesto { --dock-active: #b3161f; }
+.dock-tab.dock-manifesto[aria-current="page"] { --tab-fg: #f4ead4; }
+.dock-tab.dock-manifesto[aria-current="page"]::before { background: #b3161f; border-color: #b3161f; }
+
+/* marca (primeira aba) */
+.dock-logo { margin-left: 0; padding: 0 22px 0 18px; z-index: 1; }
+.dock-logo img { width: 44px; height: auto; flex: none; display: block; }
+.dock-logo span { font-family: "Archivo", system-ui, sans-serif; font-stretch: 125%; font-weight: 900; font-size: 15px; letter-spacing: .16em; }
+
+/* empilhamento: cada aba um pouco à frente da seguinte, como divisórias */
+.dock-nav .dock-tab:nth-child(1) { z-index: 2; }
+.dock-nav .dock-tab:nth-child(2) { z-index: 1; }
+.dock-nav .dock-tab:nth-child(3) { z-index: 0; }
+.dock-nav .dock-tab:nth-child(4) { z-index: -1; }
+.dock-nav .dock-tab[aria-current="page"] { z-index: 3; }
+
+/* ---------- Faça parte: botão de ação, separado das abas ---------- */
+.dock-join {
+  pointer-events: auto; align-self: center; margin-bottom: 8px;
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 46px; padding: 0 20px; border-radius: 10px;
+  background: var(--dock-sun); color: var(--dock-green);
+  border: 2px solid var(--dock-green); box-shadow: 4px 4px 0 var(--dock-green);
+  font-family: var(--dock-mono); font-size: 14px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap;
+  transition: transform .2s var(--dock-ease), box-shadow .2s var(--dock-ease);
+}
+.dock-join:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--dock-green); }
+.dock-join:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--dock-green); }
+.dock-join:focus-visible { outline: 2px solid var(--dock-red); outline-offset: 3px; }
+/* seta Phosphor arrow-up-right-bold (pocket-design get_icon), na cor do texto */
+.dock-join::after {
+  content: ""; width: 13px; height: 13px; flex: none; background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M204 64v104a12 12 0 0 1-24 0V93L72.49 200.49a12 12 0 0 1-17-17L163 76H88a12 12 0 0 1 0-24h104a12 12 0 0 1 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M204 64v104a12 12 0 0 1-24 0V93L72.49 200.49a12 12 0 0 1-17-17L163 76H88a12 12 0 0 1 0-24h104a12 12 0 0 1 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform .2s var(--dock-ease);
+}
+.dock-join:hover::after { transform: translate(2px, -2px); }
+
+/* âncoras das seções não ficam coladas no topo */
+.sheet { scroll-margin-top: 24px; }
+
+@media (max-width: 900px) {
+  .dock-logo span { display: none; }
+  .dock-tab { padding: 0 18px; font-size: 13px; }
+  .dock-join { padding: 0 14px; font-size: 12px; }
+}
+
+/* celular: as três abas dividem a largura; Faça parte flutua acima, à direita */
+@media (max-width: 600px) {
+  :root { --dock-frame: 4px; }
+  .has-dock.is-manifesto::before { border-radius: 12px 12px 0 0; }
+  .has-dock.is-manifesto::after { display: none; }
+  .dock-bar { padding: 0 4px; }
+  .dock-bar .dock-logo { flex: 0 0 50px; padding: 0 6px; margin-left: 0; }
+  .dock-logo img { width: 34px; }
+  .dock-logo span { display: none; }
+  .dock-nav { padding-left: 0; min-width: 0; }
+  .dock-nav .dock-tab { flex: 1 1 0; min-width: 0; }
+  .dock-tab { height: 52px; padding: 0 3px; margin-left: -5px; font-size: 9.5px; overflow-wrap: anywhere; hyphens: auto; letter-spacing: .03em; white-space: normal; text-align: center; line-height: 1.15; }
+  .dock-join { position: absolute; right: 14px; bottom: calc(72px + env(safe-area-inset-bottom)); margin: 0; min-height: 42px; box-shadow: 3px 3px 0 var(--dock-green); }
+  .has-dock main { padding-bottom: calc(128px + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock { animation: none; }
+  .dock-tab, .dock-tab::before, .dock-join, .dock-join::after { transition: none; }
+}
+
+/* no Manifesto, as abas se apoiam na faixa vermelha */
+.is-manifesto .dock { padding-bottom: calc(var(--dock-frame) + env(safe-area-inset-bottom)); }

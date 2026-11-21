@@ -1,12 +1,32 @@
-# BRASA — Plataforma cívica brasileira
+# BRASA — site
 
-*O Brasil tem talento de sobra. Falta juntar.*
+Site da BRASA, plataforma de mobilização cívica. HTML, CSS e JavaScript puros, sem etapa de build.
 
-Páginas:
-- `index.html` — início: tela de carregamento, apresentação, a pergunta, como fazer, o espírito, bandeiras, círculos, onde atuamos, chamadas para Manifesto e Artigos, e convite.
-- `manifesto.html` — manifesto (esqueleto, texto em breve).
-- `artigos.html` — índice dos artigos do Substack da BRASA (esqueleto).
-- `faca-parte.html` — filiação (esqueleto do cadastro).
-- `estilo.css` — estilo comum; `personagens/` — animações da abertura.
+## Rodar no computador
 
-Publicado com GitHub Pages a partir da branch `main`.
+```bash
+python3 -m http.server 5173
+```
+
+Depois abra http://localhost:5173 (é a *Site URL* configurada no Supabase).
+
+## Páginas
+
+| Arquivo | O que é |
+|---|---|
+| `index.html` | Tela inicial com os personagens |
+| `descubra.html` | A ideia e as 6 bandeiras |
+| `como-funciona.html` | A rede, as 4 frentes e o detalhe de cada uma |
+| `manifesto.html` | Manifesto do Brasismo |
+| `artigos.html` | Artigos (em breve) e link do Substack |
+| `faca-parte.html` | Cadastro: login por código e formulários |
+| `termos.html` | Termos de uso e privacidade (versão provisória) |
+
+Partes compartilhadas ficam em `assets/`: barra de abas (`dock.css`, `dock.js`), botão de compartilhar com as redes (`share.css`, `share.js`) e a ligação com o Supabase (`supabase-config.js`).
+
+## Supabase (cadastro)
+
+- Configuração do banco: `supabase/schema.sql`
+- Passo a passo do painel: `supabase/COMO-CONFIGURAR.md`
+- O site lê o endereço e a chave **pública** de `assets/supabase-config.js` (o `.env` serve só de registro).
+- Nunca coloque no site nem no repositório a chave *secret* / *service_role*.

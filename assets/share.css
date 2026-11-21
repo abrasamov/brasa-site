@@ -1,0 +1,47 @@
+/* BRASA · botão de compartilhar e quadro com as redes (canto superior direito) */
+.share-root {
+  --sh-green: #0f4f2e; --sh-paper: #fffdf8; --sh-beige: #f4ead4; --sh-sun: #fdc010; --sh-red: #b3161f;
+  --sh-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; z-index: 40; top: calc(16px + env(safe-area-inset-top)); right: 16px;
+  font-family: "DM Sans", system-ui, sans-serif; color: var(--sh-green);
+}
+.share-btn {
+  display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; cursor: pointer;
+  background: var(--sh-paper); color: var(--sh-green); border: 1.5px solid rgba(15, 79, 46, .2);
+  box-shadow: 0 10px 24px -14px rgba(15, 79, 46, .6);
+  transition: transform .2s var(--sh-ease), background-color .2s var(--sh-ease), border-color .2s;
+}
+.share-btn:hover { transform: translateY(-1px); border-color: var(--sh-green); }
+.share-btn[aria-expanded="true"] { background: var(--sh-green); color: var(--sh-sun); border-color: var(--sh-green); }
+.share-btn:focus-visible, .share-panel :focus-visible { outline: 2px solid var(--sh-red); outline-offset: 2px; }
+
+.share-panel {
+  position: absolute; right: 0; top: 60px; width: min(320px, calc(100vw - 32px));
+  padding: 18px; border-radius: 18px; background: var(--sh-paper); border: 1px solid rgba(15, 79, 46, .16);
+  box-shadow: 0 30px 60px -24px rgba(15, 79, 46, .55);
+  opacity: 0; transform: translateY(-6px) scale(.98); transform-origin: top right;
+  transition: opacity .18s var(--sh-ease), transform .22s var(--sh-ease);
+}
+.share-panel.is-open { opacity: 1; transform: none; }
+.share-head { display: flex; align-items: center; justify-content: space-between; }
+.share-head p { font-family: "Archivo", system-ui, sans-serif; font-stretch: 112%; font-weight: 800; font-size: 18px; }
+.share-close { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: transparent; color: inherit; cursor: pointer; }
+.share-close:hover { background: rgba(15, 79, 46, .08); }
+.share-nets { display: grid; gap: 8px; margin-top: 12px; }
+.share-net {
+  display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 14px; border-radius: 12px; text-decoration: none; color: var(--sh-green);
+  background: var(--sh-beige); border: 1.5px solid transparent; font-weight: 700;
+  transition: border-color .2s var(--sh-ease), transform .2s var(--sh-ease), background-color .2s;
+}
+a.share-net:hover { border-color: var(--sh-green); transform: translateX(2px); }
+.share-net span { display: flex; flex-direction: column; line-height: 1.15; }
+.share-net small { font-weight: 500; font-size: 12px; color: #6a7568; }
+.share-net.is-soon { opacity: .7; cursor: default; }
+.share-sub { margin-top: 16px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #6a7568; }
+.share-actions { display: flex; gap: 8px; margin-top: 8px; }
+.share-act {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 12px;
+  border-radius: 10px; border: 1.5px solid rgba(15, 79, 46, .2); background: transparent; color: var(--sh-green); cursor: pointer; font: inherit; font-weight: 700; font-size: 14px;
+}
+.share-act:hover { border-color: var(--sh-green); background: rgba(15, 79, 46, .05); }
+@media (prefers-reduced-motion: reduce) { .share-btn, .share-panel, .share-net { transition: none; } }

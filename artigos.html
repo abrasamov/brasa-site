@@ -1,124 +1,74 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Artigos · BRASA - Plataforma cívica</title>
-<meta name="description" content="Artigos da BRASA publicados no Substack.">
-<meta name="theme-color" content="#F3E9D2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..900&family=Lexend:wght@300..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css">
-</head>
-<body>
-<!-- sol do logo, desenhado uma vez e reutilizado -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <polygon id="sol" points="0.0,-100.0 9.0,-45.1 29.8,-72.1 25.6,-38.2 70.7,-70.7 38.2,-25.6 72.1,-29.8 45.1,-9.0 100.0,0.0 45.1,9.0 72.1,29.8 38.2,25.6 70.7,70.7 25.6,38.2 29.8,72.1 9.0,45.1 0.0,100.0 -9.0,45.1 -29.8,72.1 -25.6,38.2 -70.7,70.7 -38.2,25.6 -72.1,29.8 -45.1,9.0 -100.0,0.0 -45.1,-9.0 -72.1,-29.8 -38.2,-25.6 -70.7,-70.7 -25.6,-38.2 -29.8,-72.1 -9.0,-45.1"/>
-    <symbol id="logo-mini" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="logo-mini-contorno" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#F4EAD5" stroke-opacity=".35" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  </defs>
-</svg>
-<a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
-<header class="topo" id="topo">
-  <div class="topo-dentro">
-    <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-    <nav aria-label="Principal">
-      <ul class="menu" id="menu">
-        <li><a href="index.html#como-fazer">Como fazer</a></li>
-        <li><a href="manifesto.html">Manifesto</a></li>
-        <li><a href="artigos.html" aria-current="page">Artigos</a></li>
-      </ul>
-    </nav>
-    <a class="botao b-amarelo b-pequeno" href="faca-parte.html">Faça parte</a>
-    <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line class="l1" x1="3" y1="6" x2="19" y2="6"/><line class="l2" x1="3" y1="11" x2="19" y2="11"/><line class="l3" x1="3" y1="16" x2="19" y2="16"/></svg>
-    </button>
-  </div>
-</header>
-<main id="conteudo">
-  <section class="pagina-topo">
-    <span class="canto canto-e" aria-hidden="true"></span>
-    <div class="dentro">
-      <p class="olho">Artigos</p>
-      <h1>Artigos da BRASA</h1>
-      <p class="intro">Os textos da BRASA são publicados no Substack. Aqui fica o índice de todos eles.</p>
-    </div>
-  </section>
-  <section class="secao s-creme">
-    <div class="dentro">
-      <div class="barra-acoes">
-        <p>Últimos artigos</p>
-        <a class="botao b-verde" href="https://brasa.substack.com" rel="noopener">Assinar no Substack <svg class="i-seta" width="18" height="18" aria-hidden="true"><use href="#seta"/></svg></a>
-      </div>
-      <!-- ESQUELETO: cada artigo do Substack vira um item desta lista
-           (título, data, subtítulo e link para o texto no Substack) -->
-      <ol class="lista-artigos">
-        <li class="artigo">
-          <span class="a-data">Data</span>
-          <h3>Título do artigo 1</h3>
-          <p>Subtítulo ou primeiras linhas do texto publicado no Substack.</p>
-          <span class="a-ir">Ler no Substack →</span>
-        </li>
-        <li class="artigo">
-          <span class="a-data">Data</span>
-          <h3>Título do artigo 2</h3>
-          <p>Subtítulo ou primeiras linhas do texto publicado no Substack.</p>
-          <span class="a-ir">Ler no Substack →</span>
-        </li>
-        <li class="artigo">
-          <span class="a-data">Data</span>
-          <h3>Título do artigo 3</h3>
-          <p>Subtítulo ou primeiras linhas do texto publicado no Substack.</p>
-          <span class="a-ir">Ler no Substack →</span>
-        </li>
-      </ol>
-    </div>
-  </section>
-</main>
-<footer class="rodape">
-  <div class="dentro rodape-grade">
-    <div class="rodape-marca">
-      <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-      <p class="rodape-desc">Plataforma cívica brasileira.</p>
-    </div>
-    <div><p class="rodape-t">A BRASA</p><ul><li><a href="index.html#como-fazer">Como fazer</a></li><li><a href="index.html#espirito">O espírito</a></li><li><a href="index.html#bandeiras">Bandeiras</a></li><li><a href="index.html#circulos">Círculos</a></li><li><a href="index.html#onde-atuamos">Onde atuamos</a></li></ul></div>
-    <div><p class="rodape-t">Leia</p><ul><li><a href="manifesto.html">Manifesto</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="https://brasa.substack.com">Substack da BRASA</a></li></ul></div>
-    <div><p class="rodape-t">Participe</p><ul><li><a href="faca-parte.html">Faça parte</a></li></ul></div>
-  </div>
-  <div class="rodape-faixa"><span>Ideias</span><i></i><span>Projetos</span><i></i><span>Influência</span></div>
-  <p class="rodape-c dentro">© 2026 BRASA · Plataforma cívica brasileira</p>
-</footer>
-<script>
-/* ---------- menu do celular + destaque da seção ---------- */
-(function(){
-  const topo=document.getElementById('topo'), botao=document.getElementById('menu-botao');
-  const fecha=()=>{topo.classList.remove('aberto');botao.setAttribute('aria-expanded','false');botao.setAttribute('aria-label','Abrir menu');};
-  botao.addEventListener('click',()=>{const a=!topo.classList.contains('aberto');topo.classList.toggle('aberto',a);botao.setAttribute('aria-expanded',a);botao.setAttribute('aria-label',a?'Fechar menu':'Abrir menu');});
-  topo.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',fecha));
-  addEventListener('keydown',e=>{if(e.key==='Escape')fecha();});
-  const links=[...topo.querySelectorAll('.menu a')];
-  if('IntersectionObserver' in window){
-    const o=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) links.forEach(a=>a.classList.toggle('ativo',a.getAttribute('href')==='#'+e.target.id)); }),{rootMargin:'-45% 0px -50% 0px'});
-    links.forEach(a=>{const s=document.querySelector(a.getAttribute('href')); s&&o.observe(s);});
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Artigos — BRASA</title>
+<meta name="description" content="Artigos da BRASA: ideias, pesquisas e propostas para um novo Brasil." />
+<link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/dock.css?v=share1" />
+<link rel="stylesheet" href="assets/share.css?v=share1" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+  body {
+    min-height: 100vh; background: #f4ead4; color: #0f4f2e; font-family: "DM Sans", system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(15, 79, 46, .07) 1px, transparent 1.4px); background-size: 22px 22px;
   }
-})();
+  :focus-visible { outline: 2px solid #b3161f; outline-offset: 3px; border-radius: 6px; }
+  main { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 72px 24px 120px; text-align: center; }
+  .eyebrow { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b3161f; }
+  h1 { margin-top: 14px; font-family: "Archivo", system-ui, sans-serif; font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 7vw, 96px); line-height: .95; }
+  .kicker { margin-top: 14px; font-family: "EB Garamond", Georgia, serif; font-style: italic; font-size: clamp(22px, 2.4vw, 32px); color: #b3161f; }
+  p.lead { margin: 18px auto 0; max-width: 540px; font-size: clamp(17px, 1.4vw, 19px); color: #4e5a4c; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+  .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 10px; text-decoration: none; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 14px; letter-spacing: .05em; text-transform: uppercase; border: 2px solid #0f4f2e; transition: transform .2s, box-shadow .2s; }
+  .btn.primary { background: #fdc010; color: #0f4f2e; box-shadow: 4px 4px 0 #0f4f2e; }
+  .btn.primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #0f4f2e; }
+  .btn.ghost { color: #0f4f2e; }
+  .btn.ghost:hover { background: rgba(15, 79, 46, .06); }
+  .mark { width: 110px; height: auto; margin: 0 auto 22px; display: block; }
+</style>
+</head>
+<body class="has-dock">
+  <main>
+    <div>
+      <img class="mark" src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+      <p class="eyebrow">Artigos</p>
+      <h1>Em breve</h1>
+      <p class="kicker">Ideias com base, propostas prontas para o país.</p>
+      <p class="lead">Os artigos da BRASA vão reunir pesquisas, debates e propostas da rede. Enquanto eles não chegam, conheça a visão que move a BRASA.</p>
+      <div class="actions">
+        <a class="btn primary" id="substack" href="#" hidden target="_blank" rel="noopener">Ler no Substack</a>
+        <a class="btn ghost" href="manifesto.html">Ler o manifesto</a>
+      </div>
+    </div>
+  </main>
 
+  <div class="dock">
+    <div class="dock-bar">
+      <a class="dock-tab dock-logo" href="index.html" aria-label="BRASA, início">
+        <img class="logo-img" src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+        <span>BRASA</span>
+      </a>
+      <nav class="dock-nav" aria-label="Principal">
+        <a class="dock-tab" href="descubra.html">Descubra</a>
+        <a class="dock-tab" href="como-funciona.html">Como funciona</a>
+        <a class="dock-tab dock-manifesto" href="manifesto.html">Manifesto</a>
+        <a class="dock-tab" href="artigos.html" aria-current="page">Artigos</a>
+      </nav>
+      <a class="dock-join" href="faca-parte.html">Faça parte</a>
+    </div>
+  </div>
 
+<script src="assets/share.js?v=share2"></script>
+<script>
+  // o botão do Substack aparece quando o link estiver preenchido em assets/share.js
+  if (typeof BRASA_REDES !== 'undefined' && BRASA_REDES.substack) { const a = document.getElementById('substack'); a.href = BRASA_REDES.substack; a.hidden = false; }
 </script>
+<script src="assets/dock.js?v=share1" defer></script>
 </body>
 </html>
