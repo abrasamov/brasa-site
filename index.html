@@ -147,12 +147,12 @@
       vec3 c = texture2D(t, vec2(uv.x, uv.y * .5)).rgb;
       float a = texture2D(t, vec2(uv.x, .5 + uv.y * .5)).r;
       a = smoothstep(.08, .92, a);
-      gl_FragColor = vec4(c, a);
+      gl_FragColor = vec4(c * a, a);   // cor pré-multiplicada: fundo transparente também no iPhone/Android
     }`;
 
   function setup(fig) {
     const video = fig.querySelector('video'), canvas = fig.querySelector('canvas');
-    const gl = canvas.getContext('webgl', { premultipliedAlpha: false, alpha: true });
+    const gl = canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false });
     const ch = { fig, video, ok: false, draw() {} };
     if (!gl) return ch;
     const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
