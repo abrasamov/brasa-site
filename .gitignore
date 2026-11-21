@@ -1,0 +1,15 @@
+# segredos e arquivos locais
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# ferramentas locais do Claude Code (skills, MCP, servidor de prévia)
+.agents/
+.claude/
+.mcp.json
+skills-lock.json
+
+# materiais de origem que o site não usa
+Brazil Jersey Dance Sequence Grid.png
+assets/danca-sprite.png

@@ -1,105 +1,222 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="js">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Manifesto · BRASA - Plataforma cívica</title>
-<meta name="description" content="O manifesto da BRASA.">
-<meta name="theme-color" content="#F3E9D2">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500..900&family=Lexend:wght@300..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilo.css">
-</head>
-<body>
-<!-- sol do logo, desenhado uma vez e reutilizado -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <polygon id="sol" points="0.0,-100.0 9.0,-45.1 29.8,-72.1 25.6,-38.2 70.7,-70.7 38.2,-25.6 72.1,-29.8 45.1,-9.0 100.0,0.0 45.1,9.0 72.1,29.8 38.2,25.6 70.7,70.7 25.6,38.2 29.8,72.1 9.0,45.1 0.0,100.0 -9.0,45.1 -29.8,72.1 -25.6,38.2 -70.7,70.7 -38.2,25.6 -72.1,29.8 -45.1,9.0 -100.0,0.0 -45.1,-9.0 -72.1,-29.8 -38.2,-25.6 -70.7,-70.7 -25.6,-38.2 -29.8,-72.1 -9.0,-45.1"/>
-    <symbol id="logo-mini" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#0E5130" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="logo-mini-contorno" viewBox="-24 -24 848 578">
-      <polygon fill="#0E5130" stroke="#F4EAD5" stroke-opacity=".35" stroke-width="44" stroke-linejoin="round" points="0,265 400,0 800,265 400,530"/>
-      <g transform="translate(400 265) scale(2.05)">
-        <use href="#sol" fill="#D93A2B" transform="translate(10 9)"/>
-        <use href="#sol" fill="#FFC72C"/>
-      </g>
-    </symbol>
-    <symbol id="seta" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  </defs>
-</svg>
-<a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
-<header class="topo" id="topo">
-  <div class="topo-dentro">
-    <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-    <nav aria-label="Principal">
-      <ul class="menu" id="menu">
-        <li><a href="index.html#como-fazer">Como fazer</a></li>
-        <li><a href="manifesto.html" aria-current="page">Manifesto</a></li>
-        <li><a href="artigos.html">Artigos</a></li>
-      </ul>
-    </nav>
-    <a class="botao b-amarelo b-pequeno" href="faca-parte.html">Faça parte</a>
-    <button class="menu-botao" id="menu-botao" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line class="l1" x1="3" y1="6" x2="19" y2="6"/><line class="l2" x1="3" y1="11" x2="19" y2="11"/><line class="l3" x1="3" y1="16" x2="19" y2="16"/></svg>
-    </button>
-  </div>
-</header>
-<main id="conteudo">
-  <section class="pagina-topo">
-    <span class="canto canto-d" aria-hidden="true"></span>
-    <div class="dentro">
-      <p class="olho">Manifesto</p>
-      <h1>O manifesto da BRASA</h1>
-      <p class="intro">No que a gente acredita e por que fazemos o que fazemos.</p>
-    </div>
-  </section>
-  <section class="secao s-creme">
-    <div class="dentro estreito">
-      <!-- ESQUELETO: o texto do manifesto entra aqui -->
-      <div class="vazio">
-        <span class="vz-tag">Em breve</span>
-        <h2>O manifesto será publicado aqui.</h2>
-        <p>Enquanto isso, conheça como a BRASA funciona ou faça parte da rede.</p>
-        <div class="botoes" style="margin-top:24px"><a class="botao b-verde" href="index.html#como-fazer">Como fazer</a><a class="botao b-contorno" href="faca-parte.html">Faça parte</a></div>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="rodape">
-  <div class="dentro rodape-grade">
-    <div class="rodape-marca">
-      <a class="marca" href="index.html" aria-label="BRASA, início"><svg class="" viewBox="-24 -24 848 578" aria-hidden="true"><use href="#logo-mini"/></svg><span>BRASA</span></a>
-      <p class="rodape-desc">Plataforma cívica brasileira.</p>
-    </div>
-    <div><p class="rodape-t">A BRASA</p><ul><li><a href="index.html#como-fazer">Como fazer</a></li><li><a href="index.html#espirito">O espírito</a></li><li><a href="index.html#bandeiras">Bandeiras</a></li><li><a href="index.html#circulos">Círculos</a></li><li><a href="index.html#onde-atuamos">Onde atuamos</a></li></ul></div>
-    <div><p class="rodape-t">Leia</p><ul><li><a href="manifesto.html">Manifesto</a></li><li><a href="artigos.html">Artigos</a></li><li><a href="https://brasa.substack.com">Substack da BRASA</a></li></ul></div>
-    <div><p class="rodape-t">Participe</p><ul><li><a href="faca-parte.html">Faça parte</a></li></ul></div>
-  </div>
-  <div class="rodape-faixa"><span>Ideias</span><i></i><span>Projetos</span><i></i><span>Influência</span></div>
-  <p class="rodape-c dentro">© 2026 BRASA · Plataforma cívica brasileira</p>
-</footer>
-<script>
-/* ---------- menu do celular + destaque da seção ---------- */
-(function(){
-  const topo=document.getElementById('topo'), botao=document.getElementById('menu-botao');
-  const fecha=()=>{topo.classList.remove('aberto');botao.setAttribute('aria-expanded','false');botao.setAttribute('aria-label','Abrir menu');};
-  botao.addEventListener('click',()=>{const a=!topo.classList.contains('aberto');topo.classList.toggle('aberto',a);botao.setAttribute('aria-expanded',a);botao.setAttribute('aria-label',a?'Fechar menu':'Abrir menu');});
-  topo.querySelectorAll('.menu a').forEach(a=>a.addEventListener('click',fecha));
-  addEventListener('keydown',e=>{if(e.key==='Escape')fecha();});
-  const links=[...topo.querySelectorAll('.menu a')];
-  if('IntersectionObserver' in window){
-    const o=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) links.forEach(a=>a.classList.toggle('ativo',a.getAttribute('href')==='#'+e.target.id)); }),{rootMargin:'-45% 0px -50% 0px'});
-    links.forEach(a=>{const s=document.querySelector(a.getAttribute('href')); s&&o.observe(s);});
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Manifesto — BRASA</title>
+<meta name="description" content="Brasismo · O Brasil que há de raiar." />
+<link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,500;1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/dock.css?v=share1" />
+<link rel="stylesheet" href="assets/share.css?v=share1" />
+<style>
+  :root {
+    --beige: #f4ead4;
+    --paper: #fbf6ea;
+    --green: #0f4f2e;
+    --sun: #fdc010;
+    --red: #b3161f;
+    --muted: #4e5a4c;
+    --font-display: "Archivo", system-ui, sans-serif;
+    --font-body: "DM Sans", system-ui, sans-serif;
+    --font-serif: "EB Garamond", Georgia, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1); /* easeOutQuint (pocket-design get_easing) */
   }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--beige); color: var(--green);
+    font-family: var(--font-body); line-height: 1.5; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(rgba(15, 79, 46, .07) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 6px; }
+
+  /* ---------- cabeçalho ---------- */
+  .intro {
+    min-height: 78vh; min-height: 78dvh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 72px 24px 40px;
+  }
+  .eyebrow { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; }
+  .intro h1 {
+    margin-top: 22px; max-width: 14ch;
+    font-family: var(--font-display); font-stretch: 125%; font-weight: 900;
+    font-size: clamp(40px, 7vw, 104px); line-height: .98; letter-spacing: -.015em; text-wrap: balance;
+  }
+  .intro .sub { margin-top: 20px; font-family: var(--font-serif); font-style: italic; font-size: clamp(22px, 2.4vw, 30px); color: var(--red); }
+  .scroll-hint { margin-top: 48px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .scroll-hint::after { content: ""; display: block; width: 1px; height: 48px; margin: 12px auto 0; background: currentColor; transform-origin: top; animation: hint 2.4s var(--ease) infinite; }
+  @keyframes hint { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  .intro .mark { width: 92px; height: auto; margin-bottom: 26px; }
+
+  /* ---------- versos ---------- */
+  .verses { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  .stanza {
+    padding: clamp(36px, 7vh, 72px) 0;
+    font-family: var(--font-display); font-stretch: 112%; font-weight: 800;
+    font-size: clamp(26px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -.005em;
+  }
+  .stanza em { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-stretch: normal; color: var(--red); letter-spacing: 0; }
+  .stanza .soft { color: var(--muted); }
+  /* leitura: cada estrofe acende quando chega ao meio da tela, linha por linha */
+  .js .stanza .line { display: block; opacity: .16; transform: translateY(14px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
+  .stanza .line { display: block; }
+  .js .stanza.is-read .line { opacity: 1; transform: none; }
+
+  /* ---------- o sonho: painel verde com o sol nascendo ---------- */
+  .dream {
+    position: relative; overflow: hidden; margin: clamp(32px, 6vh, 64px) 0;
+    background: var(--green); color: var(--beige);
+    padding: clamp(72px, 14vh, 140px) 24px clamp(160px, 26vh, 260px);
+  }
+  .dream .verses { position: relative; z-index: 1; }
+  .dream .stanza em { color: var(--sun); }
+  .dream .stanza .soft { color: rgba(244, 234, 212, .7); }
+  .dream .sunrise {
+    position: absolute; left: 50%; bottom: 0; width: min(560px, 90vw); aspect-ratio: 1; z-index: 0; pointer-events: none;
+    transform: translate(-50%, calc(62% - var(--rise, 0) * 40%)) rotate(calc(var(--rise, 0) * 30deg));
+  }
+  .dream .sunrise-glow {
+    position: absolute; left: 50%; bottom: -30%; width: 140%; aspect-ratio: 2; transform: translateX(-50%); pointer-events: none;
+    background: radial-gradient(closest-side, rgba(253, 192, 16, calc(.15 + var(--rise, 0) * .35)), transparent);
+  }
+
+  /* ---------- final ---------- */
+  .finale { text-align: center; padding: clamp(64px, 12vh, 120px) 24px clamp(40px, 8vh, 80px); }
+  .finale .stanza { padding-top: 0; }
+  .finale .big {
+    margin: 12px auto 0; max-width: 16ch;
+    font-family: var(--font-display); font-stretch: 125%; font-weight: 900;
+    font-size: clamp(36px, 6vw, 88px); line-height: 1; letter-spacing: -.015em; text-wrap: balance;
+  }
+  .finale .big span { display: inline-block; padding: .06em .32em .12em; margin-top: .14em; background: var(--green); color: var(--beige); border-radius: .14em; box-shadow: .18em .16em 0 #d2202a; transform: rotate(-2deg); }
+  .finale .cta {
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 48px;
+    min-height: 52px; padding: 0 24px; border-radius: 10px;
+    background: var(--sun); color: var(--green); text-decoration: none;
+    border: 2px solid var(--green); box-shadow: 4px 4px 0 var(--green);
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px; letter-spacing: .05em; text-transform: uppercase;
+    transition: transform .2s var(--ease), box-shadow .2s var(--ease);
+  }
+  .finale .cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--green); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .scroll-hint::after { animation: none; }
+    .js .stanza .line { opacity: 1; transform: none; transition: none; }
+    .dream .sunrise { transform: translate(-50%, 42%); }
+  }
+</style>
+</head>
+<body class="has-dock is-manifesto">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <path id="sun" d="M0.0 -100.0 L4.4 -55.8 L13.1 -54.5 L24.1 -74.2 L21.4 -51.7 L29.3 -47.7 L58.8 -80.9 L36.4 -42.6 L42.6 -36.4 L63.1 -45.8 L47.7 -29.3 L51.7 -21.4 L95.1 -30.9 L54.5 -13.1 L55.8 -4.4 L78.0 -0.0 L55.8 4.4 L54.5 13.1 L95.1 30.9 L51.7 21.4 L47.7 29.3 L63.1 45.8 L42.6 36.4 L36.4 42.6 L58.8 80.9 L29.3 47.7 L21.4 51.7 L24.1 74.2 L13.1 54.5 L4.4 55.8 L0.0 100.0 L-4.4 55.8 L-13.1 54.5 L-24.1 74.2 L-21.4 51.7 L-29.3 47.7 L-58.8 80.9 L-36.4 42.6 L-42.6 36.4 L-63.1 45.8 L-47.7 29.3 L-51.7 21.4 L-95.1 30.9 L-54.5 13.1 L-55.8 4.4 L-78.0 0.0 L-55.8 -4.4 L-54.5 -13.1 L-95.1 -30.9 L-51.7 -21.4 L-47.7 -29.3 L-63.1 -45.8 L-42.6 -36.4 L-36.4 -42.6 L-58.8 -80.9 L-29.3 -47.7 L-21.4 -51.7 L-24.1 -74.2 L-13.1 -54.5 L-4.4 -55.8Z"/>
+    </defs>
+  </svg>
+
+  <main>
+    <header class="intro">
+      <img class="mark" src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+      <p class="eyebrow">Manifesto · Brasismo</p>
+      <h1>O Brasil que há de raiar</h1>
+      <p class="sub">Uma visão, um novo Brasil.</p>
+      <p class="scroll-hint">Role para ler</p>
+    </header>
+
+    <article aria-label="Manifesto do Brasismo">
+      <div class="verses">
+        <p class="stanza"><span class="line">Você já disse que o Brasil não tem jeito.</span><span class="line soft">Disse baixo. Doeu.</span></p>
+        <p class="stanza"><span class="line">Você já viu um amigo ir embora.</span><span class="line soft">E pensou em ir junto.</span></p>
+        <p class="stanza"><span class="line">Ninguém sofre por terra alheia.</span><span class="line"><em>Se dói, é amor.</em></span></p>
+        <p class="stanza"><span class="line">Fomos ensinados a nos ver pequenos.</span><span class="line soft">Aprendemos bem demais.</span><span class="line"><em>É hora de desaprender.</em></span></p>
+        <p class="stanza"><span class="line">Somos um povo novo. Cópia de ninguém.</span></p>
+        <p class="stanza"><span class="line">O Brasil não funciona apesar do brasileiro.</span><span class="line"><em>Funciona por causa dele.</em></span></p>
+        <p class="stanza"><span class="line soft">Na música, na oração, na mesa de domingo,</span><span class="line soft">no rosto do próximo,</span><span class="line">a gente lembra quem é.</span></p>
+        <p class="stanza"><span class="line">Temos raiz. Temos história.</span><span class="line">Temos um legado.</span></p>
+        <p class="stanza"><span class="line">Somos herdeiros de uma brasa</span><span class="line"><em>que nunca se apagou.</em></span></p>
+        <p class="stanza"><span class="line">Brasismo é acreditar no Brasil.</span><span class="line"><em>E agir por ele.</em></span></p>
+        <p class="stanza"><span class="line">Não é contra quem pensa diferente.</span><span class="line soft">É contra aquilo que tira a nossa paz,</span><span class="line soft">que atrasa a nossa felicidade,</span><span class="line soft">que faz você caber em menos do que é.</span></p>
+        <p class="stanza"><span class="line">Nossa revolução não derruba. <em>Restaura.</em></span></p>
+        <p class="stanza"><span class="line">E ela não vem de Brasília.</span><span class="line">Vem da sua rua, das suas mãos.</span></p>
+        <p class="stanza"><span class="line">Você é uma brasa.</span><span class="line"><em>Juntas, as brasas acendem um país.</em></span></p>
+        <p class="stanza"><span class="line">Você dá o sangue todos os dias pelos seus.</span><span class="line soft">Você merece colher</span><span class="line soft">e ver a terra prometida.</span></p>
+      </div>
+
+      <section class="dream" aria-label="Feche os olhos">
+        <div class="sunrise-glow" aria-hidden="true"></div>
+        <svg class="sunrise" viewBox="-110 -110 220 220" aria-hidden="true">
+          <use href="#sun" transform="translate(6 8)" fill="#d2202a"/>
+          <use href="#sun" fill="#fdc010"/>
+        </svg>
+        <div class="verses">
+          <p class="stanza"><span class="line"><em>Feche os olhos.</em></span></p>
+          <p class="stanza"><span class="line">A favela virou bairro próspero.</span><span class="line">O amigo que foi embora voltou.</span><span class="line soft">Seu filho estuda, trabalha e constrói a família aqui.</span><span class="line">Ninguém tem medo de voltar para casa.</span></p>
+          <p class="stanza"><span class="line">O Brasil virou sol.</span><span class="line"><em>E iluminou o mundo.</em></span></p>
+        </div>
+      </section>
+
+      <div class="finale">
+        <p class="stanza"><span class="line"><em>Abra os olhos.</em></span><span class="line">Isso começa agora.</span></p>
+        <p class="big">Porque o Brasil que há de raiar <span>já raiou em você.</span></p>
+        <a class="cta" href="faca-parte.html">Faça parte</a>
+      </div>
+    </article>
+  </main>
+
+  <div class="dock">
+    <div class="dock-bar">
+      <a class="dock-tab dock-logo" href="index.html" aria-label="BRASA, início">
+        <img class="logo-img" src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
+        <span>BRASA</span>
+      </a>
+      <nav class="dock-nav" aria-label="Principal">
+        <a class="dock-tab" href="descubra.html">Descubra</a>
+        <a class="dock-tab" href="como-funciona.html">Como funciona</a>
+        <a class="dock-tab dock-manifesto" href="manifesto.html" aria-current="page">Manifesto</a>
+        <a class="dock-tab" href="artigos.html">Artigos</a>
+      </nav>
+      <a class="dock-join" href="faca-parte.html">Faça parte</a>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // numera as linhas de cada estrofe (para entrarem uma depois da outra)
+  document.querySelectorAll('.stanza').forEach(st => st.querySelectorAll('.line').forEach((l, i) => l.style.setProperty('--i', i)));
+
+  // leitura: a estrofe acende quando passa pelo meio da tela (e continua acesa)
+  const stanzas = document.querySelectorAll('.stanza');
+  if (reduce || !('IntersectionObserver' in window)) stanzas.forEach(s => s.classList.add('is-read'));
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-read'); io.unobserve(e.target); } }),
+      { rootMargin: '0px 0px -30% 0px', threshold: 0.4 });
+    stanzas.forEach(s => io.observe(s));
+  }
+
+  // o sol nasce conforme você rola pelo trecho "Feche os olhos"
+  if (reduce) return;
+  const dream = document.querySelector('.dream');
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const r = dream.getBoundingClientRect(), vh = innerHeight;
+    const k = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * .2)));
+    dream.style.setProperty('--rise', k.toFixed(3));
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener('resize', update);
+  update();
 })();
-
-
 </script>
+<script src="assets/dock.js?v=share1" defer></script>
+<script src="assets/share.js?v=share2"></script>
 </body>
 </html>
