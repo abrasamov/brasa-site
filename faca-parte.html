@@ -140,6 +140,26 @@
   .row-between { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; }
   .btn.small { width: auto; min-height: 44px; margin: 0; font-size: 14px; }
 
+  /* primeiro acesso: etapas */
+  .steps { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 0 auto 26px; padding: 0; list-style: none; }
+  .steps li { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 6px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font-size: 13px; font-weight: 500; color: var(--muted); }
+  .steps li span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(15, 79, 46, .1); color: var(--green); font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+  .steps li.done span { background: var(--green); color: var(--sun); }
+  .steps li.now { border-color: var(--green); background: var(--white); color: var(--green); font-weight: 700; }
+  .steps li.now span { background: var(--sun); color: var(--green); }
+  .req-note { margin-top: 14px; text-align: center; font-size: 13px; color: var(--muted); }
+
+  /* erro em cada campo */
+  .input[aria-invalid="true"] { border-color: var(--red); box-shadow: 0 0 0 3px rgba(179, 22, 31, .1); }
+  .field-err { margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--red); }
+
+  /* botões no fim do formulário */
+  .form-actions { display: flex; gap: 12px; margin-top: 20px; }
+  .form-actions .btn { margin-top: 0; }
+  .form-actions .btn[type=submit] { flex: 1; }
+  .btn.plain { width: auto; padding: 0 22px; background: transparent; color: var(--green); border: 1.5px solid var(--line); font-family: var(--font-body); font-weight: 700; font-size: 15px; }
+  .btn.plain:hover { background: rgba(15, 79, 46, .06); border-color: var(--green); }
+
   /* teste de personalidade */
   .q { margin-top: 18px; padding: 20px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; transition: border-color .2s; }
   .q.answered { border-color: rgba(15, 79, 46, .45); }
@@ -167,6 +187,8 @@
     .likert { grid-template-columns: 1fr; }
     .likert label { flex-direction: row; justify-content: flex-start; text-align: left; }
     .welcome .actions { margin-left: 0; width: 100%; }
+    .form-actions { flex-direction: column-reverse; }
+    .btn.plain { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
 </style>
@@ -290,8 +312,14 @@
 
     <!-- 4. Informações básicas -->
     <section data-view="infos" class="wrap" hidden>
-      <h1 class="page-title">Informações básicas</h1>
-      <p class="page-sub">Dados pessoais, contato e formação</p>
+      <ol class="steps" id="steps" aria-label="Etapas do cadastro" hidden>
+        <li class="done"><span aria-hidden="true">✓</span>E-mail confirmado</li>
+        <li class="now" aria-current="step"><span>2</span>Informações básicas</li>
+        <li><span>3</span>Outros formulários (opcionais)</li>
+      </ol>
+      <h1 class="page-title" id="infos-title">Informações básicas</h1>
+      <p class="page-sub" id="infos-sub">Dados pessoais, contato e formação</p>
+      <p class="req-note">Campos com <span class="req">*</span> são obrigatórios.</p>
       <form id="f-infos" novalidate>
         <div class="block">
           <div class="block-head"><svg aria-hidden="true"><use href="#i-user"/></svg><div><h2>Dados pessoais</h2></div></div>
@@ -347,7 +375,10 @@
 
         <div class="error" id="infos-err" hidden></div>
         <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
-        <button class="btn" type="submit">Enviar formulário</button>
+        <div class="form-actions">
+          <button class="btn plain" type="button" data-go="inicio" id="infos-cancel">Voltar sem salvar</button>
+          <button class="btn" type="submit" id="infos-submit">Salvar informações</button>
+        </div>
       </form>
     </section>
 
@@ -372,7 +403,10 @@
           <button class="btn ghost" type="button" data-add="premio"><svg width="16" height="16" aria-hidden="true"><use href="#i-plus"/></svg>Adicionar prêmio</button>
         </div>
         <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
-        <button class="btn" type="submit">Salvar experiências</button>
+        <div class="form-actions">
+          <button class="btn plain" type="button" data-go="inicio">Voltar sem salvar</button>
+          <button class="btn" type="submit">Salvar experiências</button>
+        </div>
       </form>
     </section>
 
@@ -397,7 +431,10 @@
           <div class="block-head mark"><div><h2>Tem portfólio/GitHub?</h2><p>Insira o link abaixo</p></div></div>
           <div class="field"><input class="input" name="portfolio" type="url" placeholder="https://github.com/seuusuario ou https://seuportfolio.com" /></div>
         </div>
-        <button class="btn" type="submit">Salvar competências</button>
+        <div class="form-actions">
+          <button class="btn plain" type="button" data-go="inicio">Voltar sem salvar</button>
+          <button class="btn" type="submit">Salvar competências</button>
+        </div>
       </form>
     </section>
 
@@ -416,11 +453,14 @@
         </div>
         <div class="error" id="pers-err" hidden></div>
         <p class="terms">Ao enviar este formulário você concorda com os <a href="termos.html" target="_blank" rel="noopener">termos de uso e a política de privacidade</a>.</p>
-        <button class="btn" type="submit">Enviar avaliação</button>
+        <div class="form-actions">
+          <button class="btn plain" type="button" data-go="inicio">Voltar sem salvar</button>
+          <button class="btn" type="submit">Enviar avaliação</button>
+        </div>
       </form>
     </section>
 
-    <footer class="site wrap" style="padding-top:0">BRASA · Plataforma de Mobilização Cívica · Neste protótipo, seus dados ficam salvos apenas neste navegador.</footer>
+    <footer class="site wrap" style="padding-top:0">BRASA · Plataforma de Mobilização Cívica · <span id="foot-note">Neste protótipo, seus dados ficam salvos apenas neste navegador.</span></footer>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -487,8 +527,12 @@
     let v = location.hash.slice(1) || (db.logged ? 'inicio' : 'entrar');
     if (needsLogin.includes(v) && !db.logged) v = 'entrar';
     if (v === 'verificar' && !db.pendingEmail) v = 'entrar';
+    // primeiro acesso: Informações básicas vem antes de tudo
+    if (db.logged && !db.infosDone && ['inicio', 'experiencias', 'competencias', 'personalidade'].includes(v)) {
+      v = 'infos'; history.replaceState(null, '', '#infos');
+    }
     views.forEach(s => s.hidden = s.dataset.view !== v);
-    $('#to-home').hidden = !['infos', 'experiencias', 'competencias', 'personalidade'].includes(v);
+    $('#to-home').hidden = !['infos', 'experiencias', 'competencias', 'personalidade'].includes(v) || !db.infosDone;
     if (v === 'inicio') renderHome();
     if (v === 'infos') fillInfos();
     if (v === 'experiencias') fillExp();
@@ -533,7 +577,7 @@
       busy(btn, false);
     }
     db.logged = true; db.email = db.pendingEmail; delete db.pendingEmail; saveLocal(db);
-    code.value = ''; $('#code-btn').disabled = true; go('inicio');
+    code.value = ''; $('#code-btn').disabled = true; go(db.infosDone ? 'inicio' : 'infos');
   });
   $('#resend').addEventListener('click', async () => {
     if (!live) { toast('Código reenviado (simulação).'); return; }
@@ -559,7 +603,26 @@
     db.logged = false; saveLocal(db); go('entrar');
   });
 
+  /* ---------- erros por campo ---------- */
+  function mark(el, msg) {
+    el.setAttribute('aria-invalid', 'true');
+    const box = el.closest('.field') || el.parentElement;
+    if (!box.querySelector('.field-err')) {
+      const p = document.createElement('p'); p.className = 'field-err'; p.id = 'err-' + Math.random().toString(36).slice(2, 8); p.textContent = msg;
+      box.appendChild(p); el.setAttribute('aria-describedby', p.id);
+    }
+  }
+  function clearMark(el) { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); (el.closest('.field') || el.parentElement).querySelector('.field-err')?.remove(); }
+  function clearMarks(f) { f.querySelectorAll('[aria-invalid]').forEach(clearMark); }
+  document.addEventListener('input', e => { if (e.target.matches?.('[aria-invalid]')) clearMark(e.target); });
+  document.addEventListener('change', e => { if (e.target.matches?.('[aria-invalid]')) clearMark(e.target); });
+
   /* ---------- 4. informações básicas ---------- */
+  $('#tel').addEventListener('input', e => {
+    const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (d.length > 13 || e.target.value.trim().startsWith('+')) return;   // número de fora do Brasil: deixa como digitado
+    e.target.value = d.length <= 2 ? d : d.length <= 6 ? `(${d.slice(0, 2)}) ${d.slice(2)}` : d.length <= 10 ? `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}` : `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  });
   const UFS = ['Acre','Alagoas','Amapá','Amazonas','Bahia','Ceará','Distrito Federal','Espírito Santo','Goiás','Maranhão','Mato Grosso','Mato Grosso do Sul','Minas Gerais','Pará','Paraíba','Paraná','Pernambuco','Piauí','Rio de Janeiro','Rio Grande do Norte','Rio Grande do Sul','Rondônia','Roraima','Santa Catarina','São Paulo','Sergipe','Tocantins'];
   $('#uf').insertAdjacentHTML('beforeend', UFS.map(u => `<option>${u}</option>`).join(''));
   const CIDADES = ['São Paulo','Rio de Janeiro','Belo Horizonte','Brasília','Salvador','Fortaleza','Recife','Porto Alegre','Curitiba','Manaus','Belém','Goiânia','Campinas','São Luís','Maceió','Natal','Teresina','João Pessoa','Florianópolis','Vitória','Cuiabá','Campo Grande','Aracaju','Porto Velho','Macapá','Boa Vista','Palmas','Rio Branco'];
@@ -578,8 +641,8 @@
       <div class="field"><label>Curso <span class="req">*</span></label><input class="input" name="g-curso" value="${esc(g.curso)}" placeholder="Ex: Engenharia Civil, Direito" required /></div>
     </div>`;
   const renumber = () => $$('#grads [data-grad]').forEach((el, i) => { el.querySelector('.entry-head').firstChild.textContent = `Graduação ${i + 1}`; });
-  const addGrad = g => { $('#grads').insertAdjacentHTML('beforeend', gradTpl($$('#grads [data-grad]').length + 1, g)); };
-  $('#add-grad').addEventListener('click', () => addGrad());
+  const addGrad = g => { $('#grads').insertAdjacentHTML('beforeend', gradTpl($$('#grads [data-grad]').length + 1, g)); return $('#grads').lastElementChild; };
+  $('#add-grad').addEventListener('click', () => addGrad().querySelector('select').focus());
   $('#grads').addEventListener('click', e => { if (e.target.closest('.entry-del')) { e.target.closest('[data-grad]').remove(); renumber(); } });
   const toggleGrad = () => {
     const opt = $('#escolaridade').selectedOptions[0], show = !!opt?.hasAttribute('data-grad');
@@ -589,7 +652,12 @@
   $('#escolaridade').addEventListener('change', toggleGrad);
 
   function fillInfos() {
-    const d = db.infos || {}, f = $('#f-infos');
+    const d = db.infos || {}, f = $('#f-infos'), first = !db.infosDone;
+    $('#steps').hidden = !first; $('#infos-cancel').hidden = first;
+    $('#infos-title').textContent = first ? 'Primeiro, conte quem você é' : 'Informações básicas';
+    $('#infos-sub').textContent = first ? 'Só este formulário é obrigatório e leva uns 3 minutos. Depois, os outros são opcionais.' : 'Dados pessoais, contato e formação';
+    $('#infos-submit').textContent = first ? 'Salvar e continuar' : 'Salvar informações';
+    clearMarks(f);
     ['nome', 'tel', 'nasc', 'uf', 'cidade', 'endereco', 'linkedin', 'escolaridade'].forEach(k => { if (d[k] != null) f.elements[k].value = d[k]; });
     f.elements.exterior.checked = !!d.exterior; $('#exterior').dispatchEvent(new Event('change'));
     $$('#f-infos [name=frentes]').forEach(c => c.checked = (d.frentes || []).includes(c.value));
@@ -598,18 +666,29 @@
   }
   $('#f-infos').addEventListener('submit', async e => {
     e.preventDefault();
-    const f = e.target, err = $('#infos-err'), problems = [];
-    if (!f.elements.nome.value.trim()) problems.push('nome completo');
-    if (!f.elements.exterior.checked && !f.elements.uf.value) problems.push('estado');
-    if (!f.elements.cidade.value.trim()) problems.push('cidade');
-    if (!f.elements.escolaridade.value) problems.push('nível de escolaridade');
+    const f = e.target, err = $('#infos-err'), problems = [], bad = [];
+    clearMarks(f);
+    const need = (el, label, msg) => { problems.push(label); bad.push(el); mark(el, msg); };
+    if (!f.elements.nome.value.trim()) need(f.elements.nome, 'nome completo', 'Digite seu nome completo.');
+    if (!f.elements.exterior.checked && !f.elements.uf.value) need(f.elements.uf, 'estado', 'Escolha o estado.');
+    if (!f.elements.cidade.value.trim()) need(f.elements.cidade, 'cidade', 'Digite sua cidade.');
+    const telDigits = f.elements.tel.value.replace(/\D/g, '');
+    if (telDigits && (telDigits.length < 10 || telDigits.length > 13)) need(f.elements.tel, 'WhatsApp com DDD', 'Confira o número, com DDD.');
+    if (!f.elements.escolaridade.value) need(f.elements.escolaridade, 'nível de escolaridade', 'Escolha seu nível de escolaridade.');
     const grads = $$('#grads [data-grad]').map(g => ({ tipo: g.querySelector('[name=g-tipo]').value, inst: g.querySelector('[name=g-inst]').value.trim(), curso: g.querySelector('[name=g-curso]').value.trim() }));
     if (!$('#grad-area').hidden) {
-      if (!grads.length) problems.push('pelo menos uma graduação');
-      else if (grads.some(g => !g.tipo || !g.inst || !g.curso)) problems.push('tipo, instituição e curso de cada graduação');
+      if (!grads.length) { problems.push('pelo menos uma graduação'); bad.push($('#add-grad')); }
+      else $$('#grads [data-grad]').forEach(g => [['g-tipo', 'Escolha o tipo.'], ['g-inst', 'Digite a instituição.'], ['g-curso', 'Digite o curso.']].forEach(([n, m]) => {
+        const el = g.querySelector(`[name=${n}]`); if (!el.value.trim()) { if (!problems.includes('dados das graduações')) problems.push('dados das graduações'); bad.push(el); mark(el, m); }
+      }));
     }
-    if (problems.length) { err.hidden = false; err.textContent = 'Por favor, preencha: ' + problems.join(', ') + '.'; err.scrollIntoView({ block: 'center' }); return; }
+    if (problems.length) {
+      err.hidden = false; err.textContent = 'Falta preencher: ' + problems.join(', ') + '.';
+      bad[0].scrollIntoView({ block: 'center' }); bad[0].focus({ preventScroll: true }); return;
+    }
     err.hidden = true;
+    const wasFirst = !db.infosDone;
+    const btn = f.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
     db.infos = {
       nome: f.elements.nome.value.trim(), tel: f.elements.tel.value, nasc: f.elements.nasc.value, uf: f.elements.uf.value, exterior: f.elements.exterior.checked,
       cidade: f.elements.cidade.value.trim(), endereco: f.elements.endereco.value, linkedin: f.elements.linkedin.value, escolaridade: f.elements.escolaridade.value,
@@ -620,12 +699,12 @@
       const ext = (cvFile.name.split('.').pop() || 'pdf').toLowerCase();
       const path = `${userId}/curriculo-${Date.now()}.${ext}`;
       const { error } = await sb.storage.from('curriculos').upload(path, cvFile, { upsert: true, contentType: cvFile.type || undefined });
-      if (error) { console.error(error); toast('Não foi possível enviar o currículo.'); return; }
+      if (error) { console.error(error); busy(btn, false); toast('Não foi possível enviar o currículo.'); return; }
       db.infos.cvPath = path; cvFile = null;
     }
-    const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
     const ok = await push({ infos: db.infos }); busy(btn, false); if (!ok) return;
-    db.infosDone = true; saveLocal(db); toast('Informações básicas salvas!'); go('inicio');
+    db.infosDone = true; saveLocal(db);
+    toast(wasFirst ? 'Pronto! Os próximos formulários são opcionais.' : 'Informações básicas salvas!'); go('inicio');
   });
 
   /* ---------- 5. experiências ---------- */
@@ -639,17 +718,20 @@
       <div class="grid2">${EXP[type].fields.map(([k, l, ph, area]) => area
         ? `<div class="field" style="grid-column:1/-1"><label>${l}</label><textarea class="input" name="${k}" placeholder="${ph}">${esc(v[k])}</textarea></div>`
         : `<div class="field"><label>${l}</label><input class="input" name="${k}" value="${esc(v[k])}" placeholder="${ph}" /></div>`).join('')}</div></div>`;
-  const addEntry = (type, v) => { const box = $(`[data-list=${type}] .entries`); box.insertAdjacentHTML('beforeend', entryTpl(type, box.children.length + 1, v)); };
+  const addEntry = (type, v) => { const box = $(`[data-list=${type}] .entries`); box.insertAdjacentHTML('beforeend', entryTpl(type, box.children.length + 1, v)); return box.lastElementChild; };
+  const renumberEntries = type => $$(`[data-list=${type}] [data-entry]`).forEach((en, i) => { en.querySelector('.entry-head').firstChild.textContent = `${EXP[type].label} ${i + 1}`; });
   $('#f-exp').addEventListener('click', e => {
-    const add = e.target.closest('[data-add]'); if (add) addEntry(add.dataset.add);
-    const del = e.target.closest('.entry-del'); if (del) del.closest('[data-entry]').remove();
+    const add = e.target.closest('[data-add]'); if (add) addEntry(add.dataset.add).querySelector('input, textarea').focus();
+    const del = e.target.closest('.entry-del');
+    if (del) { const type = del.closest('[data-list]').dataset.list; del.closest('[data-entry]').remove(); renumberEntries(type); }
   });
   function fillExp() { Object.keys(EXP).forEach(t => { $(`[data-list=${t}] .entries`).innerHTML = ''; (db.exp?.[t] || []).forEach(v => addEntry(t, v)); }); }
   $('#f-exp').addEventListener('submit', async e => {
     e.preventDefault();
     db.exp = {};
     Object.keys(EXP).forEach(t => { db.exp[t] = $$(`[data-list=${t}] [data-entry]`).map(en => Object.fromEntries(EXP[t].fields.map(([k]) => [k, en.querySelector(`[name=${k}]`).value.trim()]))).filter(v => Object.values(v).some(Boolean)); });
-    if (!(await push({ experiencias: db.exp }))) return;
+    const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
+    const ok = await push({ experiencias: db.exp }); busy(btn, false); if (!ok) return;
     db.experienciasDone = Object.values(db.exp).some(a => a.length); saveLocal(db); toast('Experiências salvas!'); go('inicio');
   });
 
@@ -668,7 +750,8 @@
     e.preventDefault();
     db.comp = Object.fromEntries(['areas', 'skills', 'langs'].map(n => [n, $$(`#f-comp [name=${n}]:checked`).map(c => c.value)]));
     db.comp.portfolio = e.target.elements.portfolio.value.trim();
-    if (!(await push({ competencias: db.comp }))) return;
+    const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
+    const ok = await push({ competencias: db.comp }); busy(btn, false); if (!ok) return;
     db.competenciasDone = true; saveLocal(db); toast('Competências salvas!'); go('inicio');
   });
 
@@ -723,12 +806,14 @@
     err.hidden = true;
     db.pers = Object.fromEntries(QS.map((_, i) => ['q' + i, document.querySelector(`[name=q${i}]:checked`).value]));
     db.pers.reflexiva = $('#reflexiva').value.trim();
-    if (!(await push({ personalidade: db.pers }))) return;
+    const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Enviando…');
+    const ok = await push({ personalidade: db.pers }); busy(btn, false); if (!ok) return;
     db.personalidadeDone = true; saveLocal(db); toast('Avaliação enviada!'); go('inicio');
   });
 
   async function start() {
     $('#proto-note').hidden = live;
+    if (live) $('#foot-note').innerHTML = 'Seus dados ficam guardados com segurança e só a equipe da BRASA tem acesso. <a href="termos.html">Termos e privacidade</a>.';
     if (live) {
       const { data: { session } } = await sb.auth.getSession();
       if (session) {
