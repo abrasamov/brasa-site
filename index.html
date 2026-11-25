@@ -49,7 +49,10 @@
   }
   /* personagens no centro, como bonecos (vídeos sem fundo), um de cada vez */
   .figure {
-    position: absolute; left: 50%; top: var(--fig-top); height: var(--fig-h); aspect-ratio: 390 / 960;
+    /* --gap: espaço entre os pés e a base do vídeo; --zoom: aumenta quem foi filmado de mais longe.
+       O topo é ajustado para os pés de todos ficarem na mesma linha de chão. */
+    position: absolute; left: 50%; height: calc(var(--fig-h) * var(--zoom, 1)); aspect-ratio: var(--ar, 390 / 960);
+    top: calc(var(--fig-top) + var(--fig-h) * (.47 - var(--zoom, 1) * (.5 - var(--gap, .03))));
     transform: translate(-50%, -44%) scale(.9); opacity: 0; pointer-events: none;
     transition: opacity .45s var(--ease), transform .45s var(--ease);
   }
@@ -63,7 +66,7 @@
   .figure.playing img { opacity: 0; }
   /* sombra no "chão", como um boneco apoiado */
   .figure::after {
-    content: ""; position: absolute; left: 50%; bottom: -1.5%; width: 78%; height: 5%; transform: translateX(-50%); z-index: -1;
+    content: ""; position: absolute; left: 50%; bottom: calc((var(--gap, .03) - .03) * 100% - 1.5%); width: 78%; height: 5%; transform: translateX(-50%); z-index: -1;
     background: radial-gradient(closest-side, rgba(15, 79, 46, .32), rgba(15, 79, 46, 0));
   }
   /* entrada: a personagem surge com mola, o brilho se espalha */
@@ -102,15 +105,55 @@
   <main class="stage">
     <h1 class="sr-only">BRASA — Plataforma de Mobilização Cívica</h1>
     <div class="glow" aria-hidden="true"></div>
-    <div class="figure" data-char="moca">
+    <div class="figure" data-char="moca" style="--ar: 390 / 960; --gap: .022">
       <img src="assets/personagem-poster.png" width="390" height="960" alt="Moça de óculos escuros, blusa preta e calça bege" />
       <canvas aria-hidden="true"></canvas>
       <video src="assets/personagem-alpha.mp4" muted playsinline preload="auto" aria-hidden="true" hidden></video>
     </div>
-    <div class="figure" data-char="rapaz">
+    <div class="figure" data-char="rapaz" style="--ar: 390 / 960; --gap: .037">
       <img src="assets/rapaz-poster.png" width="390" height="960" alt="Rapaz com a camisa do Brasil ouvindo música no celular" />
       <canvas aria-hidden="true"></canvas>
       <video src="assets/rapaz-alpha.mp4" muted playsinline preload="auto" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="leitora" style="--ar: 334 / 960; --gap: .025">
+      <img data-src="assets/leitora-poster.png" width="334" height="960" alt="Mulher de turbante lendo um livro verde" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/leitora-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="indio" style="--ar: 382 / 960; --gap: .036; --zoom: 1.1">
+      <img data-src="assets/indio-poster.png" width="382" height="960" alt="Homem indígena de cocar segurando um notebook com o sol da BRASA" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/indio-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="executiva" style="--ar: 446 / 960; --gap: .023">
+      <img data-src="assets/executiva-poster.png" width="446" height="960" alt="Mulher de terninho marrom, sorrindo, de braços cruzados" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/executiva-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="drone" style="--ar: 540 / 960; --gap: .042; --zoom: 1.2">
+      <img data-src="assets/drone-poster.png?v=2" width="540" height="960" alt="Rapaz de óculos pilotando dois drones pelo celular" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/drone-alpha.mp4?v=2" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="campo" style="--ar: 414 / 960; --gap: .044">
+      <img data-src="assets/campo-poster.png" width="414" height="960" alt="Agricultora de chapéu de palha com uma cesta de milho" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/campo-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="motoboy" style="--ar: 528 / 960; --gap: .144; --zoom: 1.35">
+      <img data-src="assets/motoboy-poster.png" width="528" height="960" alt="Motoboy ao lado da moto, tirando o capacete" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/motoboy-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="corredores" style="--ar: 538 / 960; --gap: .108; --zoom: 1.2">
+      <img data-src="assets/corredores-poster.png" width="538" height="960" alt="Casal de corredores com o uniforme verde da BRASA" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/corredores-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+    </div>
+    <div class="figure" data-char="jose" style="--ar: 346 / 960; --gap: .041">
+      <img data-src="assets/jose-poster.png" width="346" height="960" alt="José, de verde, segurando uma grande chave dourada" />
+      <canvas aria-hidden="true"></canvas>
+      <video src="assets/jose-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
     </div>
   </main>
 
@@ -122,7 +165,7 @@
       </a>
       <nav class="dock-nav" aria-label="Principal">
         <a class="dock-tab" href="descubra.html">Descubra</a>
-        <a class="dock-tab" href="como-funciona.html">Como funciona</a>
+        <a class="dock-tab" href="como-funciona.html">Como vamos fazer</a>
         <a class="dock-tab dock-manifesto" href="manifesto.html">Manifesto</a>
         <a class="dock-tab" href="artigos.html">Artigos</a>
       </nav>
@@ -131,14 +174,15 @@
   </div>
 
 <script>
-/* Personagens sem fundo, um de cada vez: primeiro a moça, depois o rapaz, e assim por diante.
+/* Personagens sem fundo, um de cada vez, mulheres e homens intercalados; o casal de corredores
+   vem antes do José com a chave, que fecha a sequência. Depois recomeça (loop).
    Cada vídeo traz a cor na metade de cima e o recorte (alfa) na de baixo; o WebGL junta os dois.
    Sem WebGL ou sem autoplay, aparecem as imagens paradas (pôsteres) se alternando.
    Com "reduzir movimento", fica só a moça, parada. */
 (() => {
   const figs = [...document.querySelectorAll('.figure')];
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) { figs[0].classList.add('is-on'); return; }
+  if (reduce) { figs[0].classList.add('is-on'); return; }   // fica só a primeira, parada
 
   const vs = `attribute vec2 p; varying vec2 uv;
     void main(){ uv = vec2((p.x + 1.0) * .5, (1.0 - p.y) * .5); gl_Position = vec4(p, 0., 1.); }`;
@@ -193,6 +237,13 @@
   }
 
   const chars = figs.map(setup);
+  // carrega o vídeo do próximo personagem enquanto o atual se apresenta
+  const warm = c => {
+    if (!c) return;
+    const img = c.fig.querySelector('img[data-src]');
+    if (img) { img.src = img.dataset.src; img.removeAttribute('data-src'); }
+    if (c.video.readyState === 0 && c.video.preload !== 'auto') { c.video.preload = 'auto'; c.video.load(); }
+  };
   const PLAY_TIMES = 1;          // cada personagem dança uma vez e passa a vez para o outro
   const POSTER_MS = 4000;        // sem vídeo: tempo de cada pôster
   let cur = -1, timer;
@@ -206,6 +257,7 @@
       if (!on) { c.video.pause(); }
     });
     const c = chars[i];
+    warm(c); warm(chars[(i + 1) % chars.length]);
     let plays = 0;
     const next = () => show((i + 1) % chars.length);
     if (!c.ok) { timer = setTimeout(next, POSTER_MS); return; }

@@ -68,23 +68,15 @@
   .stanza .line { display: block; }
   .js .stanza.is-read .line { opacity: 1; transform: none; }
 
-  /* ---------- o sonho: painel verde com o sol nascendo ---------- */
+  /* ---------- o sonho: painel verde ---------- */
   .dream {
     position: relative; overflow: hidden; margin: clamp(32px, 6vh, 64px) 0;
     background: var(--green); color: var(--beige);
-    padding: clamp(72px, 14vh, 140px) 24px clamp(160px, 26vh, 260px);
+    padding: clamp(72px, 14vh, 140px) 24px;
   }
   .dream .verses { position: relative; z-index: 1; }
   .dream .stanza em { color: var(--sun); }
   .dream .stanza .soft { color: rgba(244, 234, 212, .7); }
-  .dream .sunrise {
-    position: absolute; left: 50%; bottom: 0; width: min(560px, 90vw); aspect-ratio: 1; z-index: 0; pointer-events: none;
-    transform: translate(-50%, calc(62% - var(--rise, 0) * 40%)) rotate(calc(var(--rise, 0) * 30deg));
-  }
-  .dream .sunrise-glow {
-    position: absolute; left: 50%; bottom: -30%; width: 140%; aspect-ratio: 2; transform: translateX(-50%); pointer-events: none;
-    background: radial-gradient(closest-side, rgba(253, 192, 16, calc(.15 + var(--rise, 0) * .35)), transparent);
-  }
 
   /* ---------- final ---------- */
   .finale { text-align: center; padding: clamp(64px, 12vh, 120px) 24px clamp(40px, 8vh, 80px); }
@@ -109,7 +101,6 @@
     html { scroll-behavior: auto; }
     .scroll-hint::after { animation: none; }
     .js .stanza .line { opacity: 1; transform: none; transition: none; }
-    .dream .sunrise { transform: translate(-50%, 42%); }
   }
 </style>
 </head>
@@ -149,11 +140,6 @@
       </div>
 
       <section class="dream" aria-label="Feche os olhos">
-        <div class="sunrise-glow" aria-hidden="true"></div>
-        <svg class="sunrise" viewBox="-110 -110 220 220" aria-hidden="true">
-          <use href="#sun" transform="translate(6 8)" fill="#d2202a"/>
-          <use href="#sun" fill="#fdc010"/>
-        </svg>
         <div class="verses">
           <p class="stanza"><span class="line"><em>Feche os olhos.</em></span></p>
           <p class="stanza"><span class="line">A favela virou bairro próspero.</span><span class="line">O amigo que foi embora voltou.</span><span class="line soft">Seu filho estuda, trabalha e constrói a família aqui.</span><span class="line">Ninguém tem medo de voltar para casa.</span></p>
@@ -177,7 +163,7 @@
       </a>
       <nav class="dock-nav" aria-label="Principal">
         <a class="dock-tab" href="descubra.html">Descubra</a>
-        <a class="dock-tab" href="como-funciona.html">Como funciona</a>
+        <a class="dock-tab" href="como-funciona.html">Como vamos fazer</a>
         <a class="dock-tab dock-manifesto" href="manifesto.html" aria-current="page">Manifesto</a>
         <a class="dock-tab" href="artigos.html">Artigos</a>
       </nav>
@@ -201,19 +187,6 @@
     stanzas.forEach(s => io.observe(s));
   }
 
-  // o sol nasce conforme você rola pelo trecho "Feche os olhos"
-  if (reduce) return;
-  const dream = document.querySelector('.dream');
-  let ticking = false;
-  const update = () => {
-    ticking = false;
-    const r = dream.getBoundingClientRect(), vh = innerHeight;
-    const k = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * .2)));
-    dream.style.setProperty('--rise', k.toFixed(3));
-  };
-  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener('resize', update);
-  update();
 })();
 </script>
 <script src="assets/dock.js?v=share1" defer></script>

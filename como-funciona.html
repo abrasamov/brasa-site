@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Como funciona — BRASA</title>
+<title>Como vamos fazer — BRASA</title>
 <meta name="description" content="Uma rede que acende o país: quatro frentes para mudar o Brasil." />
 <link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/dock.css?v=share1" />
 <link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/stack.css?v=1" />
 <style>
   :root {
     --beige: #f4ead4; --paper: #fbf6ea; --green: #0f4f2e; --green-2: #1d5a36; --sun: #fdc010; --red: #b3161f; --muted: #4e5a4c;
@@ -136,6 +137,19 @@
   .lg-dot { width: 14px; height: 14px; border-radius: 50%; background: #fdc010; box-shadow: 0 0 0 2px rgba(253, 192, 16, .3); }
   .lg-star { width: 12px; height: 12px; border-radius: 50%; background: #f4ead4; box-shadow: 0 0 10px rgba(244, 234, 212, .8); }
   @media (max-width: 1100px) { .rede-head { grid-template-columns: 1fr; } }
+  .rede-head { grid-template-columns: 1fr; }
+
+  /* ---------- abertura escura: o sistema com o sol abre a página ---------- */
+  .opening.on-dark {
+    margin: clamp(8px, 1.4vw, 20px) clamp(8px, 1.4vw, 20px) 0; border-radius: 28px;
+    grid-template-columns: 1fr; justify-items: center; text-align: center; gap: clamp(8px, 2vw, 24px);
+    min-height: 0; padding-top: clamp(24px, 4vw, 48px);
+  }
+  .opening .body { margin: clamp(20px, 3vw, 32px) auto 0; max-width: 640px; }
+  .opening.on-dark .body p { color: rgba(244, 234, 212, .85); }
+  .opening.on-dark .quote { color: var(--sun); }
+  .eco-col { width: 100%; display: grid; justify-items: center; }
+  .eco-col .eco { max-width: min(560px, 62vh); }
 
   /* ---------- tecnologia: a BRASA liga os dois conjuntos ---------- */
   /* rótulos no alto de cada círculo, deixando o meio livre para o fio que passa pelo selo */
@@ -237,20 +251,21 @@
   </svg>
 
   <main>
-    <section class="opening" aria-labelledby="como-title">
-      <div class="reveal">
-        <p class="eyebrow">Como funciona</p>
-        <h1 id="como-title">Uma rede que acende o país</h1>
-        <div class="sparks" aria-hidden="true">
-          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
-          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
-          <svg viewBox="-110 -110 220 220"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
-        </div>
+    <section class="opening on-dark" aria-labelledby="como-title">
+      <div class="eco-col">
+        <figure class="eco" role="img" aria-label="Ecossistema da BRASA: o sol no centro, ligado a núcleos e alianças em rede, que se movem e criam novas conexões">
+          <canvas aria-hidden="true"></canvas>
+          <svg class="eco-sun" viewBox="-115 -115 230 230" aria-hidden="true"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
+        </figure>
       </div>
-      <div class="body reveal" style="--d:.15s">
-        <p>A BRASA não vai mudar o Brasil sozinha, nem de cima para baixo. Ela acende no centro e conecta quem já está agindo: pessoas, comunidades e instituições de todo o país.</p>
-        <p>Juntando rede, tecnologia, ideias e lideranças locais, transformamos o que a sociedade deseja em mudança real, do bairro para todo Brasil.</p>
-        <p class="quote">De faísca em faísca, até virar fogueira.</p>
+      <div class="reveal">
+        <p class="eyebrow">Como vamos fazer</p>
+        <h1 id="como-title">Uma rede que acende o país</h1>
+        <div class="body">
+          <p>A BRASA não vai mudar o Brasil sozinha, nem de cima para baixo. Ela acende no centro e conecta quem já está agindo: pessoas, comunidades e instituições de todo o país.</p>
+          <p>Juntando rede, tecnologia, ideias e lideranças locais, transformamos o que a sociedade deseja em mudança real, do bairro para todo Brasil.</p>
+          <p class="quote">De faísca em faísca, até virar fogueira.</p>
+        </div>
       </div>
     </section>
 
@@ -260,32 +275,36 @@
         <h2 id="frentes-title">Quatro frentes para mudar o Brasil</h2>
         <p class="kicker">Começa na rua e chega a Brasília.</p>
       </div>
-      <div class="fronts">
-        <a class="front reveal" href="#rede" style="--d:0s">
-          <span class="front-top"><span class="front-num">01</span><svg class="front-icon" aria-hidden="true"><use href="#i-rede"/></svg></span>
-          <h3>Trabalhar em rede</h3>
-          <p>Conectar talentos, núcleos e instituições de todo o país. Sozinha, uma brasa aquece; juntas, acendem um país.</p>
-          <span class="front-more">Ver mais</span>
-        </a>
-        <a class="front reveal" href="#tecnologia" style="--d:.08s">
-          <span class="front-top"><span class="front-num">02</span><svg class="front-icon" aria-hidden="true"><use href="#i-tec"/></svg></span>
-          <h3>Tecnologia para a sociedade civil</h3>
-          <p>Usar e desenvolver sistemas, dados e plataformas que ajudem as pessoas a se organizar e resolver problemas reais.</p>
-          <span class="front-more">Ver mais</span>
-        </a>
-        <a class="front reveal" href="#think-tank" style="--d:.16s">
-          <span class="front-top"><span class="front-num">03</span><svg class="front-icon" aria-hidden="true"><use href="#i-ideia"/></svg></span>
-          <h3>Think tank e políticas públicas</h3>
-          <p>Formar ideias com pesquisa e debate e transformá-las em propostas e políticas públicas prontas para o país.</p>
-          <span class="front-more">Ver mais</span>
-        </a>
-        <a class="front is-green reveal" href="#liderancas" style="--d:.24s">
-          <span class="front-top"><span class="front-num">04</span><svg class="front-icon" aria-hidden="true"><use href="#i-lider"/></svg></span>
-          <h3>Lideranças locais</h3>
-          <p>Formar lideranças que venham do povo e representem o povo: gente que se importa de verdade com as pessoas e com a sociedade.</p>
-          <span class="front-more">Ver mais</span>
-        </a>
-      </div>
+      <ol class="stack" aria-label="As quatro frentes">
+        <li class="stack-card" data-tone="green">
+          <a class="sc-inner" href="#rede">
+            <div class="sc-head"><span class="sc-tag">Rede</span><span class="sc-count">01 / 04</span></div>
+            <svg class="sc-icon" aria-hidden="true"><use href="#i-rede"/></svg>
+            <div class="sc-body"><h3>Trabalhar em rede</h3><p>Conectar talentos, núcleos e instituições de todo o país. Sozinha, uma brasa aquece; juntas, acendem um país.</p><span class="sc-more">Ver mais ↓</span></div>
+          </a>
+        </li>
+        <li class="stack-card" data-tone="sun">
+          <a class="sc-inner" href="#tecnologia">
+            <div class="sc-head"><span class="sc-tag">Tecnologia</span><span class="sc-count">02 / 04</span></div>
+            <svg class="sc-icon" aria-hidden="true"><use href="#i-tec"/></svg>
+            <div class="sc-body"><h3>Tecnologia para a sociedade civil</h3><p>Usar e desenvolver sistemas, dados e plataformas que ajudem as pessoas a se organizar e resolver problemas reais.</p><span class="sc-more">Ver mais ↓</span></div>
+          </a>
+        </li>
+        <li class="stack-card" data-tone="red">
+          <a class="sc-inner" href="#think-tank">
+            <div class="sc-head"><span class="sc-tag">Ideias</span><span class="sc-count">03 / 04</span></div>
+            <svg class="sc-icon" aria-hidden="true"><use href="#i-ideia"/></svg>
+            <div class="sc-body"><h3>Think tank e políticas públicas</h3><p>Formar ideias com pesquisa e debate e transformá-las em propostas e políticas públicas prontas para o país.</p><span class="sc-more">Ver mais ↓</span></div>
+          </a>
+        </li>
+        <li class="stack-card" data-tone="cream">
+          <a class="sc-inner" href="#liderancas">
+            <div class="sc-head"><span class="sc-tag">Pessoas</span><span class="sc-count">04 / 04</span></div>
+            <svg class="sc-icon" aria-hidden="true"><use href="#i-lider"/></svg>
+            <div class="sc-body"><h3>Lideranças locais</h3><p>Formar lideranças que venham do povo e representem o povo: gente que se importa de verdade com as pessoas e com a sociedade.</p><span class="sc-more">Ver mais ↓</span></div>
+          </a>
+        </li>
+      </ol>
     </section>
 
     <section id="rede" class="block on-dark" aria-labelledby="rede-title">
@@ -294,16 +313,7 @@
           <p class="eyebrow">01 · Trabalhar em rede</p>
           <h2 id="rede-title">O calor se espalha</h2>
           <p class="lead">Cada núcleo age no seu território com autonomia e se conecta aos outros para trocar ideias, recursos e conquistas. É o jeito mais rápido de a mudança chegar a todo o país.</p>
-          <ul class="eco-legend">
-            <li><span class="lg-sun" aria-hidden="true"></span><b>O sol:</b> a BRASA articula e conecta.</li>
-            <li><span class="lg-dot" aria-hidden="true"></span><b>Pontos de luz:</b> núcleos de norte a sul.</li>
-            <li><span class="lg-star" aria-hidden="true"></span><b>Estrelas:</b> alianças com empresas, ONGs e o poder público.</li>
-          </ul>
         </div>
-        <figure class="eco reveal" style="--d:.15s" role="img" aria-label="Ecossistema da BRASA: o sol no centro, ligado a núcleos e alianças em rede, que se movem e criam novas conexões">
-          <canvas aria-hidden="true"></canvas>
-          <svg class="eco-sun" viewBox="-115 -115 230 230" aria-hidden="true"><use href="#sun" transform="translate(6 8)" fill="#d2202a"/><use href="#sun" fill="#fdc010"/></svg>
-        </figure>
       </div>
       <div class="flow reveal">
         <div class="node is-sun">
@@ -430,7 +440,7 @@
       </a>
       <nav class="dock-nav" aria-label="Principal">
         <a class="dock-tab" href="descubra.html">Descubra</a>
-        <a class="dock-tab" href="como-funciona.html" aria-current="page">Como funciona</a>
+        <a class="dock-tab" href="como-funciona.html" aria-current="page">Como vamos fazer</a>
         <a class="dock-tab dock-manifesto" href="manifesto.html">Manifesto</a>
         <a class="dock-tab" href="artigos.html">Artigos</a>
       </nav>
@@ -531,6 +541,7 @@
   document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
 })();
 </script>
+<script src="assets/stack.js?v=1" defer></script>
 <script src="assets/dock.js?v=share1" defer></script>
 <script src="assets/share.js?v=share2"></script>
 </body>
