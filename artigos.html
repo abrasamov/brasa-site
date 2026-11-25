@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/dock.css?v=share1" />
-<link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/dock.css?v=space1" />
+<link rel="stylesheet" href="assets/share.css?v=share3" />
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   [hidden] { display: none !important; }
@@ -19,7 +19,7 @@
     background-image: radial-gradient(rgba(15, 79, 46, .07) 1px, transparent 1.4px); background-size: 22px 22px;
   }
   :focus-visible { outline: 2px solid #b3161f; outline-offset: 3px; border-radius: 6px; }
-  main { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 72px 24px 120px; text-align: center; }
+  main { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: var(--space-section) var(--space-x) calc(var(--space-section) + 48px); text-align: center; }
   .eyebrow { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: #b3161f; }
   h1 { margin-top: 14px; font-family: "Archivo", system-ui, sans-serif; font-stretch: 125%; font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 7vw, 96px); line-height: .95; }
   .kicker { margin-top: 14px; font-family: "EB Garamond", Georgia, serif; font-style: italic; font-size: clamp(22px, 2.4vw, 32px); color: #b3161f; }

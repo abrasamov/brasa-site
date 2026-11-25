@@ -10,6 +10,12 @@
    - assets/dock.js troca a aba no clique e conforme a rolagem.
    ========================================================== */
 :root {
+  /* espaçamento padrão do site: use estes valores nas seções de todas as páginas */
+  --space-x: clamp(20px, 5vw, 64px);          /* respiro lateral */
+  --space-section: clamp(64px, 8vw, 112px);   /* entre seções */
+  --space-head: clamp(24px, 3vw, 40px);       /* entre o título da seção e o conteúdo */
+  --space-panel: clamp(8px, 1.4vw, 20px);     /* margem dos painéis com cantos arredondados */
+  --content-max: 1120px;                      /* largura máxima do conteúdo */
   --dock-green: #0f4f2e;
   --dock-active: #0f4f2e;   /* cor da pasta aberta (moldura, faixa e aba ativa) */
   --dock-paper: #fbf6ea;

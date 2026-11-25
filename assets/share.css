@@ -7,12 +7,12 @@
 }
 .share-btn {
   display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; cursor: pointer;
-  background: var(--sh-paper); color: var(--sh-green); border: 1.5px solid rgba(15, 79, 46, .2);
-  box-shadow: 0 10px 24px -14px rgba(15, 79, 46, .6);
+  background: var(--sh-green); color: var(--sh-beige); border: 1.5px solid rgba(244, 234, 212, .45);
+  box-shadow: 0 10px 24px -12px rgba(15, 79, 46, .75);
   transition: transform .2s var(--sh-ease), background-color .2s var(--sh-ease), border-color .2s;
 }
-.share-btn:hover { transform: translateY(-1px); border-color: var(--sh-green); }
-.share-btn[aria-expanded="true"] { background: var(--sh-green); color: var(--sh-sun); border-color: var(--sh-green); }
+.share-btn:hover { transform: translateY(-1px); background: #1d6a43; border-color: #1d6a43; }
+.share-btn[aria-expanded="true"] { background: var(--sh-sun); color: var(--sh-green); border-color: var(--sh-green); }
 .share-btn:focus-visible, .share-panel :focus-visible { outline: 2px solid var(--sh-red); outline-offset: 2px; }
 
 .share-panel {
