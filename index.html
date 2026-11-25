@@ -64,6 +64,9 @@
   .figure canvas, .figure img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .figure img { object-fit: contain; }
   .figure.playing img { opacity: 0; }
+  /* o vídeo fica na página (não "escondido"), mas minúsculo e invisível: o Chrome do Android
+     pausa vídeos com display:none ou fora da tela, e aí a animação não aparecia */
+  .figure video { position: absolute; left: 0; bottom: 0; width: 2px; height: 2px; opacity: .01; pointer-events: none; }
   /* sombra no "chão", como um boneco apoiado */
   .figure::after {
     content: ""; position: absolute; left: 50%; bottom: calc((var(--gap, .03) - .03) * 100% - 1.5%); width: 78%; height: 5%; transform: translateX(-50%); z-index: -1;
@@ -108,52 +111,52 @@
     <div class="figure" data-char="moca" style="--ar: 390 / 960; --gap: .022">
       <img src="assets/personagem-poster.png" width="390" height="960" alt="Moça de óculos escuros, blusa preta e calça bege" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/personagem-alpha.mp4" muted playsinline preload="auto" aria-hidden="true" hidden></video>
+      <video src="assets/personagem-alpha.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="rapaz" style="--ar: 390 / 960; --gap: .037">
       <img src="assets/rapaz-poster.png" width="390" height="960" alt="Rapaz com a camisa do Brasil ouvindo música no celular" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/rapaz-alpha.mp4" muted playsinline preload="auto" aria-hidden="true" hidden></video>
+      <video src="assets/rapaz-alpha.mp4" muted playsinline preload="auto" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="leitora" style="--ar: 334 / 960; --gap: .025">
       <img data-src="assets/leitora-poster.png" width="334" height="960" alt="Mulher de turbante lendo um livro verde" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/leitora-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/leitora-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="indio" style="--ar: 382 / 960; --gap: .036; --zoom: 1.1">
       <img data-src="assets/indio-poster.png" width="382" height="960" alt="Homem indígena de cocar segurando um notebook com o sol da BRASA" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/indio-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/indio-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="executiva" style="--ar: 446 / 960; --gap: .023">
       <img data-src="assets/executiva-poster.png" width="446" height="960" alt="Mulher de terninho marrom, sorrindo, de braços cruzados" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/executiva-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/executiva-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="drone" style="--ar: 540 / 960; --gap: .042; --zoom: 1.2">
       <img data-src="assets/drone-poster.png?v=2" width="540" height="960" alt="Rapaz de óculos pilotando dois drones pelo celular" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/drone-alpha.mp4?v=2" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/drone-alpha.mp4?v=2" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="campo" style="--ar: 414 / 960; --gap: .044">
       <img data-src="assets/campo-poster.png" width="414" height="960" alt="Agricultora de chapéu de palha com uma cesta de milho" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/campo-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/campo-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="motoboy" style="--ar: 528 / 960; --gap: .144; --zoom: 1.35">
       <img data-src="assets/motoboy-poster.png" width="528" height="960" alt="Motoboy ao lado da moto, tirando o capacete" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/motoboy-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/motoboy-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="corredores" style="--ar: 538 / 960; --gap: .108; --zoom: 1.2">
       <img data-src="assets/corredores-poster.png" width="538" height="960" alt="Casal de corredores com o uniforme verde da BRASA" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/corredores-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/corredores-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
     <div class="figure" data-char="jose" style="--ar: 346 / 960; --gap: .041">
       <img data-src="assets/jose-poster.png" width="346" height="960" alt="José, de verde, segurando uma grande chave dourada" />
       <canvas aria-hidden="true"></canvas>
-      <video src="assets/jose-alpha.mp4" muted playsinline preload="none" aria-hidden="true" hidden></video>
+      <video src="assets/jose-alpha.mp4" muted playsinline preload="none" aria-hidden="true"></video>
     </div>
   </main>
 
@@ -224,6 +227,7 @@
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
         gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        if (!ch.drawn) { ch.drawn = true; fig.classList.add('playing'); }   // só tira o pôster quando há quadro de verdade
       }
     };
     ch.size = size;
@@ -231,7 +235,7 @@
       if (!video.paused) ch.draw();
       if ('requestVideoFrameCallback' in video) video.requestVideoFrameCallback(loop); else requestAnimationFrame(loop);
     };
-    video.addEventListener('playing', () => { size(); fig.classList.add('playing'); }, { once: true });
+    video.addEventListener('playing', size, { once: true });
     loop();
     return ch;
   }
