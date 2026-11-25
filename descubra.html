@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/dock.css?v=share1" />
-<link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/dock.css?v=space1" />
+<link rel="stylesheet" href="assets/share.css?v=share3" />
 <link rel="stylesheet" href="assets/stack.css?v=1" />
 <style>
   /* ---------- Tokens da marca ---------- */
@@ -254,6 +254,39 @@
   }
 
   /* ---------- texto editorial (A ideia) ---------- */
+  /* diagramação: todas as seções na mesma coluna central */
+  .editorial, .bentos, .faq { max-width: var(--content-max); margin-inline: auto; box-sizing: content-box; }
+  .editorial { padding: var(--space-section) var(--space-x) 0 !important; }
+  .bentos { padding: var(--space-section) var(--space-x) 0 !important; }
+  .faq { padding: var(--space-section) var(--space-x) var(--space-section) !important; }
+  .bentos .section-head { margin-bottom: var(--space-head); }
+  .editorial .ed-lead { max-width: 30ch; margin-top: clamp(28px, 4vw, 48px); font-size: clamp(24px, 2.6vw, 36px); }
+  .bentos .section-head { max-width: 960px; margin-inline: auto; }
+  .bentos .section-head h2.eyebrow { margin-top: 0; font-family: var(--font-mono); font-stretch: normal; font-weight: 700; font-size: 12px; letter-spacing: .16em; line-height: 1.4; color: #b3161f; white-space: normal; }
+  .bentos .section-lead { margin-top: 14px; max-width: 46ch; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: clamp(20px, 2vw, 28px); line-height: 1.22; color: #0f4f2e; text-wrap: pretty; }
+
+  /* perguntas frequentes (como na referência: título à esquerda, lista à direita) */
+  .faq { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: start; padding: clamp(24px, 4vw, 56px) clamp(20px, 5vw, 64px) clamp(72px, 9vw, 128px); }
+  .faq-head { position: sticky; top: 32px; }
+  .faq-head h2 { font-family: var(--font-display); font-stretch: 112%; font-weight: 900; font-size: clamp(40px, 5vw, 64px); line-height: 1; letter-spacing: -.015em; color: #0f4f2e; }
+  .faq-head p { margin-top: 14px; max-width: 30ch; font-size: clamp(16px, 1.3vw, 18px); color: #4e5a4c; }
+  .faq-list { border-top: 1px solid rgba(15, 79, 46, .22); }
+  .faq details { border-bottom: 1px solid rgba(15, 79, 46, .22); }
+  .faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 64px; padding: 16px 4px; cursor: pointer; list-style: none; font-weight: 700; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.3; color: #0f4f2e; transition: color .2s var(--ease); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: ""; flex: none; width: 10px; height: 10px; margin-right: 6px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform .3s var(--ease); }
+  .faq details[open] summary::after { transform: translateY(2px) rotate(225deg); }
+  .faq summary:hover { color: #b3161f; }
+  .faq summary:focus-visible { outline: 3px solid #b3161f; outline-offset: 2px; border-radius: 6px; }
+  .faq details p { max-width: 60ch; padding: 0 4px 22px; font-size: clamp(16px, 1.25vw, 18px); line-height: 1.55; color: #33443a; }
+  .faq details[open] p { animation: faq-in .35s var(--ease); }
+  @keyframes faq-in { from { opacity: 0; transform: translateY(-6px); } }
+  .faq details a { color: #0f4f2e; font-weight: 700; text-underline-offset: 3px; }
+  @media (max-width: 860px) {
+    .faq { grid-template-columns: 1fr; }
+    .faq-head { position: static; }
+  }
+
   .editorial { padding: clamp(40px, 6vw, 88px) clamp(20px, 5vw, 64px) clamp(24px, 4vw, 56px); }
   .ed-top { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid #0f4f2e; }
   .ed-label { font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #b3161f; }
@@ -447,16 +480,10 @@
       <p class="ed-label">BRASA · Plataforma cívica</p>
       <p class="ed-label ed-label-r">Parte 01 · A ideia</p>
     </div>
-    <h1 id="ed-title" class="ed-name reveal">Brasa<span class="ed-dot" aria-hidden="true"><img src="assets/brasa-logo.webp" width="2000" height="1292" alt="" /></span></h1>
+    <h1 id="ed-title" class="ed-name reveal">Brasa</h1>
     <p class="ed-kicker reveal">Uma visão, um novo Brasil.</p>
 
-    <div class="ed-grid">
-      <p class="ed-lead reveal"><span class="ed-drop" aria-hidden="true">U</span><span class="sr-only">U</span>m ecossistema que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</p>
-      <aside class="ed-note reveal" style="--d:.1s">
-        <span class="ed-label">Nota</span>
-        <p>A BRASA não começa do zero: ela conecta quem já está agindo.</p>
-      </aside>
-    </div>
+    <p class="ed-lead reveal"><span class="ed-drop" aria-hidden="true">U</span><span class="sr-only">U</span>m ecossistema que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</p>
 
     <blockquote class="ed-quote reveal">
       <p>Gente capaz em todo canto do país, <mark class="ed-mark">muitas vezes sozinha.</mark></p>
@@ -474,8 +501,7 @@
 
   <section class="bentos" aria-labelledby="bentos-title">
     <div class="section-head reveal">
-      <p class="eyebrow">O que somos e nossas bandeiras</p>
-      <h2 id="bentos-title">Somos brasas.</h2>
+      <h2 id="bentos-title" class="eyebrow">O que somos e nossas bandeiras</h2>
       <p class="section-lead">A BRASA busca mudança: mobilizar a sociedade, devolver o poder às pessoas, valorizar quem trabalha, reunir o Brasil num só povo, fazer do país uma potência soberana e renovar o Estado para o século 21.</p>
     </div>
     <ol class="stack" aria-label="As seis bandeiras da BRASA">
@@ -523,24 +549,44 @@
       </li>
     </ol>
   </section>
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="faq-head reveal">
+      <h2 id="faq-title">Perguntas</h2>
+      <p>Respostas curtas sobre o Brasa e como participar.</p>
+    </div>
+    <div class="faq-list reveal" style="--d:.08s">
+      <details>
+        <summary>O que é o Brasa?</summary>
+        <p>Um ecossistema que une o povo e organizações espalhados pelo país para pensar um novo Brasil. O Brasa não começa do zero: ele conecta quem já está agindo.</p>
+      </details>
+      <details>
+        <summary>Como eu faço parte?</summary>
+        <p>Clique em <a href="faca-parte.html">Faça parte</a>, entre com o seu e-mail e digite o código de 6 dígitos que chega na sua caixa de entrada. Depois, preencha as informações básicas: leva uns 3 minutos.</p>
+      </details>
+      <details>
+        <summary>De que jeitos posso participar?</summary>
+        <p>Você escolhe um ou mais: ser uma liderança, colaborar com a parte de desenvolvimento, fazer parte do think tank ou ser um apoiador e estar perto.</p>
+      </details>
+      <details>
+        <summary>O que é o mapa BRASA?</summary>
+        <p>Depois do teste de personalidade, com 24 afirmações rápidas, você recebe o seu mapa: o seu perfil, os seus pontos fortes e onde você pode brilhar na BRASA.</p>
+      </details>
+      <details>
+        <summary>Moro fora do Brasil. Posso participar?</summary>
+        <p>Pode. No cadastro, marque a opção “Moro fora do Brasil”.</p>
+      </details>
+      <details>
+        <summary>Onde converso com outras pessoas da rede?</summary>
+        <p>Na comunidade Braseiro, no WhatsApp. O link aparece no seu painel assim que você cria a conta.</p>
+      </details>
+      <details>
+        <summary>O que é o Brasismo?</summary>
+        <p>É a visão por trás da BRASA, contada no <a href="manifesto.html">manifesto</a>.</p>
+      </details>
+    </div>
+  </section>
   </div>
 
-  <div class="pair">
-  <section class="manifesto-teaser sheet-section" aria-label="Manifesto">
-    <a class="teaser reveal" href="manifesto.html">
-      <span class="eyebrow">Manifesto · Brasismo</span>
-      <span class="teaser-title">O Brasil que há de raiar <em>já raiou em você.</em></span>
-      <span class="teaser-cta">Ler o manifesto</span>
-    </a>
-  </section>
-
-  <section class="panel panel-close" aria-labelledby="close-title">
-    <p class="eyebrow reveal">Uma visão, um novo Brasil</p>
-    <h2 id="close-title" class="panel-title reveal">Unir talentos. Acender o Brasil.</h2>
-    <p class="panel-text reveal" style="margin-inline:auto">Crie sua conta, conte quem você é e encontre a sua frente na rede.</p>
-    <a class="join-cta reveal" href="faca-parte.html">Faça parte</a>
-  </section>
-  </div>
   </main>
 
   <div class="dock">

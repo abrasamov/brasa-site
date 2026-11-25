@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Faça parte — BRASA</title>
+<title>Braseiro — BRASA</title>
 <meta name="description" content="Encontrando talentos, conectando brasas. Crie sua conta e conte quem você é." />
 <link rel="icon" href="assets/brasa-favicon.png" type="image/png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/share.css?v=share3" />
 <style>
   :root {
     --beige: #f4ead4; --paper: #fbf6ea; --white: #fffdf8; --green: #0f4f2e; --green-2: #1d6a43; --sun: #fdc010; --red: #b3161f;
@@ -85,7 +85,6 @@
   .btn.ghost:hover { background: rgba(15, 79, 46, .06); }
   .link-btn { display: block; margin: 14px auto 0; background: none; border: 0; cursor: pointer; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
   .note { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--muted); }
-  .proto { margin-top: 18px; padding: 10px 14px; border-radius: 8px; background: rgba(253, 192, 16, .22); font-size: 13px; text-align: center; }
   .expire { margin-top: 20px; padding: 14px; border-radius: 10px; background: var(--paper); border: 1px solid var(--line); text-align: center; font-size: 14px; }
   .expire small { display: block; color: var(--muted); }
 
@@ -169,6 +168,14 @@
 
   /* mapa */
   .kicker { text-align: center; font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .map-box { margin-top: 28px; padding: clamp(22px, 3.4vw, 36px); border-radius: 20px; background: rgba(253, 192, 16, .14); border: 1px solid rgba(253, 192, 16, .55); scroll-margin-top: 16px; }
+  .map-box .map-hero .page-title { font-size: clamp(28px, 4vw, 42px); }
+  .map-box .block { margin-top: 20px; }
+  .map-box h3 { font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 20px; }
+  .map-box .block:has(.radar) { display: flex; flex-direction: column; }
+  .map-box .block:has(.radar) .radar { margin-block: auto; }
+  .map-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 22px; }
+  .map-actions .btn { width: auto; margin: 0; padding: 0 26px; }
   .map-hero { text-align: center; }
   .map-hero .page-title { margin-top: 10px; }
   .map-hero .page-sub { max-width: 560px; margin-inline: auto; }
@@ -207,16 +214,38 @@
   .btn.plain { width: auto; padding: 0 22px; background: transparent; color: var(--green); border: 1.5px solid var(--line); font-family: var(--font-body); font-weight: 700; font-size: 15px; }
   .btn.plain:hover { background: rgba(15, 79, 46, .06); border-color: var(--green); }
 
-  /* teste de personalidade */
-  .q { margin-top: 18px; padding: 20px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; transition: border-color .2s; }
-  .q.answered { border-color: rgba(15, 79, 46, .45); }
-  .q-title { display: flex; gap: 12px; align-items: flex-start; font-weight: 700; font-size: 17px; }
-  .q-num { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--sun); font-family: var(--font-mono); font-size: 13px; }
-  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
-  .likert label { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 6px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); text-align: center; font-size: 13px; cursor: pointer; transition: border-color .2s, background-color .2s; }
-  .likert label:hover { border-color: var(--green); }
-  .likert input { width: 18px; height: 18px; accent-color: var(--green); }
-  .likert label:has(input:checked) { border-color: var(--green); background: rgba(15, 79, 46, .1); font-weight: 700; }
+  /* teste de personalidade: cada afirmação é um card com a pergunta dentro */
+  .q { position: relative; margin-top: 16px; padding: clamp(18px, 3vw, 26px); background: var(--white); border: 1px solid var(--line); border-radius: 16px; transition: border-color .25s, box-shadow .25s, opacity .25s; scroll-margin: 96px; }
+  .q::before { content: ""; position: absolute; left: 14px; right: 14px; top: -1px; height: 4px; border-radius: 0 0 4px 4px; background: var(--line); transition: background-color .25s; }
+  .q.answered::before { background: var(--green); }
+  .q.answered { border-color: rgba(15, 79, 46, .35); }
+  .q:focus-within { box-shadow: 0 18px 36px -28px rgba(15, 79, 46, .6); }
+  .q-title { display: flex; gap: 14px; align-items: center; margin: 0; font-weight: 700; font-size: clamp(16px, 1.6vw, 18px); line-height: 1.35; }
+  .q-num { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--green); color: var(--sun); font-family: var(--font-mono); font-size: 13px; }
+  .q.answered .q-num { background: var(--sun); color: var(--green); }
+  .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
+  .likert label { position: relative; display: grid; grid-template-rows: 28px auto; justify-items: center; align-items: center; align-content: start; gap: 10px; min-height: 92px; padding: 14px 6px 12px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--paper); text-align: center; font-size: 13px; line-height: 1.3; color: var(--muted); cursor: pointer; transition: border-color .2s, background-color .2s, color .2s, transform .2s var(--ease); }
+  .likert label:hover { border-color: var(--green); color: var(--green); }
+  .likert input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .likert i { display: block; flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(15, 79, 46, .45); background: var(--white); transition: background-color .2s, border-color .2s, box-shadow .2s; }
+  .likert label[data-v="1"] i, .likert label[data-v="5"] i { width: 28px; height: 28px; }
+  .likert label[data-v="2"] i, .likert label[data-v="4"] i { width: 25px; height: 25px; }
+  .likert label:has(input:checked) { border-color: var(--green); background: var(--green); color: var(--beige); font-weight: 700; transform: translateY(-2px); }
+  .likert label:has(input:checked) i { border-color: var(--sun); background: var(--sun); box-shadow: inset 0 0 0 4px var(--green); }
+  .likert label:has(input:focus-visible) { outline: 3px solid var(--red); outline-offset: 2px; }
+  .likert-ends { display: none; }
+
+  /* comunidade no WhatsApp (painel) */
+  .community { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 16px; padding: 18px clamp(18px, 3vw, 24px); border-radius: 16px; background: var(--white); border: 1.5px solid var(--green); color: var(--green); text-decoration: none; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+  .community:hover { transform: translateY(-2px); box-shadow: 0 22px 40px -28px rgba(15, 79, 46, .55); }
+  .community:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+  .community .ic { display: grid; place-items: center; flex: none; width: 50px; height: 50px; border-radius: 12px; background: #1f9d55; color: #fff; }
+  .community .ic svg { width: 26px; height: 26px; }
+  .community .txt { flex: 1 1 240px; display: grid; gap: 2px; }
+  .community b { font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: 18px; }
+  .community small { color: var(--muted); font-size: 14px; }
+  .community .go { display: inline-flex; align-items: center; gap: 6px; min-height: 46px; padding: 0 20px; border-radius: 10px; background: var(--green); color: var(--beige); font-weight: 700; font-size: 15px; white-space: nowrap; }
+  .choices.wide { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
   .progress { position: sticky; top: 0; z-index: 5; margin: 20px -6px 0; padding: 10px 6px; background: var(--beige); }
   .progress-bar { height: 8px; border-radius: 99px; background: rgba(15, 79, 46, .12); overflow: hidden; }
   .progress-bar i { display: block; height: 100%; width: 0; background: var(--green); transition: width .4s var(--ease); }
@@ -231,14 +260,18 @@
     .topbar span { display: none; }
     .topbar img { width: 38px; }
     .grid2 { grid-template-columns: 1fr; }
-    .likert { grid-template-columns: 1fr; }
-    .likert label { flex-direction: row; justify-content: flex-start; text-align: left; }
+    .likert { gap: 6px; }
+    .likert label { min-height: 0; padding: 12px 0; gap: 0; grid-template-rows: 28px; }
+    .likert label span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .likert-ends { display: flex; justify-content: space-between; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .community .go { width: 100%; justify-content: center; }
     .welcome .actions { margin-left: 0; width: 100%; }
     .form-actions { flex-direction: column-reverse; }
     .btn.plain { width: 100%; }
     .map-grid { grid-template-columns: 1fr; }
+    .map-actions .btn { width: 100%; }
     .topbar .back { white-space: nowrap; }
-    .top-links a[href="index.html"] { display: none; }   /* no celular, o logo já volta ao site */
+    #to-home { display: none; }   /* no celular, o logo já volta ao painel */
     .journey .btn { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
@@ -257,16 +290,17 @@
       <symbol id="i-flag" viewBox="0 0 256 256"><path fill="currentColor" d="M42.76 50A8 8 0 0 0 40 56v168a8 8 0 0 0 16 0v-44.23c26.79-21.16 49.87-9.75 76.45 3.41c16.4 8.11 34.06 16.85 53 16.85c13.93 0 28.54-4.75 43.82-18a8 8 0 0 0 2.76-6V56a8 8 0 0 0-13.27-6c-28 24.23-51.72 12.49-79.21-1.12C111.07 34.76 78.78 18.79 42.76 50M216 172.25c-26.79 21.16-49.87 9.74-76.45-3.41c-25-12.35-52.81-26.13-83.55-8.4V59.79c26.79-21.16 49.87-9.75 76.45 3.4c25 12.35 52.82 26.13 83.55 8.4Z"/></symbol>
       <symbol id="i-up" viewBox="0 0 256 256"><path fill="currentColor" d="M178.34 165.66L160 147.31V208a8 8 0 0 1-16 0v-60.69l-18.34 18.35a8 8 0 0 1-11.32-11.32l32-32a8 8 0 0 1 11.32 0l32 32a8 8 0 0 1-11.32 11.32M160 40a88.08 88.08 0 0 0-78.71 48.68A64 64 0 1 0 72 216h40a8 8 0 0 0 0-16H72a48 48 0 0 1 0-96c1.1 0 2.2 0 3.29.12A88 88 0 0 0 72 128a8 8 0 0 0 16 0a72 72 0 1 1 100.8 66a8 8 0 0 0 3.2 15.34a7.9 7.9 0 0 0 3.2-.68A88 88 0 0 0 160 40"/></symbol>
       <symbol id="i-plus" viewBox="0 0 256 256"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8h-80v80a8 8 0 0 1-16 0v-80H40a8 8 0 0 1 0-16h80V40a8 8 0 0 1 16 0v80h80a8 8 0 0 1 8 8"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 256 256"><path fill="currentColor" d="M128 24a104 104 0 0 0-91.82 152.88l-11.35 34.05a16 16 0 0 0 20.24 20.24l34.05-11.35A104 104 0 1 0 128 24m0 192a87.87 87.87 0 0 1-44.06-11.81a8 8 0 0 0-6.54-.67L40 216l12.47-37.4a8 8 0 0 0-.66-6.54A88 88 0 1 1 128 216"/></symbol>
+      <symbol id="i-link" viewBox="0 0 256 256"><path fill="currentColor" d="M216 24H40a16 16 0 0 0-16 16v176a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V40a16 16 0 0 0-16-16m0 192H40V40h176zM96 112v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0m88 28v36a8 8 0 0 1-16 0v-36a20 20 0 0 0-40 0v36a8 8 0 0 1-16 0v-64a8 8 0 0 1 15.79-1.78A36 36 0 0 1 184 140m-84-56a12 12 0 1 1-12-12a12 12 0 0 1 12 12"/></symbol>
       <symbol id="i-check" viewBox="0 0 256 256"><path fill="currentColor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></symbol>
     </defs>
   </svg>
 
   <header class="topbar">
-    <a class="home" href="index.html" aria-label="BRASA: voltar à página inicial">
+    <a class="home" href="#inicio" aria-label="Braseiro: voltar ao painel">
       <img src="assets/brasa-logo.webp" width="2000" height="1292" alt="" />
-      <b>BRASA</b>
+      <b>Braseiro</b>
     </a>
-    <span>Faça parte</span>
     <nav class="top-links" aria-label="Navegação">
       <a class="back" href="#inicio" id="to-home" hidden>← Meus formulários</a>
       <a class="back" href="index.html">Voltar ao site</a>
@@ -315,7 +349,6 @@
         <button class="link-btn" type="button" id="resend">Reenviar código</button>
         <button class="link-btn" type="button" id="other-email">Usar outro e-mail</button>
         <div class="expire">⏰ <b>O código expira em 1 hora</b><small>Não recebeu? Verifique a pasta de spam.</small></div>
-        <p class="proto" id="proto-note">Protótipo: nenhum e-mail é enviado ainda. Digite quaisquer 6 números para continuar.</p>
       </form>
     </section>
 
@@ -332,6 +365,42 @@
           <button type="button" id="logout">Sair</button>
         </div>
       </div>
+      <!-- mapa BRASA: quando o teste está respondido, vira o destaque do painel (versão resumida + "ver mapa completo") -->
+      <section class="map-box" id="mapa-box" aria-labelledby="map-title" hidden>
+        <div class="map-hero">
+          <p class="kicker">Seu mapa BRASA</p>
+          <h2 class="page-title" id="map-title"></h2>
+          <p class="page-sub" id="map-sub"></p>
+        </div>
+        <div class="map-grid">
+          <div class="block">
+            <h3>Seu perfil</h3>
+            <svg class="radar" id="radar" viewBox="-40 0 400 300" role="img" aria-labelledby="radar-desc"></svg>
+            <p class="sr-only" id="radar-desc"></p>
+          </div>
+          <div class="block">
+            <h3>Onde você pode brilhar na BRASA</h3>
+            <ul class="fit" id="fit"></ul>
+          </div>
+        </div>
+        <div id="map-more" hidden>
+          <div class="map-grid">
+            <div class="block">
+              <h3>Seus traços</h3>
+              <ul class="traits" id="traits"></ul>
+            </div>
+            <div class="block">
+              <h3>O que você trouxe</h3>
+              <dl class="summary" id="summary"></dl>
+            </div>
+          </div>
+          <p class="disclaimer">Este mapa é um retrato rápido a partir das suas respostas, não um diagnóstico. Ele ajuda a BRASA a encontrar o melhor lugar para você na rede.</p>
+        </div>
+        <div class="map-actions">
+          <button class="btn" type="button" id="map-toggle" aria-expanded="false" aria-controls="map-more">Ver mapa completo</button>
+          <button class="btn plain" type="button" data-go="personalidade">Refazer o teste</button>
+        </div>
+      </section>
       <div class="journey" id="journey">
         <div>
           <h2 id="j-title">Seu cadastro</h2>
@@ -340,8 +409,13 @@
         </div>
         <button class="btn sun" type="button" id="j-go">Continuar cadastro</button>
       </div>
-      <h2 class="sec-title">Formulários</h2>
-      <p class="sec-sub">Preencha os formulários abaixo para que possamos te conhecer melhor.</p>
+      <a class="community" href="https://chat.whatsapp.com/J9W7r3TxjCZ5TibB6MRjzu" target="_blank" rel="noopener">
+        <span class="ic"><svg aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <span class="txt"><b>Comunidade Braseiro no WhatsApp</b><small>Avisos, encontros e conversa com quem está na rede.</small></span>
+        <span class="go">Entrar na comunidade <span aria-hidden="true">↗</span></span>
+      </a>
+      <h2 class="sec-title" id="forms-title">Formulários</h2>
+      <p class="sec-sub" id="forms-sub">Preencha os formulários abaixo para que possamos te conhecer melhor.</p>
       <div class="forms">
         <article class="fcard" data-form="infos">
           <span class="ic"><svg aria-hidden="true"><use href="#i-user"/></svg></span>
@@ -405,7 +479,6 @@
 
         <div class="block">
           <div class="block-head"><svg aria-hidden="true"><use href="#i-cap"/></svg><div><h2>Profissional e acadêmico</h2><p>Sua formação, carreira e currículo</p></div></div>
-          <div class="field"><label for="linkedin">LinkedIn</label><input class="input" id="linkedin" name="linkedin" type="url" placeholder="Ex: www.linkedin.com/in/joaosilva/" /></div>
           <div class="field"><span class="label">Currículo/CV</span>
             <label class="upload"><svg width="22" height="22" aria-hidden="true"><use href="#i-up"/></svg><span id="cv-name">Clique para adicionar seu currículo</span><input type="file" id="cv" accept=".pdf,.doc,.docx" /></label>
             <p class="hint">📎 Formatos aceitos: PDF, DOC, DOCX · Tamanho máximo: 5 MB</p></div>
@@ -427,15 +500,12 @@
         </div>
 
         <div class="block">
-          <div class="block-head mark"><div><h2>Na BRASA</h2><p>Selecione as frentes de que você já participou ou quer participar</p></div></div>
-          <p class="field label" style="font-weight:700">Quais destas frentes da BRASA mais combinam com você?</p>
-          <div class="choices">
-            <label class="choice"><input type="checkbox" name="frentes" value="rede" /> Trabalhar em rede (núcleos)</label>
-            <label class="choice"><input type="checkbox" name="frentes" value="tecnologia" /> Tecnologia para a sociedade civil</label>
-            <label class="choice"><input type="checkbox" name="frentes" value="think-tank" /> Think tank e políticas públicas</label>
-            <label class="choice"><input type="checkbox" name="frentes" value="liderancas" /> Lideranças locais</label>
-            <label class="choice"><input type="checkbox" name="frentes" value="nucleo" /> Já faço parte de um núcleo</label>
-            <label class="choice"><input type="checkbox" name="frentes" value="coordenacao" /> Quero coordenar um núcleo</label>
+          <div class="block-head mark"><div><h2>Na BRASA</h2><p>Como você quer participar? Pode marcar mais de uma opção.</p></div></div>
+          <div class="choices wide">
+            <label class="choice"><input type="checkbox" name="frentes" value="liderancas" /> Quero ser uma liderança</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="tecnologia" /> Quero colaborar com a parte de desenvolvimento</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="think-tank" /> Quero fazer parte do think tank</label>
+            <label class="choice"><input type="checkbox" name="frentes" value="apoiador" /> Quero ser um apoiador e estar perto</label>
           </div>
         </div>
 
@@ -453,6 +523,10 @@
       <h1 class="page-title">Experiências profissionais</h1>
       <p class="page-sub">Compartilhe suas experiências de trabalho, projetos e prêmios</p>
       <form id="f-exp" novalidate>
+        <div class="block">
+          <div class="block-head"><svg aria-hidden="true"><use href="#i-link"/></svg><div><h2>LinkedIn</h2><p>Cole o link do seu perfil, se tiver</p></div></div>
+          <div class="field"><label class="sr-only" for="exp-linkedin">Link do LinkedIn</label><input class="input" id="exp-linkedin" name="linkedin" type="url" inputmode="url" autocomplete="url" placeholder="Ex: linkedin.com/in/joaosilva" /></div>
+        </div>
         <div class="block" data-list="trabalho">
           <div class="block-head"><svg aria-hidden="true"><use href="#i-brief"/></svg><h2>Experiências de trabalho</h2></div>
           <div class="entries"></div>
@@ -526,42 +600,8 @@
       </form>
     </section>
 
-    <!-- 8. Mapa -->
-    <section data-view="mapa" class="wrap" hidden>
-      <div class="map-hero">
-        <p class="kicker">Seu mapa BRASA</p>
-        <h1 class="page-title" id="map-title"></h1>
-        <p class="page-sub" id="map-sub"></p>
-      </div>
-      <div class="map-grid">
-        <div class="block">
-          <h2>Seu perfil</h2>
-          <svg class="radar" id="radar" viewBox="-40 0 400 300" role="img" aria-labelledby="radar-desc"></svg>
-          <p class="sr-only" id="radar-desc"></p>
-        </div>
-        <div class="block">
-          <h2>Seus traços</h2>
-          <ul class="traits" id="traits"></ul>
-        </div>
-      </div>
-      <div class="map-grid">
-        <div class="block">
-          <h2>Onde você pode brilhar na BRASA</h2>
-          <ul class="fit" id="fit"></ul>
-        </div>
-        <div class="block">
-          <h2>O que você trouxe</h2>
-          <dl class="summary" id="summary"></dl>
-        </div>
-      </div>
-      <p class="disclaimer">Este mapa é um retrato rápido a partir das suas respostas, não um diagnóstico. Ele ajuda a BRASA a encontrar o melhor lugar para você na rede.</p>
-      <div class="form-actions">
-        <button class="btn plain" type="button" data-go="personalidade">Refazer o teste</button>
-        <button class="btn" type="button" data-go="inicio">Ir para meus formulários</button>
-      </div>
-    </section>
 
-    <footer class="site wrap" style="padding-top:0">BRASA · Plataforma de Mobilização Cívica · <span id="foot-note">Neste protótipo, seus dados ficam salvos apenas neste navegador.</span></footer>
+    <footer class="site wrap" style="padding-top:0">Braseiro · BRASA · <span id="foot-note">Seus dados ficam guardados com segurança e só a equipe da BRASA tem acesso. <a href="termos.html">Termos e privacidade</a>.</span></footer>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -571,7 +611,7 @@
 <script src="assets/supabase-config.js"></script>
 <script>
 (() => {
-  /* ---------- armazenamento local (protótipo) ---------- */
+  /* ---------- armazenamento local (só o e-mail aguardando código, com o banco ligado) ---------- */
   const KEY = 'brasa-faca-parte';
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
   const save = d => { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) {} };
@@ -655,23 +695,27 @@
     if (db.logged && !db.infosDone && ['inicio', 'experiencias', 'competencias', 'personalidade'].includes(v)) {
       v = 'infos'; history.replaceState(null, '', '#infos');
     }
-    if (v === 'mapa' && !db.personalidadeDone) { v = 'inicio'; history.replaceState(null, '', '#inicio'); }
+    let toMap = false;
+    if (v === 'mapa') { toMap = db.personalidadeDone; v = 'inicio'; history.replaceState(null, '', '#inicio'); }
     if (v === 'inicio') setGuided(false);
     views.forEach(s => s.hidden = s.dataset.view !== v);
     $('#to-home').hidden = ![...ORDER, 'mapa'].includes(v) || !db.infosDone;
     renderGuide(v);
     $$('[data-cancel]').forEach(b => { b.textContent = guided && v !== 'infos' ? 'Pular por enquanto' : 'Voltar sem salvar'; });
     $$('#f-exp [type=submit], #f-comp [type=submit]').forEach(b => { b.dataset.orig ??= b.textContent; b.textContent = guided ? 'Salvar e continuar' : b.dataset.orig; });
-    if (v === 'mapa') { renderMap(); setGuided(false); }
     if (v === 'inicio') renderHome();
     if (v === 'infos') fillInfos();
     if (v === 'experiencias') fillExp();
     if (v === 'competencias') fillComp();
     if (v === 'personalidade') fillPers();
     if (v === 'verificar') { $('#code-email').textContent = db.pendingEmail; setTimeout(() => $('#code').focus(), 50); }
-    scrollTo({ top: 0 });
+    if (toMap) requestAnimationFrame(() => $('#mapa-box').scrollIntoView({ block: 'start' }));
+    else scrollTo({ top: 0 });
   }
-  const go = v => { location.hash = v; };
+  const go = v => {
+    if (v === 'mapa' && location.hash === '#inicio' && db.personalidadeDone) { $('#mapa-box').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    location.hash = v;
+  };
   addEventListener('hashchange', route);
   document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) go(b.dataset.go); });
   document.addEventListener('click', e => {
@@ -737,6 +781,12 @@
     $('#j-bar').style.width = (n / ORDER.length * 100) + '%';
     $('#j-go').textContent = all ? 'Ver meu mapa' : n ? 'Continuar de onde parei' : 'Começar';
     const mb = $('#map-btn'), mbadge = $('#map-badge');
+    $('#mapa-box').hidden = !db.personalidadeDone;
+    $('#journey').hidden = !!db.personalidadeDone;     // com o mapa pronto, ele toma o lugar da barra de progresso
+    $('#forms-title').textContent = db.personalidadeDone ? 'Suas respostas' : 'Formulários';
+    $('#forms-sub').textContent = db.personalidadeDone ? 'Complete ou edite quando quiser. O mapa se atualiza com as suas respostas.' : 'Preencha os formulários abaixo para que possamos te conhecer melhor.';
+    $('.map-card').hidden = !!db.personalidadeDone;   // com o mapa pronto, ele aparece inteiro abaixo das fichas
+    if (db.personalidadeDone) renderMap();
     if (db.personalidadeDone) { mb.className = 'btn sun'; mb.textContent = 'Ver meu mapa'; mbadge.className = 'badge done'; mbadge.textContent = '✓ Pronto'; }
     else { mb.className = 'btn locked'; mb.textContent = 'Responda o teste para liberar'; mbadge.className = 'badge'; mbadge.textContent = 'Bloqueado'; }
     $$('.fcard[data-form]').forEach(card => {
@@ -748,6 +798,12 @@
   $('#j-go').addEventListener('click', () => {
     if (ORDER.every(k => db[k + 'Done'])) return go('mapa');
     setGuided(true); go(nextStep(''));
+  });
+  $('#map-toggle').addEventListener('click', e => {
+    const open = $('#map-more').hidden;
+    $('#map-more').hidden = !open; e.currentTarget.setAttribute('aria-expanded', open);
+    e.currentTarget.textContent = open ? 'Ver menos' : 'Ver mapa completo';
+    if (!open) $('#mapa-box').scrollIntoView({ block: 'start', behavior: 'smooth' });
   });
   $('#map-btn').addEventListener('click', () => { if (db.personalidadeDone) go('mapa'); else go('personalidade'); });
   $('#logout').addEventListener('click', async () => {
@@ -810,7 +866,7 @@
     $('#infos-sub').textContent = first ? 'Só este formulário é obrigatório e leva uns 3 minutos. Depois, os outros são opcionais.' : 'Dados pessoais, contato e formação';
     $('#infos-submit').textContent = first || guided ? 'Salvar e continuar' : 'Salvar informações';
     clearMarks(f);
-    ['nome', 'tel', 'nasc', 'uf', 'cidade', 'endereco', 'linkedin', 'escolaridade'].forEach(k => { if (d[k] != null) f.elements[k].value = d[k]; });
+    ['nome', 'tel', 'nasc', 'uf', 'cidade', 'endereco', 'escolaridade'].forEach(k => { if (d[k] != null) f.elements[k].value = d[k]; });
     f.elements.exterior.checked = !!d.exterior; $('#exterior').dispatchEvent(new Event('change'));
     $$('#f-infos [name=frentes]').forEach(c => c.checked = (d.frentes || []).includes(c.value));
     if (d.cv) $('#cv-name').textContent = d.cv;
@@ -842,7 +898,7 @@
     const btn = f.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
     db.infos = {
       nome: f.elements.nome.value.trim(), tel: f.elements.tel.value, nasc: f.elements.nasc.value, uf: f.elements.uf.value, exterior: f.elements.exterior.checked,
-      cidade: f.elements.cidade.value.trim(), endereco: f.elements.endereco.value, linkedin: f.elements.linkedin.value, escolaridade: f.elements.escolaridade.value,
+      cidade: f.elements.cidade.value.trim(), endereco: f.elements.endereco.value, escolaridade: f.elements.escolaridade.value,
       cv: $('#cv-name').textContent.startsWith('Clique') ? '' : $('#cv-name').textContent, cvPath: db.infos?.cvPath || '', grads: $('#grad-area').hidden ? [] : grads,
       frentes: $$('#f-infos [name=frentes]:checked').map(c => c.value)
     };
@@ -876,14 +932,17 @@
     const del = e.target.closest('.entry-del');
     if (del) { const type = del.closest('[data-list]').dataset.list; del.closest('[data-entry]').remove(); renumberEntries(type); }
   });
-  function fillExp() { Object.keys(EXP).forEach(t => { $(`[data-list=${t}] .entries`).innerHTML = ''; (db.exp?.[t] || []).forEach(v => addEntry(t, v)); }); }
+  function fillExp() {
+    Object.keys(EXP).forEach(t => { $(`[data-list=${t}] .entries`).innerHTML = ''; (db.exp?.[t] || []).forEach(v => addEntry(t, v)); });
+    $('#exp-linkedin').value = db.exp?.linkedin || db.infos?.linkedin || '';   // quem já tinha posto o LinkedIn nas informações básicas
+  }
   $('#f-exp').addEventListener('submit', async e => {
     e.preventDefault();
-    db.exp = {};
+    db.exp = { linkedin: $('#exp-linkedin').value.trim() };
     Object.keys(EXP).forEach(t => { db.exp[t] = $$(`[data-list=${t}] [data-entry]`).map(en => Object.fromEntries(EXP[t].fields.map(([k]) => [k, en.querySelector(`[name=${k}]`).value.trim()]))).filter(v => Object.values(v).some(Boolean)); });
     const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Salvando…');
     const ok = await push({ experiencias: db.exp }); busy(btn, false); if (!ok) return;
-    db.experienciasDone = Object.values(db.exp).some(a => a.length); saveLocal(db); afterSave('experiencias', 'Experiências salvas!');
+    db.experienciasDone = Object.values(db.exp).some(a => a && a.length); saveLocal(db); afterSave('experiencias', 'Experiências salvas!');
   });
 
   /* ---------- 6. competências ---------- */
@@ -934,16 +993,25 @@
     'Gosto de pensar sobre como o mundo poderia ser diferente.',
   ];
   const SCALE = ['Discordo totalmente', 'Discordo parcialmente', 'Neutro', 'Concordo parcialmente', 'Concordo totalmente'];
-  $('#questions').innerHTML = QS.map((q, i) => `<fieldset class="q" data-q="${i}">
-      <legend class="q-title"><span class="q-num">${i + 1}</span>${q}</legend>
-      <div class="likert">${SCALE.map((s, v) => `<label><input type="radio" name="q${i}" value="${v + 1}" />${s}</label>`).join('')}</div>
-    </fieldset>`).join('');
+  $('#questions').innerHTML = QS.map((q, i) => `<div class="q" data-q="${i}" role="radiogroup" aria-labelledby="qt${i}">
+      <p class="q-title" id="qt${i}"><span class="q-num" aria-hidden="true">${i + 1}</span><span>${q}</span></p>
+      <div class="likert">${SCALE.map((s, v) => `<label data-v="${v + 1}"><input type="radio" name="q${i}" value="${v + 1}" /><i aria-hidden="true"></i><span>${s}</span></label>`).join('')}</div>
+      <div class="likert-ends" aria-hidden="true"><span>Discordo</span><span>Concordo</span></div>
+    </div>`).join('');
   const updateProgress = () => {
     const n = QS.filter((_, i) => document.querySelector(`[name=q${i}]:checked`)).length;
     $('#pbar').style.width = (n / QS.length * 100) + '%'; $('#ptext').textContent = `${n} de ${QS.length} respondidas`;
     $$('.q').forEach(q => q.classList.toggle('answered', !!q.querySelector('input:checked')));
   };
-  $('#questions').addEventListener('change', updateProgress);
+  // ao responder, desce até a próxima afirmação ainda sem resposta
+  const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+  $('#questions').addEventListener('change', e => {
+    const wasNew = !e.target.closest('.q').classList.contains('answered');
+    updateProgress();
+    if (!wasNew) return;
+    const next = $$('.q').find(q => !q.classList.contains('answered') && +q.dataset.q > +e.target.closest('.q').dataset.q);
+    if (next) setTimeout(() => next.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' }), 220);
+  });
   function fillPers() {
     const d = db.pers || {};
     QS.forEach((_, i) => { const v = d['q' + i]; $$(`[name=q${i}]`).forEach(r => r.checked = String(r.value) === String(v)); });
@@ -989,11 +1057,12 @@
   const rankTraits = sc => [...AXES].sort((a, b) => sc[b] - sc[a]);
   const level = v => v >= 67 ? 'alto' : v >= 34 ? 'medio' : 'baixo';
   const LEVEL_TXT = { alto: 'forte', medio: 'equilibrado', baixo: 'mais baixo' };
+  // as mesmas 4 opções de "Na BRASA" (informações básicas)
   const FRENTES = [
-    { key: 'liderancas', nome: 'Lideranças locais', why: 'Liderar um núcleo pede iniciativa, organização e sangue frio.', f: s => s.E * .4 + s.C * .35 + s.S * .25, skills: ['Liderança', 'Negociação', 'Oratória'] },
-    { key: 'rede', nome: 'Mobilização em rede (núcleos)', why: 'A rede cresce com quem gosta de gente e sabe acolher.', f: s => s.E * .5 + s.A * .5, skills: ['Mobilização comunitária', 'Organização de eventos', 'Atendimento ao público'] },
-    { key: 'think-tank', nome: 'Think tank e políticas públicas', why: 'Propor políticas pede curiosidade, estudo e método.', f: s => s.O * .6 + s.C * .4, skills: ['Pesquisa', 'Escrita', 'Análise de dados'] },
-    { key: 'tecnologia', nome: 'Tecnologia para a sociedade civil', why: 'Construir ferramentas pede curiosidade, foco e atenção aos detalhes.', f: s => s.O * .45 + s.C * .55, skills: ['Programação', 'Análise de dados', 'Design'] },
+    { key: 'liderancas', nome: 'Liderança', why: 'Liderar pede iniciativa, organização e sangue frio.', f: s => s.E * .4 + s.C * .35 + s.S * .25, skills: ['Liderança', 'Negociação', 'Oratória'] },
+    { key: 'tecnologia', nome: 'Desenvolvimento', why: 'Construir as ferramentas da BRASA pede curiosidade, foco e atenção aos detalhes.', f: s => s.O * .45 + s.C * .55, skills: ['Programação', 'Análise de dados', 'Design'] },
+    { key: 'think-tank', nome: 'Think tank', why: 'Propor políticas públicas pede curiosidade, estudo e método.', f: s => s.O * .6 + s.C * .4, skills: ['Pesquisa', 'Escrita', 'Análise de dados'] },
+    { key: 'apoiador', nome: 'Apoiador(a) da rede', why: 'Quem apoia de perto acolhe, divulga e mantém a rede viva.', f: s => s.E * .5 + s.A * .5, skills: ['Mobilização comunitária', 'Redes sociais', 'Organização de eventos'] },
   ];
   function radarSvg(sc) {
     const cx = 160, cy = 150, R = 100, pt = (i, r) => { const a = (-90 + i * 72) * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
@@ -1038,8 +1107,6 @@
   }
 
   async function start() {
-    $('#proto-note').hidden = live;
-    if (live) $('#foot-note').innerHTML = 'Seus dados ficam guardados com segurança e só a equipe da BRASA tem acesso. <a href="termos.html">Termos e privacidade</a>.';
     if (live) {
       const { data: { session } } = await sb.auth.getSession();
       if (session) {

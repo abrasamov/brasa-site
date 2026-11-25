@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/dock.css?v=share1" />
-<link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/dock.css?v=space1" />
+<link rel="stylesheet" href="assets/share.css?v=share3" />
 <link rel="stylesheet" href="assets/stack.css?v=1" />
 <style>
   :root {
@@ -42,8 +42,13 @@
   .lead { margin-top: 18px; max-width: 780px; font-size: clamp(17px, 1.4vw, 20px); color: var(--muted); }
   .on-dark { background: var(--green); color: var(--beige); }
   .on-dark .lead { color: rgba(244, 234, 212, .82); }
-  .block { padding: clamp(56px, 9vw, 120px) var(--pad); }
-  .block.on-dark { margin: 0 clamp(8px, 1.4vw, 20px); border-radius: 28px; }
+  .block { padding: var(--space-section) var(--space-x); }
+  .block > * { max-width: var(--content-max); margin-inline: auto; }
+  .block > .stack { max-width: 960px; }
+  /* duas seções claras seguidas: um só espaço entre elas, não dois */
+  .block:not(.on-dark) + .block:not(.on-dark) { padding-top: 0; }
+  .block.on-dark { margin: 0 var(--space-panel); border-radius: 28px; }
+  .block.on-dark + .block { padding-top: var(--space-section); }
 
   /* entrada suave */
   .js .reveal { opacity: 0; transform: translateY(22px); }
@@ -141,9 +146,9 @@
 
   /* ---------- abertura escura: o sistema com o sol abre a página ---------- */
   .opening.on-dark {
-    margin: clamp(8px, 1.4vw, 20px) clamp(8px, 1.4vw, 20px) 0; border-radius: 28px;
+    margin: var(--space-panel) var(--space-panel) 0; border-radius: 28px;
     grid-template-columns: 1fr; justify-items: center; text-align: center; gap: clamp(8px, 2vw, 24px);
-    min-height: 0; padding-top: clamp(24px, 4vw, 48px);
+    min-height: 0; padding: clamp(24px, 4vw, 48px) var(--space-x) var(--space-section);
   }
   .opening .body { margin: clamp(20px, 3vw, 32px) auto 0; max-width: 640px; }
   .opening.on-dark .body p { color: rgba(244, 234, 212, .85); }
@@ -203,7 +208,7 @@
   .step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: calc(-1 * clamp(12px, 1.4vw, 20px)); width: clamp(12px, 1.4vw, 20px); height: 3px; background: var(--green); opacity: .35; }
 
   /* ---------- fechamento ---------- */
-  .final { text-align: center; padding: clamp(72px, 12vw, 140px) var(--pad) clamp(40px, 6vw, 72px); }
+  .final { text-align: center; padding: var(--space-section) var(--space-x); }
   .final .logo { width: 110px; height: auto; margin: 0 auto 24px; display: block; }
   .final h2 { max-width: 16ch; margin: 0 auto; }
   .final .kicker { margin-top: 14px; }

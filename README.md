@@ -17,11 +17,11 @@ Depois abra http://localhost:5173 (é a *Site URL* configurada no Supabase).
 | Arquivo | O que é |
 |---|---|
 | `index.html` | Tela inicial: 10 personagens sem fundo, mulheres e homens intercalados, terminando no José com a chave (em loop) |
-| `descubra.html` | A ideia e as 6 bandeiras |
+| `descubra.html` | A ideia, as 6 bandeiras e perguntas frequentes |
 | `como-funciona.html` | Aba "Como vamos fazer": sistema com o sol na abertura, as 4 frentes e o detalhe de cada uma |
 | `manifesto.html` | Manifesto do Brasismo |
 | `artigos.html` | Artigos (em breve) e link do Substack |
-| `faca-parte.html` | Cadastro: login por código e formulários |
+| `faca-parte.html` | Braseiro: login por código, formulários, painel com o mapa BRASA e comunidade no WhatsApp |
 | `termos.html` | Termos de uso e privacidade (versão provisória) |
 
 Partes compartilhadas ficam em `assets/`: barra de abas (`dock.css`, `dock.js`), botão de compartilhar com as redes (`share.css`, `share.js`) e a ligação com o Supabase (`supabase-config.js`).

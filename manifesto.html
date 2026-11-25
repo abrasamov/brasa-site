@@ -9,8 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:wght@400;500;700&family=EB+Garamond:ital,wght@0,500;1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="assets/dock.css?v=share1" />
-<link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/dock.css?v=space1" />
+<link rel="stylesheet" href="assets/share.css?v=share3" />
 <style>
   :root {
     --beige: #f4ead4;
@@ -40,7 +40,7 @@
   .intro {
     min-height: 78vh; min-height: 78dvh;
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-    padding: 72px 24px 40px;
+    padding: var(--space-section) var(--space-x) clamp(32px, 5vw, 56px);
   }
   .eyebrow { font-family: var(--font-display); font-stretch: 112%; font-weight: 700; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; }
   .intro h1 {
@@ -55,9 +55,9 @@
   .intro .mark { width: 92px; height: auto; margin-bottom: 26px; }
 
   /* ---------- versos ---------- */
-  .verses { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  .verses { max-width: 760px; margin: 0 auto; padding: 0 var(--space-x); box-sizing: content-box; }
   .stanza {
-    padding: clamp(36px, 7vh, 72px) 0;
+    padding: clamp(20px, 3.6vh, 36px) 0;
     font-family: var(--font-display); font-stretch: 112%; font-weight: 800;
     font-size: clamp(26px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -.005em;
   }
@@ -70,17 +70,24 @@
 
   /* ---------- o sonho: painel verde ---------- */
   .dream {
-    position: relative; overflow: hidden; margin: clamp(32px, 6vh, 64px) 0;
+    position: relative; overflow: hidden; margin: var(--space-section) var(--space-panel) 0; border-radius: 28px;
     background: var(--green); color: var(--beige);
-    padding: clamp(72px, 14vh, 140px) 24px;
+    padding: var(--space-section) 0;
   }
   .dream .verses { position: relative; z-index: 1; }
   .dream .stanza em { color: var(--sun); }
   .dream .stanza .soft { color: rgba(244, 234, 212, .7); }
+  .dream .stanza:last-child { padding-bottom: 0; }
+  /* "Abra os olhos" fecha o painel verde, separado do sonho por um fio */
+  .dream .stanza.wake { margin-top: clamp(16px, 3vh, 32px); padding-top: clamp(28px, 5vh, 48px); border-top: 1px solid rgba(244, 234, 212, .22); }
 
   /* ---------- final ---------- */
-  .finale { text-align: center; padding: clamp(64px, 12vh, 120px) 24px clamp(40px, 8vh, 80px); }
-  .finale .stanza { padding-top: 0; }
+  .finale { text-align: center; padding: var(--space-section) var(--space-x); }
+  /* divisória entre as partes do manifesto: um sol pequeno entre dois fios */
+  .part-break { display: flex; align-items: center; gap: 16px; max-width: 760px; margin: clamp(28px, 5vh, 48px) auto; padding: 0 var(--space-x); box-sizing: content-box; color: var(--red); }
+  .part-break::before, .part-break::after { content: ""; flex: 1; height: 1px; background: rgba(15, 79, 46, .22); }
+  .part-break svg { width: 18px; height: 18px; flex: none; }
+  .verses > .stanza:first-child { padding-top: 0; }
   .finale .big {
     margin: 12px auto 0; max-width: 16ch;
     font-family: var(--font-display); font-stretch: 125%; font-weight: 900;
@@ -88,7 +95,7 @@
   }
   .finale .big span { display: inline-block; padding: .06em .32em .12em; margin-top: .14em; background: var(--green); color: var(--beige); border-radius: .14em; box-shadow: .18em .16em 0 #d2202a; transform: rotate(-2deg); }
   .finale .cta {
-    display: inline-flex; align-items: center; gap: 10px; margin-top: 48px;
+    display: inline-flex; align-items: center; gap: 10px; margin-top: 40px;
     min-height: 52px; padding: 0 24px; border-radius: 10px;
     background: var(--sun); color: var(--green); text-decoration: none;
     border: 2px solid var(--green); box-shadow: 4px 4px 0 var(--green);
@@ -126,11 +133,17 @@
         <p class="stanza"><span class="line">Você já viu um amigo ir embora.</span><span class="line soft">E pensou em ir junto.</span></p>
         <p class="stanza"><span class="line">Ninguém sofre por terra alheia.</span><span class="line"><em>Se dói, é amor.</em></span></p>
         <p class="stanza"><span class="line">Fomos ensinados a nos ver pequenos.</span><span class="line soft">Aprendemos bem demais.</span><span class="line"><em>É hora de desaprender.</em></span></p>
+      </div>
+      <div class="part-break" aria-hidden="true"><svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0 20 10 10 20 0 10z"/></svg></div>
+      <div class="verses">
         <p class="stanza"><span class="line">Somos um povo novo. Cópia de ninguém.</span></p>
         <p class="stanza"><span class="line">O Brasil não funciona apesar do brasileiro.</span><span class="line"><em>Funciona por causa dele.</em></span></p>
         <p class="stanza"><span class="line soft">Na música, na oração, na mesa de domingo,</span><span class="line soft">no rosto do próximo,</span><span class="line">a gente lembra quem é.</span></p>
         <p class="stanza"><span class="line">Temos raiz. Temos história.</span><span class="line">Temos um legado.</span></p>
         <p class="stanza"><span class="line">Somos herdeiros de uma brasa</span><span class="line"><em>que nunca se apagou.</em></span></p>
+      </div>
+      <div class="part-break" aria-hidden="true"><svg viewBox="0 0 20 20"><path fill="currentColor" d="M10 0 20 10 10 20 0 10z"/></svg></div>
+      <div class="verses">
         <p class="stanza"><span class="line">Brasismo é acreditar no Brasil.</span><span class="line"><em>E agir por ele.</em></span></p>
         <p class="stanza"><span class="line">Não é contra quem pensa diferente.</span><span class="line soft">É contra aquilo que tira a nossa paz,</span><span class="line soft">que atrasa a nossa felicidade,</span><span class="line soft">que faz você caber em menos do que é.</span></p>
         <p class="stanza"><span class="line">Nossa revolução não derruba. <em>Restaura.</em></span></p>
@@ -144,11 +157,11 @@
           <p class="stanza"><span class="line"><em>Feche os olhos.</em></span></p>
           <p class="stanza"><span class="line">A favela virou bairro próspero.</span><span class="line">O amigo que foi embora voltou.</span><span class="line soft">Seu filho estuda, trabalha e constrói a família aqui.</span><span class="line">Ninguém tem medo de voltar para casa.</span></p>
           <p class="stanza"><span class="line">O Brasil virou sol.</span><span class="line"><em>E iluminou o mundo.</em></span></p>
+          <p class="stanza wake"><span class="line"><em>Abra os olhos.</em></span><span class="line">Isso começa agora.</span></p>
         </div>
       </section>
 
       <div class="finale">
-        <p class="stanza"><span class="line"><em>Abra os olhos.</em></span><span class="line">Isso começa agora.</span></p>
         <p class="big">Porque o Brasil que há de raiar <span>já raiou em você.</span></p>
         <a class="cta" href="faca-parte.html">Faça parte</a>
       </div>
