@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,700..900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=EB+Garamond:ital,wght@1,400;1,500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/dock.css?v=share1" />
 <link rel="stylesheet" href="assets/share.css?v=share1" />
+<link rel="stylesheet" href="assets/stack.css?v=1" />
 <style>
   /* ---------- Tokens da marca ---------- */
   :root {
@@ -333,6 +334,20 @@
   .teaser-cta { justify-self: start; margin-top: 8px; font-family: var(--font-mono); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; border-bottom: 2px solid #fdc010; padding-bottom: 4px; }
   .teaser::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 300px; aspect-ratio: 1; background: #fdc010; opacity: .12; border-radius: 50%; }
 
+  /* manifesto e "Unir talentos": mesmo tamanho (mesma largura, altura, cantos e respiro) */
+  /* os dois numa grade de linhas iguais: a altura é sempre a do mais alto */
+  .pair { display: grid; grid-auto-rows: 1fr; gap: clamp(32px, 5vw, 64px); margin: clamp(32px, 5vw, 64px) clamp(8px, 1.4vw, 20px) 0; }
+  .pair > .manifesto-teaser.sheet-section, .pair > .panel-close { margin: 0; padding-left: 0; padding-right: 0; }
+  .pair > .manifesto-teaser.sheet-section { padding: 0; display: grid; }
+  .pair > .panel-close { padding-inline: clamp(24px, 5vw, 72px); }
+  .teaser, .panel-close {
+    min-height: clamp(380px, 36vw, 500px); border-radius: 28px; box-sizing: border-box;
+    padding: clamp(40px, 6vw, 88px) clamp(24px, 5vw, 72px);
+    display: grid; align-content: center;
+  }
+  .panel-close { justify-items: center; }
+  .panel-close .eyebrow, .panel-close .panel-title, .panel-close .panel-text, .panel-close .join-cta { margin-left: 0; margin-right: 0; }
+
   @media (max-width: 1100px) { .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
   @media (max-width: 760px) {
     .bento-grid { grid-template-columns: 1fr !important; }
@@ -463,83 +478,54 @@
       <h2 id="bentos-title">Somos brasas.</h2>
       <p class="section-lead">A BRASA busca mudança: mobilizar a sociedade, devolver o poder às pessoas, valorizar quem trabalha, reunir o Brasil num só povo, fazer do país uma potência soberana e renovar o Estado para o século 21.</p>
     </div>
-    <div class="bento-grid">
-      <article style="--d:0.00s" class="bento is-green">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">01</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-mobiliza"/></svg>
-        </div>
-        <div>
-          <h3>Mobilização nacional</h3>
-          <p>Despertar e organizar a sociedade brasileira para fazer, ela mesma, as mudanças que deseja. A partir da comunidade, com as pessoas da ponta.</p>
-        </div>
-      </article>
-      <article style="--d:0.10s" class="bento">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">02</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-poder"/></svg>
-        </div>
-        <div>
-          <h3>Poder nas mãos de todos</h3>
-          <p>Devolver a cada brasileiro a capacidade de sonhar e de mudar a própria realidade, a começar pelo seu bairro.</p>
-        </div>
-      </article>
-      <article style="--d:0.20s" class="bento is-sun">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">03</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-trabalho"/></svg>
-        </div>
-        <div>
-          <h3>Trabalho com dignidade</h3>
-          <p>O trabalho constrói o país: emprego, salário justo, formação e direitos para quem produz o Brasil.</p>
-        </div>
-      </article>
-      <article style="--d:0.00s" class="bento">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">04</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-uniao"/></svg>
-        </div>
-        <div>
-          <h3>Reunificação</h3>
-          <p>Fazer o Brasil voltar a ser um só: cooperação, empatia e amor entre irmãos, no mesmo chão e sob o mesmo sol.</p>
-        </div>
-      </article>
-      <article style="--d:0.10s" class="bento is-green">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">05</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-soberania"/></svg>
-        </div>
-        <div>
-          <h3>Soberania e desenvolvimento</h3>
-          <p>Somos capazes de ser potência: criar nossas tecnologias, decidir o próprio destino e fazer o país crescer.</p>
-        </div>
-      </article>
-      <article style="--d:0.20s" class="bento">
-        <span class="bento-edge" aria-hidden="true"></span>
-        <svg class="bento-mark" viewBox="-110 -110 220 220" aria-hidden="true"><use href="#sun" fill="currentColor"/></svg>
-        <div class="bento-top">
-          <span class="bento-num">06</span>
-          <svg class="bento-icon" aria-hidden="true"><use href="#i-estado"/></svg>
-        </div>
-        <div>
-          <h3>Um Estado para o século 21</h3>
-          <p>Renovar o Estado com tecnologia: menos burocracia, Constituição atualizada e instituições à altura de hoje.</p>
-        </div>
-      </article>
-    </div>
+    <ol class="stack" aria-label="As seis bandeiras da BRASA">
+      <li class="stack-card" data-tone="green">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">Mobilização</span><span class="sc-count">01 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-mobiliza"/></svg>
+          <div class="sc-body"><h3>Mobilização nacional</h3><p>Despertar e organizar a sociedade brasileira para fazer, ela mesma, as mudanças que deseja. A partir da comunidade, com as pessoas da ponta.</p></div>
+        </article>
+      </li>
+      <li class="stack-card" data-tone="sun">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">Cidadania</span><span class="sc-count">02 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-poder"/></svg>
+          <div class="sc-body"><h3>Poder nas mãos de todos</h3><p>Devolver a cada brasileiro a capacidade de sonhar e de mudar a própria realidade, a começar pelo seu bairro.</p></div>
+        </article>
+      </li>
+      <li class="stack-card" data-tone="red">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">Trabalho</span><span class="sc-count">03 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-trabalho"/></svg>
+          <div class="sc-body"><h3>Trabalho com dignidade</h3><p>O trabalho constrói o país: emprego, salário justo, formação e direitos para quem produz o Brasil.</p></div>
+        </article>
+      </li>
+      <li class="stack-card" data-tone="cream">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">União</span><span class="sc-count">04 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-uniao"/></svg>
+          <div class="sc-body"><h3>Reunificação</h3><p>Fazer o Brasil voltar a ser um só: cooperação, empatia e amor entre irmãos, no mesmo chão e sob o mesmo sol.</p></div>
+        </article>
+      </li>
+      <li class="stack-card" data-tone="leaf">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">Soberania</span><span class="sc-count">05 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-soberania"/></svg>
+          <div class="sc-body"><h3>Soberania e desenvolvimento</h3><p>Somos capazes de ser potência: criar nossas tecnologias, decidir o próprio destino e fazer o país crescer.</p></div>
+        </article>
+      </li>
+      <li class="stack-card" data-tone="night">
+        <article class="sc-inner">
+          <div class="sc-head"><span class="sc-tag">Estado</span><span class="sc-count">06 / 06</span></div>
+          <svg class="sc-icon" aria-hidden="true"><use href="#i-estado"/></svg>
+          <div class="sc-body"><h3>Um Estado para o século 21</h3><p>Renovar o Estado com tecnologia: menos burocracia, Constituição atualizada e instituições à altura de hoje.</p></div>
+        </article>
+      </li>
+    </ol>
   </section>
   </div>
 
+  <div class="pair">
   <section class="manifesto-teaser sheet-section" aria-label="Manifesto">
     <a class="teaser reveal" href="manifesto.html">
       <span class="eyebrow">Manifesto · Brasismo</span>
@@ -554,6 +540,7 @@
     <p class="panel-text reveal" style="margin-inline:auto">Crie sua conta, conte quem você é e encontre a sua frente na rede.</p>
     <a class="join-cta reveal" href="faca-parte.html">Faça parte</a>
   </section>
+  </div>
   </main>
 
   <div class="dock">
@@ -564,7 +551,7 @@
       </a>
       <nav class="dock-nav" aria-label="Principal">
         <a class="dock-tab" href="#descubra" aria-current="page">Descubra</a>
-        <a class="dock-tab" href="como-funciona.html">Como funciona</a>
+        <a class="dock-tab" href="como-funciona.html">Como vamos fazer</a>
         <a class="dock-tab dock-manifesto" href="manifesto.html">Manifesto</a>
         <a class="dock-tab" href="artigos.html">Artigos</a>
       </nav>
@@ -573,97 +560,6 @@
   </div>
 
 <script>
-  // bentos: título por palavras, número que conta, inclinação 3D e luz seguindo o cursor
-  (() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cards = document.querySelectorAll('.bento');
-    cards.forEach(card => {
-      const h = card.querySelector('h3');
-      const words = h.textContent.trim().split(/\s+/);
-      h.setAttribute('aria-label', h.textContent.trim());
-      h.innerHTML = words.map((w, i) => `<span class="w" aria-hidden="true" style="--i:${i}"><span>${w}</span></span>`).join(' ');
-    });
-    const show = card => {
-      if (card.classList.contains('lit')) return;
-      card.classList.add('in', 'lit');
-      const d = parseFloat(card.style.getPropertyValue('--d')) || 0;
-      setTimeout(() => card.classList.add('done'), (d + 1.2) * 1000);
-    };
-    const grid = document.querySelector('.bento-grid');
-    const mobile = window.matchMedia('(max-width: 760px)').matches;
-    if (!reduce) document.documentElement.classList.add('bentos-ready');
-    if (mobile) cards.forEach(c => c.style.setProperty('--d', '0s'));
-    // mostra o que já chegou na tela: o card (celular) ou a grade inteira (computador)
-    const check = () => {
-      const vh = innerHeight;
-      if (mobile) cards.forEach(c => { if (c.getBoundingClientRect().top < vh * .88) show(c); });
-      else if (grid.getBoundingClientRect().top < vh * .85) cards.forEach(show);
-    };
-    if (reduce) cards.forEach(show);
-    else {
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver(() => check(), { threshold: [0, .15, .3] });
-        mobile ? cards.forEach(c => io.observe(c)) : io.observe(grid);
-      }
-      // reforço: também confere na rolagem (vale para a página com rolagem no body ou no html)
-      addEventListener('scroll', check, { passive: true, capture: true });
-      check();
-    }
-    if (reduce) return;
-    const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-    // onda de luz no clique/toque: sai do ponto clicado e atravessa todos os cards
-    const gridEl = document.querySelector('.bento-grid');
-    let waveRaf = 0;
-    gridEl.addEventListener('pointerdown', e => {
-      const g = gridEl.getBoundingClientRect();
-      const reach = Math.max(...[[g.left, g.top], [g.right, g.top], [g.left, g.bottom], [g.right, g.bottom]].map(([x, y]) => Math.hypot(e.clientX - x, e.clientY - y)));
-      const rects = [...cards].map(c => c.getBoundingClientRect());
-      cards.forEach((c, i) => {
-        c.style.setProperty('--wx', (e.clientX - rects[i].left) + 'px');
-        c.style.setProperty('--wy', (e.clientY - rects[i].top) + 'px');
-        c.classList.add('waving');
-      });
-      cancelAnimationFrame(waveRaf);
-      const t0 = performance.now(), dur = 1100;
-      const tick = now => {
-        const k = Math.min(1, (now - t0) / dur), e5 = 1 - Math.pow(1 - k, 3);
-        cards.forEach(c => { c.style.setProperty('--wr', (e5 * reach) + 'px'); c.style.setProperty('--wa', (0.95 * (1 - k)).toFixed(3)); });
-        if (k < 1) waveRaf = requestAnimationFrame(tick);
-        else cards.forEach(c => { c.classList.remove('waving'); c.style.setProperty('--wa', '0'); });
-      };
-      waveRaf = requestAnimationFrame(tick);
-    });
-
-    if (!fine) return;
-    // borda e luz seguem o cursor pela grade inteira; os cards vizinhos também acendem de leve
-    const section = document.querySelector('.bentos');
-    section.addEventListener('pointermove', e => {
-      cards.forEach(card => {
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
-        const dx = Math.max(0, -x, x - r.width), dy = Math.max(0, -y, y - r.height);
-        const near = Math.max(0, 1 - Math.hypot(dx, dy) / 200);
-        card.style.setProperty('--px', x + 'px'); card.style.setProperty('--py', y + 'px');
-        card.style.setProperty('--near', near.toFixed(3));
-      });
-    });
-    section.addEventListener('pointerleave', () => cards.forEach(c => c.style.setProperty('--near', '0')));
-    // inclinação 3D leve no card sob o cursor
-    cards.forEach(card => {
-      card.addEventListener('pointermove', e => {
-        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-        card.classList.add('tilting');
-        card.style.setProperty('--ry', ((x - .5) * 6).toFixed(2) + 'deg');
-        card.style.setProperty('--rx', ((.5 - y) * 6).toFixed(2) + 'deg');
-      });
-      card.addEventListener('pointerleave', () => {
-        card.classList.remove('tilting');
-        card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg');
-      });
-    });
-  })();
-
   // entrada suave (respeita "reduzir movimento")
   (() => {
     const els = document.querySelectorAll('.reveal');
@@ -683,6 +579,7 @@
   })();
 
 </script>
+<script src="assets/stack.js?v=1" defer></script>
 <script src="assets/dock.js?v=share1" defer></script>
 <script src="assets/share.js?v=share2"></script>
 </body>

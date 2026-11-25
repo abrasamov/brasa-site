@@ -14,9 +14,9 @@ Depois abra http://localhost:5173 (é a *Site URL* configurada no Supabase).
 
 | Arquivo | O que é |
 |---|---|
-| `index.html` | Tela inicial com os personagens |
+| `index.html` | Tela inicial: 10 personagens sem fundo, mulheres e homens intercalados, terminando no José com a chave (em loop) |
 | `descubra.html` | A ideia e as 6 bandeiras |
-| `como-funciona.html` | A rede, as 4 frentes e o detalhe de cada uma |
+| `como-funciona.html` | Aba "Como vamos fazer": sistema com o sol na abertura, as 4 frentes e o detalhe de cada uma |
 | `manifesto.html` | Manifesto do Brasismo |
 | `artigos.html` | Artigos (em breve) e link do Substack |
 | `faca-parte.html` | Cadastro: login por código e formulários |

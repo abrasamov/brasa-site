@@ -1,0 +1,73 @@
+/* Cards empilhados na rolagem (Descubra e Como vamos fazer).
+   Cada card fica preso no topo; o próximo sobe por cima e deixa à mostra só a faixa
+   do rótulo dos anteriores, que encolhem de leve. Sem JavaScript, continua funcionando
+   (só não encolhe). */
+.stack {
+  --stack-top: clamp(16px, 3vh, 32px);
+  --peek: 54px;
+  list-style: none; margin: 0 auto; padding: 0 0 clamp(24px, 6vh, 80px);
+  max-width: 960px; display: grid; gap: clamp(16px, 2.4vw, 28px);
+}
+.stack-card {
+  position: sticky; top: calc(var(--stack-top) + var(--i, 0) * var(--peek));
+  transform-origin: 50% 0;
+  transform: scale(var(--shrink, 1));
+  will-change: transform;
+}
+.sc-inner {
+  --sc-bg: #0f4f2e; --sc-fg: #f4ead4; --sc-soft: rgba(244, 234, 212, .78); --sc-line: rgba(244, 234, 212, .09); --sc-tag: rgba(244, 234, 212, .12);
+  position: relative; display: grid; grid-template-rows: auto 1fr auto; gap: 18px;
+  min-height: clamp(320px, 56vh, 440px); padding: clamp(18px, 2.4vw, 28px) clamp(18px, 2.6vw, 32px) clamp(22px, 3vw, 36px);
+  border-radius: 24px; overflow: hidden; color: var(--sc-fg); text-decoration: none;
+  background:
+    linear-gradient(var(--sc-line) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, var(--sc-line) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--sc-bg);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, .08) inset, 0 24px 48px -30px rgba(10, 30, 18, .7);
+}
+/* cores da BRASA */
+.stack-card[data-tone="sun"]   .sc-inner { --sc-bg: #fdc010; --sc-fg: #0f4f2e; --sc-soft: rgba(15, 79, 46, .8);  --sc-line: rgba(15, 79, 46, .09);  --sc-tag: rgba(15, 79, 46, .1); }
+.stack-card[data-tone="red"]   .sc-inner { --sc-bg: #b3161f; --sc-fg: #f4ead4; --sc-soft: rgba(244, 234, 212, .82); --sc-line: rgba(244, 234, 212, .1); --sc-tag: rgba(244, 234, 212, .14); }
+.stack-card[data-tone="cream"] .sc-inner { --sc-bg: #fbf6ea; --sc-fg: #0f4f2e; --sc-soft: rgba(15, 79, 46, .78); --sc-line: rgba(15, 79, 46, .08);  --sc-tag: rgba(15, 79, 46, .08); box-shadow: 0 0 0 1px rgba(15, 79, 46, .12) inset, 0 24px 48px -30px rgba(10, 30, 18, .55); }
+.stack-card[data-tone="leaf"]  .sc-inner { --sc-bg: #13793f; --sc-fg: #f4ead4; --sc-soft: rgba(244, 234, 212, .82); --sc-line: rgba(244, 234, 212, .1); --sc-tag: rgba(244, 234, 212, .14); }
+.stack-card[data-tone="night"] .sc-inner { --sc-bg: #0d2216; --sc-fg: #f4ead4; --sc-soft: rgba(244, 234, 212, .78); --sc-line: rgba(253, 192, 16, .1); --sc-tag: rgba(253, 192, 16, .14); }
+.stack-card[data-tone="night"] .sc-icon { color: #fdc010; }
+
+.sc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 30px; }
+.sc-tag {
+  padding: 6px 14px; border-radius: 999px; background: var(--sc-tag); border: 1px solid var(--sc-line);
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 700; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%;
+}
+.sc-count { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: .1em; opacity: .8; }
+.sc-icon { justify-self: end; align-self: start; width: clamp(84px, 12vw, 132px); height: clamp(84px, 12vw, 132px); color: currentColor; }
+.sc-body { max-width: 34ch; }
+.sc-body h3 {
+  font-family: "Archivo", system-ui, sans-serif; font-stretch: 112%; font-weight: 900;
+  font-size: clamp(28px, 3.6vw, 46px); line-height: 1.02; letter-spacing: -.01em; text-wrap: balance;
+}
+.sc-body p { margin-top: 12px; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.45; color: var(--sc-soft); }
+.sc-more {
+  display: inline-block; margin-top: 16px; padding-bottom: 3px; border-bottom: 2px solid currentColor;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+}
+a.sc-inner { transition: box-shadow .3s ease; }
+a.sc-inner:hover .sc-more { border-bottom-color: transparent; }
+a.sc-inner:focus-visible { outline: 3px solid #d2202a; outline-offset: 3px; }
+
+/* entrada: o card sobe; o ícone gira e cresce; o título aparece em seguida */
+.stack-ready .stack-card:not(.seen) .sc-inner { opacity: 0; transform: translateY(48px) scale(.97); }
+.stack-ready .stack-card .sc-inner { transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .9s cubic-bezier(.22, 1, .36, 1); }
+.stack-ready .stack-card:not(.seen) .sc-icon { transform: rotate(-24deg) scale(.6); opacity: 0; }
+.stack-ready .stack-card .sc-icon { transition: transform 1s cubic-bezier(.34, 1.56, .64, 1) .2s, opacity .6s ease .2s; }
+.stack-ready .stack-card:not(.seen) .sc-body { transform: translateY(16px); opacity: 0; }
+.stack-ready .stack-card .sc-body { transition: transform .8s cubic-bezier(.22, 1, .36, 1) .3s, opacity .8s ease .3s; }
+
+@media (max-width: 760px) {
+  .stack { --peek: 48px; --stack-top: 14px; }
+  .sc-inner { min-height: clamp(340px, 60vh, 460px); border-radius: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack-card { transform: none; }
+  .stack-ready .stack-card .sc-inner, .stack-ready .stack-card .sc-icon, .stack-ready .stack-card .sc-body { transition: none; opacity: 1; transform: none; }
+}
