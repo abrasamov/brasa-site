@@ -2,6 +2,16 @@
 
 Site da BRASA, plataforma de mobilização cívica. HTML, CSS e JavaScript puros, sem etapa de build.
 
+No ar em https://brasamov.com.br (GitHub Pages, branch `main`, com HTTPS).
+
+## Regras permanentes
+
+- **Nunca apague nem altere o arquivo `CNAME`.** Ele contém `brasamov.com.br`; sem ele o site sai do domínio.
+- **Sempre `git pull` antes de `git push`.**
+- **Crie branches novas a partir do `main`** atualizado para cada mudança (a antiga `faca-parte-ajustes` não é mais usada).
+- **Links internos sempre relativos** (ex.: `faca-parte.html`), nunca com `abrasamov.github.io/brasa-site`.
+- **No `index.html`, mantenha `premultipliedAlpha: true`** no WebGL e a cor pré-multiplicada no shader (`gl_FragColor = vec4(c * a, a)`). Isso evita fundo branco nas animações no celular.
+
 ## Rodar no computador
 
 ```bash
