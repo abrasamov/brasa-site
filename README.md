@@ -5,8 +5,10 @@ Site da BRASA, plataforma de mobilização cívica. HTML, CSS e JavaScript puros
 ## Rodar no computador
 
 ```bash
-python3 -m http.server 5173
+python3 serve.py
 ```
+
+O `serve.py` funciona como o `python3 -m http.server`, mas desliga o cache do navegador: ao recarregar, você sempre vê a versão mais nova.
 
 Depois abra http://localhost:5173 (é a *Site URL* configurada no Supabase).
 
