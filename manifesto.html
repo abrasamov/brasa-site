@@ -55,17 +55,17 @@
   .intro .mark { width: 92px; height: auto; margin-bottom: 26px; }
 
   /* ---------- versos ---------- */
-  .verses { max-width: 760px; margin: 0 auto; padding: 0 var(--space-x); box-sizing: content-box; }
+  .verses { max-width: 900px; margin: 0 auto; padding: 0 var(--space-x); box-sizing: content-box; }
   .stanza {
     padding: clamp(20px, 3.6vh, 36px) 0;
     font-family: var(--font-display); font-stretch: 112%; font-weight: 800;
-    font-size: clamp(26px, 3.4vw, 46px); line-height: 1.14; letter-spacing: -.005em;
+    font-size: clamp(21px, 2.7vw, 38px); line-height: 1.16; letter-spacing: -.005em;
   }
   .stanza em { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-stretch: normal; color: var(--red); letter-spacing: 0; }
   .stanza .soft { color: var(--muted); }
   /* leitura: cada estrofe acende quando chega ao meio da tela, linha por linha */
   .js .stanza .line { display: block; opacity: .16; transform: translateY(14px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--i, 0) * 90ms); }
-  .stanza .line { display: block; }
+  .stanza .line { display: block; text-wrap: balance; }   /* quando uma linha precisa quebrar, quebra em partes iguais */
   .js .stanza.is-read .line { opacity: 1; transform: none; }
 
   /* ---------- o sonho: painel verde ---------- */
@@ -84,7 +84,7 @@
   /* ---------- final ---------- */
   .finale { text-align: center; padding: var(--space-section) var(--space-x); }
   /* divisória entre as partes do manifesto: um sol pequeno entre dois fios */
-  .part-break { display: flex; align-items: center; gap: 16px; max-width: 760px; margin: clamp(28px, 5vh, 48px) auto; padding: 0 var(--space-x); box-sizing: content-box; color: var(--red); }
+  .part-break { display: flex; align-items: center; gap: 16px; max-width: 900px; margin: clamp(28px, 5vh, 48px) auto; padding: 0 var(--space-x); box-sizing: content-box; color: var(--red); }
   .part-break::before, .part-break::after { content: ""; flex: 1; height: 1px; background: rgba(15, 79, 46, .22); }
   .part-break svg { width: 18px; height: 18px; flex: none; }
   .verses > .stanza:first-child { padding-top: 0; }
@@ -104,6 +104,10 @@
   }
   .finale .cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--green); }
 
+  @media (max-width: 560px) {
+    .stanza { font-size: 18px; line-height: 1.25; }
+    .verses { padding: 0 18px; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .scroll-hint::after { animation: none; }
@@ -155,7 +159,7 @@
       <section class="dream" aria-label="Feche os olhos">
         <div class="verses">
           <p class="stanza"><span class="line"><em>Feche os olhos.</em></span></p>
-          <p class="stanza"><span class="line">A favela virou bairro próspero.</span><span class="line">O amigo que foi embora voltou.</span><span class="line soft">Seu filho estuda, trabalha e constrói a família aqui.</span><span class="line">Ninguém tem medo de voltar para casa.</span></p>
+          <p class="stanza"><span class="line">A favela virou bairro próspero.</span><span class="line">O amigo que foi embora voltou.</span><span class="line soft">Seu filho estuda, trabalha</span><span class="line soft">e constrói a família aqui.</span><span class="line">Ninguém tem medo de voltar para casa.</span></p>
           <p class="stanza"><span class="line">O Brasil virou sol.</span><span class="line"><em>E iluminou o mundo.</em></span></p>
           <p class="stanza wake"><span class="line"><em>Abra os olhos.</em></span><span class="line">Isso começa agora.</span></p>
         </div>
