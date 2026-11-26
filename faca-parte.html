@@ -582,12 +582,6 @@
       <div class="progress"><div class="progress-bar"><i id="pbar"></i></div><small id="ptext">0 de 24 respondidas</small></div>
       <form id="f-pers" novalidate>
         <div id="questions"></div>
-        <div class="block">
-          <div class="block-head mark"><div><h2>Pergunta reflexiva (opcional)</h2><p>Esta pergunta é opcional, mas sua resposta nos ajuda a entender melhor seu perfil.</p></div></div>
-          <div class="field"><label for="reflexiva">Qual verdade importante você acredita que pouquíssimas pessoas concordam com você?</label>
-            <textarea class="input" id="reflexiva" name="reflexiva" placeholder="Compartilhe seu pensamento... (opcional)"></textarea>
-            <p class="hint">💡 Dica: seja autêntico e reflexivo. Não há resposta certa ou errada.</p></div>
-        </div>
         <div class="error" id="pers-err" hidden></div>
         <div class="form-actions">
           <button class="btn plain" type="button" data-cancel>Voltar sem salvar</button>
@@ -1011,7 +1005,7 @@
   function fillPers() {
     const d = db.pers || {};
     QS.forEach((_, i) => { const v = d['q' + i]; $$(`[name=q${i}]`).forEach(r => r.checked = String(r.value) === String(v)); });
-    $('#reflexiva').value = d.reflexiva || ''; updateProgress();
+    updateProgress();
   }
   $('#f-pers').addEventListener('submit', async e => {
     e.preventDefault();
@@ -1019,8 +1013,9 @@
     const err = $('#pers-err');
     if (missing.length) { err.hidden = false; err.textContent = `Faltam ${missing.length} afirmações. A primeira é a de número ${missing[0] + 1}.`; document.querySelector(`[data-q="${missing[0]}"]`).scrollIntoView({ block: 'center' }); return; }
     err.hidden = true;
+    const antes = (db.pers || {}).reflexiva;                     // guarda a resposta de quem já tinha respondido a pergunta antiga
     db.pers = Object.fromEntries(QS.map((_, i) => ['q' + i, document.querySelector(`[name=q${i}]:checked`).value]));
-    db.pers.reflexiva = $('#reflexiva').value.trim();
+    if (antes) db.pers.reflexiva = antes;
     db.pers.perfil = { ...scoreTraits(db.pers), arquetipo: TRAITS[rankTraits(scoreTraits(db.pers))[0]].arq, versao: 1 };
     const btn = e.target.querySelector('[type=submit]'); busy(btn, true, 'Enviando…');
     const ok = await push({ personalidade: db.pers }); busy(btn, false); if (!ok) return;
