@@ -296,7 +296,7 @@
   }
   .ed-dot { display: inline-block; width: .5em; margin-left: .06em; margin-bottom: .04em; }
   .ed-dot img { width: 100%; height: auto; display: block; }
-  .ed-kicker { margin-top: 10px; font-family: var(--font-serif); font-style: italic; font-size: clamp(26px, 3.2vw, 46px); line-height: 1.1; color: #b3161f; }
+  .ed-kicker { margin-top: clamp(20px, 3vw, 40px); max-width: none; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(52px, 10vw, 150px); line-height: .95; letter-spacing: -.02em; color: #b3161f; text-wrap: balance; }
   .ed-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 5vw, 64px); }
   .ed-lead { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; color: #0f4f2e; font-weight: 500; text-wrap: pretty; }
   /* o U fica numa coluna e o resto da frase em outra: nenhuma linha escapa para baixo da letra */
@@ -481,8 +481,7 @@
       <p class="ed-label">BRASA · Plataforma cívica</p>
       <p class="ed-label ed-label-r">Parte 01 · A ideia</p>
     </div>
-    <h1 id="ed-title" class="ed-name reveal">Brasa</h1>
-    <p class="ed-kicker reveal">Uma visão, um novo Brasil.</p>
+    <h1 id="ed-title" class="ed-kicker reveal">Uma visão,<br /> um novo Brasil.</h1>
 
     <p class="ed-lead reveal"><span class="ed-drop" aria-hidden="true">U</span><span class="sr-only">U</span><span class="ed-rest">m movimento em rede que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</span></p>
 
