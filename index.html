@@ -296,8 +296,25 @@
     };
     guard();
     c.video.play().then(() => { c.r && c.r.size(); drawLoop(c); })
-      .catch(() => { timer = setTimeout(next, POSTER_MS); });   // autoplay bloqueado: segue com os pôsteres
+      .catch(() => { blocked = true; timer = setTimeout(next, POSTER_MS); });   // autoplay bloqueado: segue com os pôsteres
   }
+
+  /* Com o modo de pouca energia ligado, o iPhone não deixa vídeo tocar sozinho (aparecem só os pôsteres).
+     No primeiro toque da pessoa na página, todos os vídeos são liberados e a animação começa. */
+  let blocked = false;
+  const GESTURES = ['touchend', 'click', 'keydown'];
+  const unlock = () => {
+    if (!blocked) return;
+    blocked = false;
+    GESTURES.forEach(t => document.removeEventListener(t, unlock, true));
+    chars.forEach(c => {
+      if (c.video.readyState === 0) c.video.preload = 'auto';
+      const p = c.video.play();
+      if (p) p.then(() => { if (chars[cur] !== c) c.video.pause(); }).catch(() => {});
+    });
+    show(cur);
+  };
+  GESTURES.forEach(t => document.addEventListener(t, unlock, true));
 
   document.addEventListener('visibilitychange', () => {
     const c = chars[cur]; if (!c) return;
