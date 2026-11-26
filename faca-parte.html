@@ -378,7 +378,7 @@
             <p class="sr-only" id="radar-desc"></p>
           </div>
           <div class="block">
-            <h3>Onde você pode brilhar na BRASA</h3>
+            <h3>Onde você pode brilhar no Brasa</h3>
             <ul class="fit" id="fit"></ul>
           </div>
         </div>
@@ -393,7 +393,7 @@
               <dl class="summary" id="summary"></dl>
             </div>
           </div>
-          <p class="disclaimer">Este mapa é um retrato rápido a partir das suas respostas, não um diagnóstico. Ele ajuda a BRASA a encontrar o melhor lugar para você na rede.</p>
+          <p class="disclaimer">Este mapa é um retrato rápido a partir das suas respostas, não um diagnóstico. Ele ajuda o Brasa a encontrar o melhor lugar para você na rede.</p>
         </div>
         <div class="map-actions">
           <button class="btn" type="button" id="map-toggle" aria-expanded="false" aria-controls="map-more">Ver mapa completo</button>
@@ -499,7 +499,7 @@
         </div>
 
         <div class="block">
-          <div class="block-head mark"><div><h2>Na BRASA</h2><p>Como você quer participar? Pode marcar mais de uma opção.</p></div></div>
+          <div class="block-head mark"><div><h2>No Brasa</h2><p>Como você quer participar? Pode marcar mais de uma opção.</p></div></div>
           <div class="choices wide">
             <label class="choice"><input type="checkbox" name="frentes" value="liderancas" /> Quero ser uma liderança</label>
             <label class="choice"><input type="checkbox" name="frentes" value="tecnologia" /> Quero colaborar com a parte de desenvolvimento</label>
@@ -597,7 +597,7 @@
     </section>
 
 
-    <footer class="site wrap" style="padding-top:0">Braseiro · BRASA · <span id="foot-note">Seus dados ficam guardados com segurança e só a equipe da BRASA tem acesso.</span></footer>
+    <footer class="site wrap" style="padding-top:0">Braseiro · BRASA · <span id="foot-note">Seus dados ficam guardados com segurança e só a equipe do Brasa tem acesso.</span></footer>
   </main>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -643,7 +643,7 @@
   function sendErrorMsg(error) {
     const st = error?.status, m = (error?.message || '').toLowerCase();
     if (st === 429 || m.includes('rate limit') || m.includes('security purposes')) return 'Você pediu códigos demais em pouco tempo. Espere alguns minutos e tente de novo.';
-    if (m.includes('not authorized')) return 'Este e-mail ainda não pode receber códigos (o envio está em modo de teste). Fale com a equipe da BRASA.';
+    if (m.includes('not authorized')) return 'Este e-mail ainda não pode receber códigos (o envio está em modo de teste). Fale com a equipe do Brasa.';
     if (m.includes('invalid') && m.includes('email')) return 'Esse e-mail parece inválido. Confira e tente de novo.';
     if (st >= 500 || m.includes('sending')) return 'Não conseguimos enviar o e-mail com o código agora. Tente de novo em alguns minutos.';
     return 'Não conseguimos enviar o código agora. Tente de novo em alguns minutos.';
@@ -680,7 +680,7 @@
     }).join('');
     const i = ORDER.indexOf(v);
     $('#guide-note').textContent = i < 0 ? '' : i === 0 ? 'Etapa 1 de 4 · obrigatória. Responda tudo para gerar o seu mapa BRASA.'
-      : `Etapa ${i + 1} de 4 · opcional, mas é com ela que a BRASA te conhece melhor e monta o seu mapa.`;
+      : `Etapa ${i + 1} de 4 · opcional, mas é com ela que o Brasa te conhece melhor e monta o seu mapa.`;
     $('#guide-note').hidden = i < 0;
   }
   function route() {
@@ -773,7 +773,7 @@
     const n = ORDER.filter(k => db[k + 'Done']).length, all = n === ORDER.length;
     $('#j-title').textContent = all ? 'Cadastro completo ✓' : `Seu cadastro está ${Math.round(n / ORDER.length * 100)}% completo`;
     $('#j-sub').textContent = all ? 'Obrigado! Seu mapa BRASA está pronto e você pode editar as respostas quando quiser.'
-      : 'Quanto mais você responder, melhor a BRASA te conhece e mais completo fica o seu mapa.';
+      : 'Quanto mais você responder, melhor o Brasa te conhece e mais completo fica o seu mapa.';
     $('#j-bar').style.width = (n / ORDER.length * 100) + '%';
     $('#j-go').textContent = all ? 'Ver meu mapa' : n ? 'Continuar de onde parei' : 'Começar';
     const mb = $('#map-btn'), mbadge = $('#map-badge');
@@ -1053,10 +1053,10 @@
   const rankTraits = sc => [...AXES].sort((a, b) => sc[b] - sc[a]);
   const level = v => v >= 67 ? 'alto' : v >= 34 ? 'medio' : 'baixo';
   const LEVEL_TXT = { alto: 'forte', medio: 'equilibrado', baixo: 'mais baixo' };
-  // as mesmas 4 opções de "Na BRASA" (informações básicas)
+  // as mesmas 4 opções de "No Brasa" (informações básicas)
   const FRENTES = [
     { key: 'liderancas', nome: 'Liderança', why: 'Liderar pede iniciativa, organização e sangue frio.', f: s => s.E * .4 + s.C * .35 + s.S * .25, skills: ['Liderança', 'Negociação', 'Oratória'] },
-    { key: 'tecnologia', nome: 'Desenvolvimento', why: 'Construir as ferramentas da BRASA pede curiosidade, foco e atenção aos detalhes.', f: s => s.O * .45 + s.C * .55, skills: ['Programação', 'Análise de dados', 'Design'] },
+    { key: 'tecnologia', nome: 'Desenvolvimento', why: 'Construir as ferramentas do Brasa pede curiosidade, foco e atenção aos detalhes.', f: s => s.O * .45 + s.C * .55, skills: ['Programação', 'Análise de dados', 'Design'] },
     { key: 'think-tank', nome: 'Think tank', why: 'Propor políticas públicas pede curiosidade, estudo e método.', f: s => s.O * .6 + s.C * .4, skills: ['Pesquisa', 'Escrita', 'Análise de dados'] },
     { key: 'apoiador', nome: 'Apoiador(a) da rede', why: 'Quem apoia de perto acolhe, divulga e mantém a rede viva.', f: s => s.E * .5 + s.A * .5, skills: ['Mobilização comunitária', 'Redes sociais', 'Organização de eventos'] },
   ];
