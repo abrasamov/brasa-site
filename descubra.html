@@ -263,7 +263,6 @@
   .editorial .ed-lead { max-width: 30ch; margin-top: clamp(28px, 4vw, 48px); font-size: clamp(24px, 2.6vw, 36px); }
   .bentos .section-head { max-width: 960px; margin-inline: auto; }
   .bentos .section-head h2.eyebrow { margin-top: 0; font-family: var(--font-mono); font-stretch: normal; font-weight: 700; font-size: 12px; letter-spacing: .16em; line-height: 1.4; color: #b3161f; white-space: normal; }
-  .bentos .section-lead { margin-top: 14px; max-width: 46ch; font-family: var(--font-display); font-stretch: 112%; font-weight: 800; font-size: clamp(20px, 2vw, 28px); line-height: 1.22; color: #0f4f2e; text-wrap: pretty; }
 
   /* perguntas frequentes (como na referência: título à esquerda, lista à direita) */
   .faq { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: start; padding: clamp(24px, 4vw, 56px) clamp(20px, 5vw, 64px) clamp(72px, 9vw, 128px); }
@@ -297,10 +296,10 @@
   }
   .ed-dot { display: inline-block; width: .5em; margin-left: .06em; margin-bottom: .04em; }
   .ed-dot img { width: 100%; height: auto; display: block; }
-  .ed-kicker { margin-top: 10px; font-family: var(--font-serif); font-style: italic; font-size: clamp(26px, 3.2vw, 46px); line-height: 1.1; color: #b3161f; }
+  .ed-kicker { margin-top: clamp(20px, 3vw, 40px); max-width: none; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(52px, 10vw, 150px); line-height: .95; letter-spacing: -.02em; color: #b3161f; text-wrap: balance; }
   .ed-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 5vw, 64px); }
   .ed-lead { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; color: #0f4f2e; font-weight: 500; text-wrap: pretty; }
-  .ed-drop { float: left; margin: .06em .1em 0 0; font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 3.4em; line-height: .78; color: #fdc010; -webkit-text-stroke: 2px #0f4f2e; text-shadow: 4px 4px 0 #0f4f2e; }
+  .ed-lead strong { font-weight: 800; }
   .ed-note { padding: 18px 20px; border-left: 3px solid #fdc010; background: rgba(253, 192, 16, .14); border-radius: 0 12px 12px 0; }
   .ed-note p { margin-top: 6px; font-family: var(--font-serif); font-style: italic; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.3; color: #0f4f2e; }
   .ed-quote { position: relative; margin: clamp(48px, 7vw, 96px) 0 0; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid rgba(15, 79, 46, .25); border-bottom: 1px solid rgba(15, 79, 46, .25); text-align: center; }
@@ -450,7 +449,7 @@
   <!-- Símbolos reutilizáveis -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
-      <!-- Sol da BRASA: 20 raios, raio 100 -->
+      <!-- Sol do Brasa: 20 raios, raio 100 -->
       <path id="sun" d="M0.0 -100.0 L4.4 -55.8 L13.1 -54.5 L24.1 -74.2 L21.4 -51.7 L29.3 -47.7 L58.8 -80.9 L36.4 -42.6 L42.6 -36.4 L63.1 -45.8 L47.7 -29.3 L51.7 -21.4 L95.1 -30.9 L54.5 -13.1 L55.8 -4.4 L78.0 -0.0 L55.8 4.4 L54.5 13.1 L95.1 30.9 L51.7 21.4 L47.7 29.3 L63.1 45.8 L42.6 36.4 L36.4 42.6 L58.8 80.9 L29.3 47.7 L21.4 51.7 L24.1 74.2 L13.1 54.5 L4.4 55.8 L0.0 100.0 L-4.4 55.8 L-13.1 54.5 L-24.1 74.2 L-21.4 51.7 L-29.3 47.7 L-58.8 80.9 L-36.4 42.6 L-42.6 36.4 L-63.1 45.8 L-47.7 29.3 L-51.7 21.4 L-95.1 30.9 L-54.5 13.1 L-55.8 4.4 L-78.0 0.0 L-55.8 -4.4 L-54.5 -13.1 L-95.1 -30.9 L-51.7 -21.4 L-47.7 -29.3 L-63.1 -45.8 L-42.6 -36.4 L-36.4 -42.6 L-58.8 -80.9 L-29.3 -47.7 L-21.4 -51.7 L-24.1 -74.2 L-13.1 -54.5 L-4.4 -55.8Z"/>
       <symbol id="i-sun" viewBox="-110 -110 220 220"><use href="#sun" fill="currentColor"/></symbol>
       <symbol id="i-mobiliza" viewBox="0 0 256 256"><g fill="currentColor"><path d="M240 120a40 40 0 0 1-40 40h-40V80h40a40 40 0 0 1 40 40" opacity=".2"/><path d="M248 120a48.05 48.05 0 0 0-48-48h-39.8c-2.91-.17-53.62-3.74-101.91-44.24A16 16 0 0 0 32 40v160a16 16 0 0 0 26.29 12.25c37.77-31.68 77-40.76 93.71-43.3v31.72a16 16 0 0 0 7.12 13.33l11 7.33A16 16 0 0 0 194.5 212l11.77-44.36A48.07 48.07 0 0 0 248 120M48 199.93V40c42.81 35.91 86.63 45 104 47.24v65.48c-17.35 2.28-61.16 11.35-104 47.21m131 8v.11l-11-7.33V168h21.6ZM200 152h-32V88h32a32 32 0 1 1 0 64"/></g></symbol>
@@ -480,18 +479,17 @@
       <p class="ed-label">BRASA · Plataforma cívica</p>
       <p class="ed-label ed-label-r">Parte 01 · A ideia</p>
     </div>
-    <h1 id="ed-title" class="ed-name reveal">Brasa</h1>
-    <p class="ed-kicker reveal">Uma visão, um novo Brasil.</p>
+    <h1 id="ed-title" class="ed-kicker reveal">Uma visão,<br /> um novo Brasil.</h1>
 
-    <p class="ed-lead reveal"><span class="ed-drop" aria-hidden="true">U</span><span class="sr-only">U</span>m ecossistema que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</p>
+    <p class="ed-lead reveal">Um <strong>movimento em rede</strong> que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</p>
 
     <blockquote class="ed-quote reveal">
       <p>Gente capaz em todo canto do país, <mark class="ed-mark">muitas vezes sozinha.</mark></p>
     </blockquote>
 
     <div class="ed-grid ed-grid-2">
-      <p class="ed-statement reveal">A BRASA existe para <strong>unir talentos e organizações</strong> e pensar um Brasil virtuoso.</p>
-      <ol class="ed-list reveal" style="--d:.12s" aria-label="O que a BRASA busca">
+      <p class="ed-statement reveal">O Brasa existe para <strong>unir talentos e organizações</strong> e criar um Brasil novo.</p>
+      <ol class="ed-list reveal" style="--d:.12s" aria-label="O que o Brasa busca">
         <li><span class="ed-n">01</span><span>Desenvolver o país com <b>visão holística</b>.</span></li>
         <li><span class="ed-n">02</span><span>Superar nossas <b>dificuldades estruturais e existenciais</b>.</span></li>
         <li><span class="ed-n">03</span><span>Abrir <b>novos horizontes</b>.</span></li>
@@ -502,9 +500,8 @@
   <section class="bentos" aria-labelledby="bentos-title">
     <div class="section-head reveal">
       <h2 id="bentos-title" class="eyebrow">O que somos e nossas bandeiras</h2>
-      <p class="section-lead">A BRASA busca mudança: mobilizar a sociedade, devolver o poder às pessoas, valorizar quem trabalha, reunir o Brasil num só povo, fazer do país uma potência soberana e renovar o Estado para o século 21.</p>
     </div>
-    <ol class="stack" aria-label="As seis bandeiras da BRASA">
+    <ol class="stack" aria-label="As seis bandeiras do Brasa">
       <li class="stack-card" data-tone="green">
         <article class="sc-inner">
           <div class="sc-head"><span class="sc-tag">Mobilização</span><span class="sc-count">01 / 06</span></div>
@@ -557,7 +554,7 @@
     <div class="faq-list reveal" style="--d:.08s">
       <details>
         <summary>O que é o Brasa?</summary>
-        <p>Um ecossistema que une o povo e organizações espalhados pelo país para pensar um novo Brasil. O Brasa não começa do zero: ele conecta quem já está agindo.</p>
+        <p>Um movimento em rede que une o povo e organizações espalhados pelo país para pensar um novo Brasil. O Brasa não começa do zero: ele conecta quem já está agindo.</p>
       </details>
       <details>
         <summary>Como eu faço parte?</summary>
@@ -569,7 +566,7 @@
       </details>
       <details>
         <summary>O que é o mapa BRASA?</summary>
-        <p>Depois do teste de personalidade, com 24 afirmações rápidas, você recebe o seu mapa: o seu perfil, os seus pontos fortes e onde você pode brilhar na BRASA.</p>
+        <p>Depois do teste de personalidade, com 24 afirmações rápidas, você recebe o seu mapa: o seu perfil, os seus pontos fortes e onde você pode brilhar no Brasa.</p>
       </details>
       <details>
         <summary>Moro fora do Brasil. Posso participar?</summary>
@@ -581,7 +578,7 @@
       </details>
       <details>
         <summary>O que é o Brasismo?</summary>
-        <p>É a visão por trás da BRASA, contada no <a href="manifesto.html">manifesto</a>.</p>
+        <p>É a visão por trás do Brasa, contada no <a href="manifesto.html">manifesto</a>.</p>
       </details>
     </div>
   </section>
