@@ -299,9 +299,7 @@
   .ed-kicker { margin-top: clamp(20px, 3vw, 40px); max-width: none; font-family: var(--font-serif); font-style: italic; font-weight: 400; font-size: clamp(52px, 10vw, 150px); line-height: .95; letter-spacing: -.02em; color: #b3161f; text-wrap: balance; }
   .ed-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(24px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 5vw, 64px); }
   .ed-lead { font-size: clamp(22px, 2.3vw, 32px); line-height: 1.32; color: #0f4f2e; font-weight: 500; text-wrap: pretty; }
-  /* o U fica numa coluna e o resto da frase em outra: nenhuma linha escapa para baixo da letra */
-  .ed-lead:has(.ed-drop) { display: grid; grid-template-columns: auto 1fr; column-gap: .14em; align-items: start; }
-  .ed-drop { margin: .06em 0 0 0; font-family: var(--font-display); font-stretch: 125%; font-weight: 900; font-size: 3.4em; line-height: .78; color: #fdc010; -webkit-text-stroke: 2px #0f4f2e; text-shadow: 4px 4px 0 #0f4f2e; }
+  .ed-lead strong { font-weight: 800; }
   .ed-note { padding: 18px 20px; border-left: 3px solid #fdc010; background: rgba(253, 192, 16, .14); border-radius: 0 12px 12px 0; }
   .ed-note p { margin-top: 6px; font-family: var(--font-serif); font-style: italic; font-size: clamp(19px, 1.6vw, 23px); line-height: 1.3; color: #0f4f2e; }
   .ed-quote { position: relative; margin: clamp(48px, 7vw, 96px) 0 0; padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid rgba(15, 79, 46, .25); border-bottom: 1px solid rgba(15, 79, 46, .25); text-align: center; }
@@ -483,7 +481,7 @@
     </div>
     <h1 id="ed-title" class="ed-kicker reveal">Uma visão,<br /> um novo Brasil.</h1>
 
-    <p class="ed-lead reveal"><span class="ed-drop" aria-hidden="true">U</span><span class="sr-only">U</span><span class="ed-rest">m movimento em rede que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</span></p>
+    <p class="ed-lead reveal">Um <strong>movimento em rede</strong> que une o povo e organizações espalhados pelo país para pensar um novo Brasil.</p>
 
     <blockquote class="ed-quote reveal">
       <p>Gente capaz em todo canto do país, <mark class="ed-mark">muitas vezes sozinha.</mark></p>
