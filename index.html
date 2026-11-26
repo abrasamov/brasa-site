@@ -197,16 +197,18 @@
       gl_FragColor = vec4(c * a, a);   // cor pré-multiplicada: fundo transparente também no iPhone/Android
     }`;
 
-  function setup(fig) {
-    const video = fig.querySelector('video'), canvas = fig.querySelector('canvas');
+  /* Só DOIS contextos WebGL para os 10 personagens: o Safari do iPhone derruba os contextos mais antigos
+     quando há muitos (por isso os primeiros personagens sumiam). As duas telas de desenho se revezam:
+     uma com quem está entrando, a outra com quem está saindo. */
+  function makeRenderer() {
+    const canvas = document.createElement('canvas'); canvas.setAttribute('aria-hidden', 'true');
     const gl = canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false });
-    const ch = { fig, video, ok: false, draw() {} };
-    if (!gl) return ch;
+    if (!gl) return null;
     const sh = (type, src) => { const x = gl.createShader(type); gl.shaderSource(x, src); gl.compileShader(x); return x; };
     const prog = gl.createProgram();
     gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
     gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return ch;
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
     gl.useProgram(prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
@@ -215,32 +217,50 @@
     gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
     [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.LINEAR));
     [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach(k => gl.texParameteri(gl.TEXTURE_2D, k, gl.CLAMP_TO_EDGE));
-    const size = () => {
-      const r = fig.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.round(r.width * d)); canvas.height = Math.max(1, Math.round(r.height * d));
+    const r = { canvas, owner: null };
+    r.clear = () => { gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); };
+    r.size = () => {
+      if (!r.owner) return;
+      const box = r.owner.fig.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.round(box.width * d)); canvas.height = Math.max(1, Math.round(box.height * d));
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
-    window.addEventListener('resize', size);
-    ch.ok = true;
-    ch.draw = () => {
-      if (video.readyState >= 2) {
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
-        gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        if (!ch.drawn) { ch.drawn = true; fig.classList.add('playing'); }   // só tira o pôster quando há quadro de verdade
-      }
+    r.draw = video => {
+      if (video.readyState < 2) return false;
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
+      r.clear(); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      return true;
     };
-    ch.size = size;
-    const loop = () => {
-      if (!video.paused) ch.draw();
-      if ('requestVideoFrameCallback' in video) video.requestVideoFrameCallback(loop); else requestAnimationFrame(loop);
+    return r;
+  }
+  const R = [makeRenderer(), makeRenderer()];
+  const gpu = !!(R[0] && R[1]);
+  window.addEventListener('resize', () => R.forEach(r => r && r.size()));
+
+  const chars = figs.map(fig => {
+    const old = fig.querySelector('canvas'); if (old) old.remove();
+    return { fig, video: fig.querySelector('video'), ok: gpu, r: null };
+  });
+  let slot = 0;
+  // entrega uma das duas telas ao personagem que vai entrar
+  function attach(c) {
+    const r = R[slot]; slot = 1 - slot;
+    if (r.owner && r.owner !== c) { r.owner.fig.classList.remove('playing'); r.owner.r = null; }
+    r.owner = c; c.r = r;
+    c.fig.classList.remove('playing');                         // o pôster aparece até o primeiro quadro
+    c.fig.querySelector('img').after(r.canvas);
+    r.size(); r.clear();
+  }
+  function drawLoop(c) {
+    const id = c.loop = {};                                    // um laço por vez (não duplica ao voltar para a aba)
+    const tick = () => {
+      if (c.loop !== id || !c.r || !c.fig.classList.contains('is-on')) return;
+      if (!c.video.paused && c.r.draw(c.video)) c.fig.classList.add('playing');
+      if ('requestVideoFrameCallback' in c.video) c.video.requestVideoFrameCallback(tick); else requestAnimationFrame(tick);
     };
-    video.addEventListener('playing', size, { once: true });
-    loop();
-    return ch;
+    tick();
   }
 
-  const chars = figs.map(setup);
   // carrega o vídeo do próximo personagem enquanto o atual se apresenta
   const warm = c => {
     if (!c) return;
@@ -265,6 +285,7 @@
     let plays = 0;
     const next = () => show((i + 1) % chars.length);
     if (!c.ok) { timer = setTimeout(next, POSTER_MS); return; }
+    attach(c);
     c.video.currentTime = 0;
     // rede de segurança: se o "ended" não chegar (aba em segundo plano, vídeo travado), troca mesmo assim
     const guard = () => { clearTimeout(timer); timer = setTimeout(next, ((c.video.duration || 4) + 1.5) * 1000); };
@@ -274,13 +295,13 @@
       else next();
     };
     guard();
-    c.video.play().then(() => { c.size && c.size(); c.draw(); })
+    c.video.play().then(() => { c.r && c.r.size(); drawLoop(c); })
       .catch(() => { timer = setTimeout(next, POSTER_MS); });   // autoplay bloqueado: segue com os pôsteres
   }
 
   document.addEventListener('visibilitychange', () => {
     const c = chars[cur]; if (!c) return;
-    if (document.hidden) c.video.pause(); else if (c.ok) c.video.play().catch(() => {});
+    if (document.hidden) c.video.pause(); else if (c.ok) c.video.play().then(() => drawLoop(c)).catch(() => {});
   });
   setTimeout(() => show(0), 150);
 })();
